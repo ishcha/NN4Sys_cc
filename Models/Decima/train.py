@@ -1,22 +1,12 @@
 import os
 
-# os.environ['CUDA_VISIBLE_DEVICES']=''
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import time
-import numpy as np
-import torch
-import torch.multiprocessing as mp
-
-from param import *
-from utils import *
 from spark_env.env import Environment
 from average_reward import *
 from compute_baselines import *
 from compute_gradients import *
 from actor_agent import ActorAgent
-
-# from tf_logger import TFLogger
-
 
 RANDOM_SEED = 20
 MODEL_DIR = "./models"

@@ -46,7 +46,7 @@ parser.add_argument('--moving_delay', type=int, default=2000,
                     help='Moving delay (milliseconds) (default: 2000)')
 parser.add_argument('--warmup_delay', type=int, default=1000,
                     help='Executor warming up delay (milliseconds) (default: 1000)')
-parser.add_argument('--diff_reward_enabled', type=int, default=0,
+parser.add_argument('--diff_reward_enabled', type=int, default=1,
                     help='Enable differential reward (default: 0)')
 parser.add_argument('--new_dag_interval', type=int, default=10000,
                     help='new DAG arrival interval (default: 10000 milliseconds)')
@@ -119,11 +119,11 @@ parser.add_argument('--worker_gpu_fraction', type=float, default=0.1,
                     help='Fraction of memory worker uses in GPU (default: 0.1)')
 parser.add_argument('--average_reward_storage_size', type=int, default=100000,
                     help='Storage size for computing average reward (default: 100000)')
-parser.add_argument('--reset_prob', type=float, default=0,
+parser.add_argument('--reset_prob', type=float, default=5e-7,
                     help='Probability for episode to reset (after x seconds) (default: 0)')
-parser.add_argument('--reset_prob_decay', type=float, default=0,
+parser.add_argument('--reset_prob_decay', type=float, default=4e-10,
                     help='Decay rate of reset probability (default: 0)')
-parser.add_argument('--reset_prob_min', type=float, default=0,
+parser.add_argument('--reset_prob_min', type=float, default=5e-8,
                     help='Minimum of decay probability (default: 0)')
 parser.add_argument('--num_agents', type=int, default=16,
                     help='Number of parallel agents (default: 16)')
