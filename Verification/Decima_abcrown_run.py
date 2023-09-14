@@ -1,0 +1,50 @@
+import os
+import random
+import numpy as np
+import sys
+
+os.environ['MKL_THREADING_LAYER'] = 'GNU'
+
+MODEL_TYPES = ['simple', 'simple', 'concat']
+DIFFICULTY = ['easy']
+SIZES = [5, 5, 5]
+SPEC_TYPES = [1,2,3]
+
+
+
+filePath = './'
+if not os.path.exists('running_result'):
+    os.makedirs('running_result')
+if not os.path.exists('vnnlib'):
+    os.makedirs('vnnlib')
+
+# create yaml
+vnn_dir_path = './'
+onnx_dir_path = '../onnxs'
+timeout = 100
+csv_data = []
+total_num = 0
+current_gpu = 0
+
+
+def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
+    with open(yaml, mode='w') as f:
+        f.write("general:\n  enable_incomplete_verification: False\n  conv_mode: matrix\n")
+        f.write(f'model:\n  onnx_path: {onnx_path}\n')
+        f.write(f'specification:\n  vnnlib_path: {vnn_path}\n')
+        f.write(
+            "solver:\n  batch_size: 1\nbab:\n  branching:\n    method: sb\n    sb_coeff_thresh: 0.1\n    input_split:\n      enable: True")
+
+
+def main():
+    for i in range(len(SPEC_TYPES)):
+        for size in range(SIZES[i]):
+            vnn_path = vnn_dir_path + 'decima_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
+            onnx_path = onnx_dir_path + '/decima_mid_' + MODEL_TYPES[i] + '.onnx'
+            yaml = vnn_dir_path + 'decima_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
+            create_yaml(yaml, vnn_path, onnx_path)
+            os.system(f"python ../../abcrown.py --config {yaml} | tee running_result/decima_mid_{SPEC_TYPES[i]}_{size}.txt")
+
+
+if __name__ == "__main__":
+    main()
