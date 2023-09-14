@@ -130,7 +130,6 @@ def main(random_seed=RANDOM_SEED):
 
     # initialize episode reset probability
     reset_prob = args.reset_prob
-    last_time=time.time()
 
     # ---- start training process ----
     for ep in range(start_ep + 1, args.num_ep):
