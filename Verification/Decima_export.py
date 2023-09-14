@@ -12,12 +12,12 @@ import bisect
 from spark_env.job_dag import JobDAG
 from spark_env.node import Node
 
-ONNX_DIR = './benchmark/decima/onnxs'
+ONNX_DIR = '../Benchmarks/onnx'
 MODEL_LIST = ['mid']
 MODEL = MODEL_LIST[0]
 MODEL_TYPES = ['simple', 'marabou']
-MODEL_TYPE = MODEL_TYPES[0]
-file_path = "./best_models/model_exec50_ep_" + str(6200)
+MODEL_TYPE = MODEL_TYPES[1]
+file_path = "../Models/Decima/best_models/model_exec50_ep_" + str(6200)
 
 
 def load_model(actor):
@@ -31,15 +31,21 @@ def load_model(actor):
 def main():
     if not os.path.exists(ONNX_DIR):
         os.makedirs(ONNX_DIR)
-    save_path = ONNX_DIR + '/decima_' + MODEL + '_' + MODEL_TYPE + ".onnx"
-    print(save_path)
-    if MODEL_TYPE == 'simple':
-        if MODEL == 'mid':
-            actor = model.model_benchmark()
-        input = torch.zeros(1, 4300).to(torch.float32)
-    if MODEL_TYPE == 'marabou':
-        if MODEL == 'mid':
-            actor = model.model_benchmark_marabou()
+
+    for MODEL_TYPE in MODEL_TYPES:
+        save_path = ONNX_DIR + '/decima_' + MODEL + '_' + MODEL_TYPE + ".onnx"
+        print(save_path)
+        if MODEL_TYPE == 'simple':
+            if MODEL == 'mid':
+                actor = model.model_benchmark()
+            input = torch.zeros(1, 4300).to(torch.float32)
+        if MODEL_TYPE == 'marabou':
+            input_arrays = np.load(f'../Benchmarks/src/decima/decima_resources/decima_fixiedInput_3.npy')
+            input_array = input_arrays[0]
+            input = torch.tensor(input_array[:4300])
+            print(input.size())
+            if MODEL == 'mid':
+                actor = model.model_benchmark_marabou(input)
 
     print("load model")
     actor = load_model(actor)
