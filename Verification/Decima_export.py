@@ -6,11 +6,6 @@ import torch.onnx
 import os
 import onnx
 import model_benchmark as model
-from spark_env.env import Environment
-from msg_passing_path import *
-import bisect
-from spark_env.job_dag import JobDAG
-from spark_env.node import Node
 
 ONNX_DIR = '../Benchmarks/onnx'
 MODEL_LIST = ['mid']
@@ -43,25 +38,25 @@ def main():
             input_arrays = np.load(f'../Benchmarks/src/decima/decima_resources/decima_fixiedInput_3.npy')
             input_array = input_arrays[0]
             input = torch.tensor(input_array[:4300])
-            print(input.size())
+
             if MODEL == 'mid':
                 actor = model.model_benchmark_marabou(input)
 
-    print("load model")
-    actor = load_model(actor)
-    actor = actor.eval()
+        print("load model")
+        actor = load_model(actor)
+        actor = actor.eval()
 
-    torch.onnx.export(actor,  # model being run
-                      input,  # model input (or a tuple for multiple inputs)
-                      save_path,  # where to save the model (can be a file or file-like object)
-                      export_params=True,  # store the trained parameter weights inside the model file
-                      opset_version=12,  # the ONNX version to export the model to
-                      do_constant_folding=True,  # whether to execute constant folding for optimization
-                      output_names=['output'])  # the model's output names
+        torch.onnx.export(actor,  # model being run
+                          input,  # model input (or a tuple for multiple inputs)
+                          save_path,  # where to save the model (can be a file or file-like object)
+                          export_params=True,  # store the trained parameter weights inside the model file
+                          opset_version=12,  # the ONNX version to export the model to
+                          do_constant_folding=True,  # whether to execute constant folding for optimization
+                          output_names=['output'])  # the model's output names
 
-    # check the model
-    actor = onnx.load(save_path)
-    onnx.checker.check_model(actor)
+        # check the model
+        actor = onnx.load(save_path)
+        onnx.checker.check_model(actor)
 
 
 if __name__ == '__main__':

@@ -1,4 +1,6 @@
 import numpy as np
+import sys
+sys.path.append("./")
 import copy
 from collections import OrderedDict
 from param import *

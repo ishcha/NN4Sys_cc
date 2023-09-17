@@ -1,6 +1,9 @@
 import numpy as np
 import torch
 import torch.nn as nn
+import sys
+sys.path.append("/")
+
 from spark_env.env import Environment
 
 import bisect
@@ -18,10 +21,9 @@ import copy
 
 PATH = "./result/"
 
-ONNX_DIR = './benchmark/decima/onnxs'
-MODEL_LIST = ['small', 'mid', 'big']
-MODEL = MODEL_LIST[1]
-MODEL_TYPES = ['simple', 'parallel', 'concat']
+MODEL_LIST = ['mid']
+MODEL = MODEL_LIST[0]
+MODEL_TYPES = ['simple', 'marabou']
 MODEL_TYPE = MODEL_TYPES[0]
 file_path = "./best_models/model_exec50_ep_" + str(6200)
 SPEC_TYPES = [1, 2, 3]
@@ -176,7 +178,6 @@ class ActorAgent(Agent):
                 running_dags_mat, dag_summ_backward_map):
 
         with torch.no_grad():
-            print(node_inputs)
             gcn_output = self.gcn.forward(gcn_mats, gcn_masks, node_inputs)
             gsn_summaries = self.gsn.summarize(summ_mats, running_dags_mat,
                                                torch.concat([node_inputs, gcn_output], dim=1))
@@ -469,16 +470,7 @@ def get_node_index(obs, target_node):
 def pad_to_20(node_inputs, node_valid_mask, gcn_mats, gcn_masks, summ_mats, running_dags_mat, dag_summ_backward_map):
     node_number = node_inputs.size()[0]
     job_number = summ_mats.size()[0]
-    '''    
-    print("===")
-    print("node_input", node_inputs.size())
-    print("node_valid_mask", node_valid_mask.size())
-    print("gcn_mats", gcn_mats.size())
-    print("gcn_masks", gcn_masks.size())
-    print("summ_mats", summ_mats.size())
-    print("running_dags_mat", running_dags_mat.size())
-    print("dag_summ_backward_map", dag_summ_backward_map.size())
-    '''
+
 
     if node_number < 20:
         pad1 = torch.zeros(20 - node_number, 5)
@@ -547,16 +539,7 @@ def pad_to_20(node_inputs, node_valid_mask, gcn_mats, gcn_masks, summ_mats, runn
 def pad_to_20_marabou(node_inputs, node_valid_mask, gcn_mats, gcn_masks, summ_mats, running_dags_mat, dag_summ_backward_map):
     node_number = node_inputs.size()[0]
     job_number = summ_mats.size()[0]
-    '''    
-    print("===")
-    print("node_input", node_inputs.size())
-    print("node_valid_mask", node_valid_mask.size())
-    print("gcn_mats", gcn_mats.size())
-    print("gcn_masks", gcn_masks.size())
-    print("summ_mats", summ_mats.size())
-    print("running_dags_mat", running_dags_mat.size())
-    print("dag_summ_backward_map", dag_summ_backward_map.size())
-    '''
+
 
     if node_number < 20:
         pad1 = torch.zeros(20 - node_number, 5)
@@ -645,10 +628,8 @@ def gene_spec():
     env = Environment()
 
     # set up agent
-    agent_actor = ActorAgent(args.node_input_dim, args.job_input_dim,
-                             args.hid_dims, args.output_dim, args.max_depth,
-                             range(1, args.exec_cap + 1))
-    agent_actor.restore_models("./models/model_exec50_ep_" + str(6200))
+    agent_actor = ActorAgent(5, 3, [16, 8], 8, 8,range(1, 15 + 1))
+    agent_actor.restore_models(file_path)
 
     for i in [2]:
         X = []
@@ -717,101 +698,10 @@ def gene_spec():
                         [torch.flatten(input), torch.tensor([cannot_be_highest]), node_list_tensor])
                     X.append(input)
 
-                if i == 2:
-                    #if node_inputs.size()[0] < 20 and (job_inputs.size()[0] == 2 or job_inputs.size()[0] == 3):
-                    if node_inputs.size()[0] == 18 and job_inputs.size()[0] == 3:
-                        job_list = []
-                        for frontier_node in frontier_nodes:
-                            if frontier_node.job_dag not in job_list:
-                                job_list.append(frontier_node.job_dag)
-
-                        job_list_bak = copy.deepcopy(job_list)
-                        if len(job_list) == job_inputs.size()[0]:
-                            if job_list[0].num_nodes==6 and job_list[1].num_nodes==6:
-                                input = pad_to_20(node_inputs, node_valid_mask, gcn_mats, gcn_masks, summ_mats,
-                                                  running_dags_mat,
-                                                  dag_summ_backward_map)
-                                node_to_job = torch.zeros(20)
-                                for t in range(20):
-                                    node_to_job[t] = -1
-                                job_to_node = torch.zeros(20 * 3)
-                                for t in range(20 * 3):
-                                    job_to_node[t] = 19
-
-                                for k in range(len(job_list)):
-                                    ptr = 0
-                                    for cur_node in job_list[k].nodes:
-                                        node_index = get_node_index(obs, cur_node)
-                                        node_to_job[node_index] = k
-                                        job_to_node[k * 20 + ptr] = node_index
-                                        ptr += 1
-
-                                # 5 steps
-                                valid = True
-                                for j in range(3):
-                                    '''
-                                    node, use_exec, frontier_nodes, node_inputs, node_valid_mask, gcn_mats, gcn_masks, summ_mats, running_dags_mat, \
-                                    dag_summ_backward_map, job_inputs = agent_actor.get_action(obs)
-                                    use_exec = 1
-                                    if node == None:
-                                        j -= 1
-                                        continue
-                                    obs, reward, done = env.step(node, use_exec)
-                                    if done or frontier_nodes == None:
-                                        valid = False
-                                        break
-                                    try:
-                                        if node.job_dag in job_list:
-                                            job_list.remove(node.job_dag)
-                                        if len(job_list) == 0:
-                                            valid = False
-                                            break
-                                    except:
-                                        j -= 1
-                                        continue
-                                    '''
-
-                                if valid and frontier_nodes != None:
-                                    for frontier_node in frontier_nodes:
-                                        if frontier_node.job_dag == job_list[0]:
-                                            cannot_be_highest = frontier_node.idx
-                                            break
-
-                                    node_list = []
-                                    for cousin_node in job_list[0].nodes:
-                                        node_list.append(cousin_node.idx)
-
-                                    node_list_tensor = torch.tensor(node_list)
-                                    pad = torch.zeros(20 - len(node_list)) - 1
-                                    node_list_tensor = torch.concat([node_list_tensor, pad])
-                                    node_list_tensor = torch.flatten(node_list_tensor)
-                                    try:
-                                        # 0~4300: input array, 4301: highest, 4301~4320: perturbed node
-                                        # 4320~4400: node-to-job map, job-to-node map
-                                        input = torch.concat(
-                                            [torch.flatten(input), torch.tensor([cannot_be_highest]), node_list_tensor,
-                                             node_to_job,
-                                             job_to_node])
-                                    except:
-                                        continue
-                                    print("append")
-                                    print("job_inputs",job_inputs.size())
-                                    print("node_inputs", node_inputs.size())
-                                    print(job_list_bak)
-                                    X.append(input)
-                                else:
-                                    print("invalid")
-                    try:
-                        print(node_inputs.size())
-                        print(job_inputs.size()[0])
-                        print(job_list_bak[0].num_nodes, job_list_bak[1].num_nodes,job_list_bak[2].num_nodes)
-                    except:
-                        pass
-                print("number", len(X))
 
                 enough = len(X) >0
 
-        path = f'./benchmark/decima/decima_resources/decima_fixiedInput_{SPEC_TYPES[i]}.npy'
+        path = f'../../Benchmarks/src/decima/decima_resources/decima_fixiedInput_{SPEC_TYPES[i]}.npy'
         print(f"save to {path}")
         np.save(path, X)
 
