@@ -1,7 +1,8 @@
-import numpy as np
-import torch
 import torch.nn as nn
 import sys
+import random
+import os
+
 sys.path.append("/")
 
 from spark_env.env import Environment
@@ -17,7 +18,6 @@ from spark_env.job_dag import JobDAG
 from spark_env.node import Node
 import torch.nn.functional as F
 import model_benchmark
-import copy
 
 PATH = "./result/"
 
@@ -26,8 +26,10 @@ MODEL = MODEL_LIST[0]
 MODEL_TYPES = ['simple', 'marabou']
 MODEL_TYPE = MODEL_TYPES[0]
 file_path = "./best_models/model_exec50_ep_" + str(6200)
-SPEC_TYPES = [1, 2, 3]
-sizes = [100, 100, 10]
+SPEC_TYPES = [1, 2]
+SIZES = [100, 100]
+RANDOMSEED = 1
+DIR = f'../../Benchmarks/src/decima/decima_resources'
 
 
 class ActorNetwork(nn.Module):
@@ -471,138 +473,42 @@ def pad_to_20(node_inputs, node_valid_mask, gcn_mats, gcn_masks, summ_mats, runn
     node_number = node_inputs.size()[0]
     job_number = summ_mats.size()[0]
 
+    pad1 = torch.zeros(20 - node_number, 5)
+    node_inputs = torch.concat([node_inputs, pad1])
+    node_inputs = torch.flatten(node_inputs)
 
-    if node_number < 20:
-        pad1 = torch.zeros(20 - node_number, 5)
-        node_inputs = torch.concat([node_inputs, pad1])
-        node_inputs = torch.flatten(node_inputs)
+    pad2 = torch.zeros(1, 20 - node_number)
+    node_valid_mask = torch.concat([node_valid_mask, pad2], dim=1)
+    node_valid_mask = torch.flatten(node_valid_mask)
 
-        pad2 = torch.zeros(1, 20 - node_number)
-        node_valid_mask = torch.concat([node_valid_mask, pad2], dim=1)
-        node_valid_mask = torch.flatten(node_valid_mask)
+    gcn_mats = [torch.unsqueeze(i.to_dense(), dim=0) for i in gcn_mats]
+    gcn_mats = torch.vstack(gcn_mats)
+    gcn_mats = F.pad(gcn_mats, (0, 20 - node_number, 0, 20 - node_number), 'constant', 0)
+    gcn_mats = torch.flatten(gcn_mats)
 
-        gcn_mats = [torch.unsqueeze(i.to_dense(), dim=0) for i in gcn_mats]
-        gcn_mats = torch.vstack(gcn_mats)
-        gcn_mats = F.pad(gcn_mats, (0, 20 - node_number, 0, 20 - node_number), 'constant', 0)
-        gcn_mats = torch.flatten(gcn_mats)
+    gcn_masks = [torch.unsqueeze(i.to_dense(), dim=0) for i in gcn_masks]
+    gcn_masks = torch.vstack(gcn_masks)
+    gcn_masks = F.pad(gcn_masks, (0, 0, 0, 20 - node_number), 'constant', 0)
+    gcn_masks = torch.flatten(gcn_masks)
 
-        gcn_masks = [torch.unsqueeze(i.to_dense(), dim=0) for i in gcn_masks]
-        gcn_masks = torch.vstack(gcn_masks)
-        gcn_masks = F.pad(gcn_masks, (0, 0, 0, 20 - node_number), 'constant', 0)
-        gcn_masks = torch.flatten(gcn_masks)
+    summ_mats = summ_mats.to_dense()
+    summ_mats = F.pad(summ_mats, (0, 20 - node_number, 0, 20 - job_number), 'constant', 0)
 
-        summ_mats = summ_mats.to_dense()
-        summ_mats = F.pad(summ_mats, (0, 20 - node_number, 0, 20 - job_number), 'constant', 0)
+    summ_mats = torch.flatten(summ_mats)
 
-        summ_mats = torch.flatten(summ_mats)
+    pad3 = torch.zeros(1, 20 - job_number)
+    running_dags_mat = running_dags_mat.to_dense()
+    running_dags_mat = torch.concat([running_dags_mat, pad3], dim=1)
+    running_dags_mat = torch.flatten(running_dags_mat)
 
-        pad3 = torch.zeros(1, 20 - job_number)
-        running_dags_mat = running_dags_mat.to_dense()
-        running_dags_mat = torch.concat([running_dags_mat, pad3], dim=1)
-        running_dags_mat = torch.flatten(running_dags_mat)
+    dag_summ_backward_map = F.pad(dag_summ_backward_map, (0, 20 - job_number, 0, 20 - node_number), 'constant', 0)
+    dag_summ_backward_map = torch.flatten(dag_summ_backward_map)
 
-        dag_summ_backward_map = F.pad(dag_summ_backward_map, (0, 20 - job_number, 0, 20 - node_number), 'constant', 0)
-        dag_summ_backward_map = torch.flatten(dag_summ_backward_map)
+    ret = torch.concat([node_inputs, node_valid_mask, gcn_mats,
+                        gcn_masks, summ_mats, running_dags_mat, dag_summ_backward_map]).view([1, -1])
 
-        ret = torch.concat([node_inputs, node_valid_mask, gcn_mats,
-                            gcn_masks, summ_mats, running_dags_mat, dag_summ_backward_map]).view([1, -1])
+    return ret
 
-        return ret
-    else:
-        node_inputs = torch.flatten(node_inputs)
-
-        node_valid_mask = torch.flatten(node_valid_mask)
-
-        gcn_mats = [torch.unsqueeze(i.to_dense(), dim=0) for i in gcn_mats]
-        gcn_mats = torch.vstack(gcn_mats)
-        gcn_mats = torch.flatten(gcn_mats)
-
-        gcn_masks = [torch.unsqueeze(i.to_dense(), dim=0) for i in gcn_masks]
-        gcn_masks = torch.vstack(gcn_masks)
-        gcn_masks = torch.flatten(gcn_masks)
-
-        summ_mats = summ_mats.to_dense()
-
-        summ_mats = torch.flatten(summ_mats)
-
-        running_dags_mat = running_dags_mat.to_dense()
-        running_dags_mat = torch.flatten(running_dags_mat)
-
-        dag_summ_backward_map = torch.flatten(dag_summ_backward_map)
-
-        ret = torch.concat([node_inputs, node_valid_mask, gcn_mats,
-                            gcn_masks, summ_mats, running_dags_mat, dag_summ_backward_map]).view([1, -1])
-
-        return ret
-
-
-def pad_to_20_marabou(node_inputs, node_valid_mask, gcn_mats, gcn_masks, summ_mats, running_dags_mat, dag_summ_backward_map):
-    node_number = node_inputs.size()[0]
-    job_number = summ_mats.size()[0]
-
-
-    if node_number < 20:
-        pad1 = torch.zeros(20 - node_number, 5)
-        node_inputs = torch.concat([node_inputs, pad1])
-        node_inputs = torch.flatten(node_inputs)
-
-        pad2 = torch.zeros(1, 20 - node_number)
-        node_valid_mask = torch.concat([node_valid_mask, pad2], dim=1)
-        node_valid_mask = torch.flatten(node_valid_mask)
-
-        gcn_mats = [torch.unsqueeze(i.to_dense(), dim=0) for i in gcn_mats]
-        gcn_mats = torch.vstack(gcn_mats)
-        gcn_mats = F.pad(gcn_mats, (0, 20 - node_number, 0, 20 - node_number), 'constant', 0)
-        gcn_mats = torch.flatten(gcn_mats)
-
-        gcn_masks = [torch.unsqueeze(i.to_dense(), dim=0) for i in gcn_masks]
-        gcn_masks = torch.vstack(gcn_masks)
-        gcn_masks = F.pad(gcn_masks, (0, 0, 0, 20 - node_number), 'constant', 0)
-        gcn_masks = torch.flatten(gcn_masks)
-
-        summ_mats = summ_mats.to_dense()
-        summ_mats = F.pad(summ_mats, (0, 20 - node_number, 0, 20 - job_number), 'constant', 0)
-
-        summ_mats = torch.flatten(summ_mats)
-
-        pad3 = torch.zeros(1, 20 - job_number)
-        running_dags_mat = running_dags_mat.to_dense()
-        running_dags_mat = torch.concat([running_dags_mat, pad3], dim=1)
-        running_dags_mat = torch.flatten(running_dags_mat)
-
-        dag_summ_backward_map = F.pad(dag_summ_backward_map, (0, 20 - job_number, 0, 20 - node_number), 'constant', 0)
-        dag_summ_backward_map = torch.flatten(dag_summ_backward_map)
-
-        ret = torch.concat([node_inputs, node_valid_mask, gcn_mats,
-                            gcn_masks, summ_mats, running_dags_mat, dag_summ_backward_map]).view([1, -1])
-
-        return ret
-    else:
-        node_inputs = torch.flatten(node_inputs)
-
-        node_valid_mask = torch.flatten(node_valid_mask)
-
-        gcn_mats = [torch.unsqueeze(i.to_dense(), dim=0) for i in gcn_mats]
-        gcn_mats = torch.vstack(gcn_mats)
-        gcn_mats = torch.flatten(gcn_mats)
-
-        gcn_masks = [torch.unsqueeze(i.to_dense(), dim=0) for i in gcn_masks]
-        gcn_masks = torch.vstack(gcn_masks)
-        gcn_masks = torch.flatten(gcn_masks)
-
-        summ_mats = summ_mats.to_dense()
-
-        summ_mats = torch.flatten(summ_mats)
-
-        running_dags_mat = running_dags_mat.to_dense()
-        running_dags_mat = torch.flatten(running_dags_mat)
-
-        dag_summ_backward_map = torch.flatten(dag_summ_backward_map)
-
-        ret = torch.concat([node_inputs, node_valid_mask, gcn_mats,
-                            gcn_masks, summ_mats, running_dags_mat, dag_summ_backward_map]).view([1, -1])
-
-        return ret
 
 
 def load_model(actor):
@@ -614,24 +520,22 @@ def load_model(actor):
 
 
 def test_benchmark_model(input, type_ptr=0):
-    if type==0 or type==1:
+    if type == 0 or type == 1:
         actor = model_benchmark.model_benchmark()
     else:
         actor = model_benchmark.model_concat_benchmark()
     actor = load_model(actor)
     result = actor.forward(input)
-    # print("benchmark model result: ", result)
-    # print("=================================================================")
 
 
 def gene_spec():
     env = Environment()
 
     # set up agent
-    agent_actor = ActorAgent(5, 3, [16, 8], 8, 8,range(1, 15 + 1))
+    agent_actor = ActorAgent(5, 3, [16, 8], 8, 8, range(1, 15 + 1))
     agent_actor.restore_models(file_path)
 
-    for i in [2]:
+    for i in range(2):
         X = []
         seed = 0
         enough = False
@@ -657,9 +561,9 @@ def gene_spec():
 
                 try:
                     input.size()
-                    # test_benchmark_model(input, i)
                 except:
                     continue
+
 
                 if i == 0:
                     # choose one of the child
@@ -697,25 +601,29 @@ def gene_spec():
                     input = torch.concat(
                         [torch.flatten(input), torch.tensor([cannot_be_highest]), node_list_tensor])
                     X.append(input)
+                print(input.size())
 
+                enough = len(X) > SIZES[i]
+                print(len(X))
 
-                enough = len(X) >0
-
-        path = f'../../Benchmarks/src/decima/decima_resources/decima_fixiedInput_{SPEC_TYPES[i]}.npy'
+        path = DIR + f'/decima_fixiedInput_{SPEC_TYPES[i]}.npy'
         print(f"save to {path}")
         np.save(path, X)
 
 
 def gen_index():
     for i in range(len(SPEC_TYPES)):
-        index_arr = np.empty(sizes[i])
-        for j in range(sizes[i]):
+        index_arr = np.empty(SIZES[i])
+        for j in range(SIZES[i]):
             # first number is model number, second is range number
             index_arr[j] = 200000 + j
-        np.save(f'./benchmark/decima/decima_resources/decima_index_{SPEC_TYPES[i]}.npy', index_arr)
+        np.save(DIR + f'/decima_index_{SPEC_TYPES[i]}.npy', index_arr)
 
 
 def main():
+    random.seed(RANDOMSEED)
+    if not os.path.exists(DIR):
+        os.makedirs(DIR)
     gene_spec()
     gen_index()
 
