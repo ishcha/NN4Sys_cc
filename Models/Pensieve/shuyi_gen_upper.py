@@ -6,7 +6,7 @@ from data_generator_benchmark import get_inputs_array
 
 MODEL_LIST = ['small', 'mid', 'big']
 SPEC_TYPES = ['simple', 'parallel']
-SPEC_TYPES = [1, 2]
+
 SIZE = 3000
 RANDOMSEED = 1
 DIR = f'../../Benchmarks/src/pensieve/pensieve_resources'

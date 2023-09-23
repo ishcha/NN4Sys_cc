@@ -10,13 +10,13 @@ import bisect
 from spark_env.job_dag import JobDAG
 from spark_env.node import Node
 
-ONNX_DIR = './benchmark/decima/onnxs'
+ONNX_DIR = f'../../Benchmarks/onnx'
 MODEL_LIST = ['mid']
-MODEL = MODEL_LIST[1]
-MODEL_TYPES = ['simple', 'marabou']
-MODEL_TYPE = MODEL_TYPES[2]
-file_path = "./best_models/model_exec50_ep_" + str(6200)
 
+MODEL_TYPES = ['simple', 'marabou']
+file_path = "./best_models/model_exec50_ep_" + str(6200)
+VNN_path = f'../../Benchmarks/src/decima/decima_resources'
+SPEC_TYPES = [1, 2]
 
 
 def load_model(actor):
@@ -27,60 +27,46 @@ def load_model(actor):
     return actor
 
 
-
-
 def main():
     if not os.path.exists(ONNX_DIR):
         os.makedirs(ONNX_DIR)
-    save_path = ONNX_DIR + '/decima_' + MODEL + '_' + MODEL_TYPE + ".onnx"
-    input_arrays = np.load(f'./benchmark/decima/decima_resources/decima_fixiedInput_1.npy')
-    print(save_path)
-    if MODEL_TYPE == 'simple':
-        if MODEL == 'mid':
+    for MODEL_TYPE in MODEL_TYPES:
+        for MODEL in MODEL_LIST:
+            for SPEC_TYPE in SPEC_TYPES:
 
-            actor = model.model_benchmark()
-    if MODEL_TYPE == 'marabou':
-        input = torch.tensor(input_arrays[0][:-1])
+                if MODEL_TYPE == 'simple':
+                    if MODEL == 'mid':
+                        save_path = ONNX_DIR + '/decima_' + MODEL + '_' + MODEL_TYPE + ".onnx"
+                        actor = model.model_benchmark()
+                if MODEL_TYPE == 'marabou':
+                    if MODEL == 'mid':
+                        save_path = ONNX_DIR + '/decima_' + MODEL + '_' + MODEL_TYPE + f"_{SPEC_TYPE}.onnx"
+                        input_arrays = np.load(VNN_path + f'/decima_fixiedInput_{SPEC_TYPE}_marabou.npy')
+                        actor = model.model_benchmark_marabou(torch.tensor(input_arrays[0][:4300]))
 
-        actor = model.model_benchmark_marabou(input)
+                print(save_path)
+                actor = load_model(actor)
+                actor = actor.eval()
 
+                if MODEL_TYPE == 'simple':
+                    input = torch.zeros(1, 4300).to(torch.float32)
+                if MODEL_TYPE == 'marabou':
+                    input = torch.zeros(4300).to(torch.float32)
 
+                torch_out = actor(input)
+                print(torch_out)
 
-    actor = load_model(actor)
-    actor = actor.eval()
+                torch.onnx.export(actor,  # model being run
+                                  input,  # model input (or a tuple for multiple inputs)
+                                  save_path,  # where to save the model (can be a file or file-like object)
+                                  export_params=True,  # store the trained parameter weights inside the model file
+                                  opset_version=12,  # the ONNX version to export the model to
+                                  do_constant_folding=True,  # whether to execute constant folding for optimization
+                                  output_names=['output'])  # the model's output names
 
-
-    # get input
-    node_inputs, job_inputs, node_valid_mask, job_valid_mask, gcn_mats, gcn_masks, summ_mats, running_dags_mat, dag_summ_backward_map = generate_input()
-
-    number = len(gcn_mats)
-    for i in range(number):
-        gcn_mats[i] = gcn_mats[i].to_dense()
-
-
-    if MODEL_TYPE == 'simple':
-        input = torch.zeros(1, 4300).to(torch.float32)
-    if MODEL_TYPE == 'concat':
-        input = torch.zeros(1, 4600).to(torch.float32)
-
-
-
-    torch_out = actor(cocnat_input)
-    print("output:")
-    print(torch_out)
-
-
-    torch.onnx.export(actor,  # model being run
-                      input,  # model input (or a tuple for multiple inputs)
-                      save_path,  # where to save the model (can be a file or file-like object)
-                      export_params=True,  # store the trained parameter weights inside the model file
-                      opset_version=12,  # the ONNX version to export the model to
-                      do_constant_folding=True,  # whether to execute constant folding for optimization
-                      output_names=['output'])  # the model's output names
-
-    # check the model
-    actor = onnx.load(save_path)
-    onnx.checker.check_model(actor)
+                # check the model
+                actor = onnx.load(save_path)
+                onnx.checker.check_model(actor)
 
 
 if __name__ == '__main__':
