@@ -1,10 +1,6 @@
-import gym
-import torch
-import random
-import numpy as np
 
-from stable_baselines3 import PPO
-from stable_baselines3.common.policies import ActorCriticPolicy
+import torch
+
 import os
 import sys
 import inspect
@@ -12,7 +8,6 @@ import inspect
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
-from common.simple_arg_parse import arg_or_default
 
 K = 10
 
@@ -72,27 +67,37 @@ class CustomNetwork_mid_concatnate(torch.nn.Module):
         y = torch.mul(y, 0.025)
         ret = torch.add(y, 1)
 
-        print(x2)
-
         y1,y2,y3 = torch.split(x2,[19,1,10],dim=1)
         y2 = torch.add(y2,y.detach())
         x2 = torch.concat([y1,y2,y3],dim=1)
-        print(x2)
+
 
         y = self.policy_net(x2)
         y = torch.mul(y, 0.025)
         y = torch.add(y, constant)
         ret = ret * y
 
+        y1,y2,y3 = torch.split(x3,[19,1,10],dim=1)
+        y2 = torch.add(y2,y.detach())
+        x3 = torch.concat([y1,y2,y3],dim=1)
+
         y = self.policy_net(x3)
         y = torch.mul(y, 0.025)
         y = torch.add(y, constant)
         ret = ret * y
 
+        y1,y2,y3 = torch.split(x4,[19,1,10],dim=1)
+        y2 = torch.add(y2,y.detach())
+        x4 = torch.concat([y1,y2,y3],dim=1)
+
         y = self.policy_net(x4)
         y = torch.mul(y, 0.025)
         y = torch.add(y, constant)
         ret = ret * y
+
+        y1,y2,y3 = torch.split(x5,[19,1,10],dim=1)
+        y2 = torch.add(y2,y.detach())
+        x5 = torch.concat([y1,y2,y3],dim=1)
 
         y = self.policy_net(x5)
         y = torch.mul(y, 0.025)
@@ -101,23 +106,23 @@ class CustomNetwork_mid_concatnate(torch.nn.Module):
 
         return ret
 
-
-class CustomNetwork_hard(torch.nn.Module):
+class CustomNetwork_big(torch.nn.Module):
     def __init__(self, feature_dim: int = K * 3,
                  last_layer_dim_pi: int = 1,
                  last_layer_dim_vf: int = 1):
         super().__init__()
         self.latent_dim_pi = last_layer_dim_pi
         self.latent_dim_vf = last_layer_dim_vf
-
-        self.conv1 = torch.nn.Conv1d(1, 8, 4)
-        self.linear = torch.nn.Linear(216, last_layer_dim_pi)
-        self.tanh = torch.nn.Tanh()
-
+        self.policy_net = torch.nn.Sequential(
+            torch.nn.Linear(30, 64),
+            torch.nn.Linear(64, 32),
+            torch.nn.Linear(32, 1),
+            torch.nn.Tanh()
+        )
         self.value_net = torch.nn.Sequential(
-            torch.nn.Linear(feature_dim, 32),
-            torch.nn.Linear(32, 16),
-            torch.nn.Linear(16, last_layer_dim_vf),
+            torch.nn.Linear(30, 64),
+            torch.nn.Linear(64, 32),
+            torch.nn.Linear(32, 1),
             torch.nn.Tanh()
         )
 
@@ -125,18 +130,13 @@ class CustomNetwork_hard(torch.nn.Module):
         return self.forward_actor(features), self.forward_critic(features)
 
     def forward_actor(self, features):
-        x = features.view([-1, 1, 30])
-        x = self.conv1(x)
-        x = x.view(features.shape[0], -1)
-        x = self.linear(x)
-        out = self.tanh(x)
-        return out
+        return self.policy_net(features)
 
     def forward_critic(self, features):
         return self.value_net(features)
 
 
-class CustomNetwork_easy(torch.nn.Module):
+class CustomNetwork_small(torch.nn.Module):
     def __init__(self, feature_dim: int = K * 3,
                  last_layer_dim_pi: int = 1,
                  last_layer_dim_vf: int = 1):
@@ -145,15 +145,15 @@ class CustomNetwork_easy(torch.nn.Module):
         self.latent_dim_vf = last_layer_dim_vf
 
         self.policy_net = torch.nn.Sequential(
-            torch.nn.Linear(feature_dim, 16),
+            torch.nn.Linear(30, 16),
             torch.nn.Linear(16, 8),
-            torch.nn.Linear(8, last_layer_dim_pi),
+            torch.nn.Linear(8, 1),
             torch.nn.Tanh()
         )
         self.value_net = torch.nn.Sequential(
-            torch.nn.Linear(feature_dim, 32),
-            torch.nn.Linear(32, 16),
-            torch.nn.Linear(16, last_layer_dim_vf),
+            torch.nn.Linear(30, 16),
+            torch.nn.Linear(16, 8),
+            torch.nn.Linear(8, 1),
             torch.nn.Tanh()
         )
 

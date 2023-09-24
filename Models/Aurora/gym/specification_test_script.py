@@ -3,15 +3,14 @@
 import numpy as np
 import torch.onnx
 import random
-import onnx
-import model_benchmark as model
+from Models.Aurora import model_benchmark as model
 
 ONNX_DIR = '../onnxs'
 MODEL_LIST = ['small', 'mid', 'big']
 MODEL = MODEL_LIST[1]
 MODEL_TYPES = ['simple', 'parallel', 'concat']
 MODEL_TYPE = MODEL_TYPES[0]
-NN_MODEL = './results/pcc_model_mid_10_4.pt'
+NN_MODEL = './results/pcc_model_mid_10_best.pt'
 
 HISTORY = 10
 

@@ -3,10 +3,8 @@ import math
 import numpy as np
 
 def main():
-    files = os.listdir('.')
+    files = os.listdir('./decima_running_result')
 
-    if not os.path.exists('result'):
-        os.makedirs('result')
     unsat = 0
     sat = 0
     sat_dic={}

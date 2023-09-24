@@ -8,23 +8,25 @@ os.environ['MKL_THREADING_LAYER'] = 'GNU'
 MODEL_TYPES = ['simple', 'simple', 'concat']
 DIFFICULTY = ['easy']
 SIZES = [5, 5, 5]
-SPEC_TYPES = [1,2,3]
-
-
-
-filePath = './'
-if not os.path.exists('running_result'):
-    os.makedirs('running_result')
-if not os.path.exists('vnnlib'):
-    os.makedirs('vnnlib')
+SPEC_TYPES = [1,2]
 
 # create yaml
-vnn_dir_path = './'
-onnx_dir_path = '../onnxs'
+vnn_dir_path = '../Benchmarks/vnnlib'
+onnx_dir_path = '../Benchmarks/onnx'
+yaml_path = './decima_yaml'
+running_result_path = './decima_running_result'
 timeout = 100
 csv_data = []
 total_num = 0
 current_gpu = 0
+
+if not os.path.exists(running_result_path):
+    os.makedirs(running_result_path)
+if not os.path.exists(yaml_path):
+    os.makedirs(yaml_path)
+
+
+
 
 
 def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
@@ -36,15 +38,19 @@ def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
             "solver:\n  batch_size: 1\nbab:\n  branching:\n    method: sb\n    sb_coeff_thresh: 0.1\n    input_split:\n      enable: True")
 
 
-def main():
+def main(abcrown_path):
     for i in range(len(SPEC_TYPES)):
         for size in range(SIZES[i]):
-            vnn_path = vnn_dir_path + 'decima_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
+            vnn_path = vnn_dir_path + '/decima_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
             onnx_path = onnx_dir_path + '/decima_mid_' + MODEL_TYPES[i] + '.onnx'
-            yaml = vnn_dir_path + 'decima_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
+            yaml = yaml_path + '/decima_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
             create_yaml(yaml, vnn_path, onnx_path)
-            os.system(f"python ../../abcrown.py --config {yaml} | tee running_result/decima_mid_{SPEC_TYPES[i]}_{size}.txt")
+            os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/decima_mid_{SPEC_TYPES[i]}_{size}.txt")
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) != 2:
+        print("Usage: Decima_abcorwn_run.py abcrown_path")
+        exit(1)
+    abcrown_path = sys.argv[1]
+    main(abcrown_path)

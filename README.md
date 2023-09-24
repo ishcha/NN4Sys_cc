@@ -9,26 +9,35 @@ cd ../..
 ```
 - Aurora
 ```
-python Models/Aurora/shuyi_gen_upper.py
+cd Models/Aurora
+python shuyi_gen_upper.py
+cd ../..
 ```
 - Decima
 ```
-python Models/Decima/shuyi_gen_upper.py
+cd Models/Decima
+python shuyi_gen_upper.py
+cd ../..
 ```
-
 
 ### create onnx
 - Pensieve
 ```
-python Models/Pensieve/export.py
+cd Models/Pensieve
+python export.py
+cd ../..
 ```
 - Aurora
 ```
-python Models/Aurora/gym/export.py
+cd Models/Aurora
+python export.py
+cd ../..
 ```
 - Decima
 ```
-python Models/Decima/export.py
+cd Models/Decima
+python export.py
+cd ../..
 ```
 
 ### create vnnlib(for abcrown) and txt(for marabou)
@@ -46,7 +55,9 @@ cd ..
 ```
 - Decima
 ```
-python Benchmarks/decima_gen.py 1
+cd Benchmarks
+python decima_gen.py 1
+cd ..
 ```
 
 ### run abcrown
@@ -68,3 +79,5 @@ python Benchmarks/decima_gen.py 1
 - Pensieve
 - Aurora
 - Decima
+
+### Draw graph
