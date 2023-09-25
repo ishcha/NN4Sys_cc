@@ -64,6 +64,8 @@ class model_benchmark(nn.Module):
         running_dags_mat = input[:, 3880:3900].view([-1, 1, Max_Node])
         dag_summ_backward_map = input[:, 3900:4300].view([-1, Max_Node, Max_Node])
 
+        return torch.zeros(1,20)
+
         # gcn
         x = node_inputs
 
@@ -373,10 +375,10 @@ class model_benchmark(nn.Module):
         node_outputs = node_outputs.view([-1, 1, Max_Node])
 
         # valid mask on node
-        #node_valid_mask = (node_valid_mask - 1) * 10000.0
+        node_valid_mask = (node_valid_mask - 1) * 10000.0
 
         # apply mask
-        #node_outputs = node_outputs + node_valid_mask
+        node_outputs = node_outputs + node_valid_mask
 
         # do masked softmax over nodes on the graph
         node_outputs = node_outputs.reshape(-1, 20)
