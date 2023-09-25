@@ -54,7 +54,6 @@ class model_benchmark(nn.Module):
         self.fc3 = nn.Linear(16, 8)
         self.fc4 = nn.Linear(8, 1)
 
-
     def forward(self, input):
         node_inputs = input[:, :100].view([-1, Max_Node, 5])
         node_valid_mask = input[:, 100:120].view([-1, 1, Max_Node])
@@ -63,8 +62,6 @@ class model_benchmark(nn.Module):
         summ_mats = input[:, 3480:3880].view([-1, Max_Node, Max_Node])
         running_dags_mat = input[:, 3880:3900].view([-1, 1, Max_Node])
         dag_summ_backward_map = input[:, 3900:4300].view([-1, Max_Node, Max_Node])
-
-        return torch.zeros(1,20)
 
         # gcn
         x = node_inputs
@@ -99,6 +96,8 @@ class model_benchmark(nn.Module):
         y = self.act_fn(y)
         y = self.f_gc3(y)
         y = self.act_fn(y)
+
+        return y[:,:20]
 
         # remove the artifact from the bias term in g
 
