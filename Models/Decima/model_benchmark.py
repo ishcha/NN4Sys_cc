@@ -54,7 +54,6 @@ class model_benchmark(nn.Module):
         self.fc3 = nn.Linear(16, 8)
         self.fc4 = nn.Linear(8, 1)
 
-        self.softmax = nn.Softmax(dim=-1)
 
     def forward(self, input):
         node_inputs = input[:, :100].view([-1, Max_Node, 5])
@@ -380,7 +379,6 @@ class model_benchmark(nn.Module):
         node_outputs = node_outputs + node_valid_mask
 
         # do masked softmax over nodes on the graph
-        node_outputs = self.softmax(node_outputs)
         node_outputs = node_outputs.reshape(-1, 20)
 
         return node_outputs
