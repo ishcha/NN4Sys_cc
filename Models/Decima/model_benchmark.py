@@ -104,6 +104,9 @@ class model_benchmark(nn.Module):
 
         # assemble neighboring information
         x = x + y
+        tmp = x[:,:,0]
+        print(tmp.size())
+        return tmp
 
         # -------------------------2------------------------
         # work flow: index_select -> f -> masked assemble via adj_mat -> g
@@ -332,10 +335,7 @@ class model_benchmark(nn.Module):
         s = self.act_fn(s)
         s = self.global_gc3(s)
         s = self.act_fn(s)
-        tmp = s[:,:,0]
-        print(tmp.size())
-        return tmp
-        print(s.size())
+
 
         gsn_global_summary = torch.matmul(running_dags_mat, s)
 
