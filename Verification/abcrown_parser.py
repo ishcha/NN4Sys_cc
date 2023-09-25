@@ -10,7 +10,7 @@ def main(model):
     sat = 0
     sat_dic={}
     unsat_dic={}
-    print("sat files:---------------------------")
+    print("sat files:----------------------------------------------------------")
 
     for f in files:
         file=f'./{model}_running_result/'+f
@@ -43,7 +43,7 @@ def main(model):
                     sat_dic[index] = sat_dic[index]+1
                 else:
                     sat_dic[index] = 1
-    print("sat files:---------------------------")
+    print("----------------------------------------------------------sat files")
     print(f'sat: {sat}')
     print(f'unsat: {unsat}')
     print("sat")
