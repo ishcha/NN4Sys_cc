@@ -332,6 +332,10 @@ class model_benchmark(nn.Module):
         s = self.act_fn(s)
         s = self.global_gc3(s)
         s = self.act_fn(s)
+        tmp = s[:,:,0]
+        print(tmp.size())
+        return tmp
+        print(s.size())
 
         gsn_global_summary = torch.matmul(running_dags_mat, s)
 
