@@ -73,6 +73,10 @@ class model_benchmark(nn.Module):
         x = self.act_fn(x)
         x = self.h_gc3(x)
         x = self.act_fn(x)
+        print(x.size())
+
+        tmp = x[:, :, 1]
+        return tmp
 
         # -------------------------1------------------------
         # work flow: index_select -> f -> masked assemble via adj_mat -> g
@@ -105,8 +109,7 @@ class model_benchmark(nn.Module):
         # assemble neighboring information
         x = x + y
 
-        tmp = x[:, :, 1]
-        return tmp
+
 
 
         # -------------------------2------------------------
