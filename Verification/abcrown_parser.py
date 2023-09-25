@@ -1,9 +1,10 @@
 import os
 import math
 import numpy as np
+import sys
 
-def main():
-    files = os.listdir('./decima_running_result')
+def main(model):
+    files = os.listdir(f'./{model}_running_result')
 
     unsat = 0
     sat = 0
@@ -11,7 +12,7 @@ def main():
     unsat_dic={}
 
     for f in files:
-        file='./decima_running_result/'+f
+        file=f'./{model}_running_result/'+f
         if file[-3:] != 'txt':
             continue
         index = f[:-4].split('_')[0]+f[:-4].split('_')[1]+f[:-4].split('_')[2]
@@ -49,4 +50,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) != 2:
+        model="aurora"
+    model = sys.argv[1].lower()
+    main(model)
