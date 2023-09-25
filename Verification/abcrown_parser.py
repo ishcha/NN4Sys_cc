@@ -51,6 +51,9 @@ def main(model):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
+        print("Usage: abcrown_parser.py model")
         model="aurora"
-    model = sys.argv[1].lower()
+    else:
+        model = sys.argv[1].lower()
+
     main(model)
