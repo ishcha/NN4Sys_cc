@@ -97,7 +97,6 @@ class model_benchmark(nn.Module):
         y = self.f_gc3(y)
         y = self.act_fn(y)
 
-        return y[:,:20]
 
         # remove the artifact from the bias term in g
 
