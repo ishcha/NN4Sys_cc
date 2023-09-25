@@ -25,7 +25,6 @@ class GraphLayer(Module):
     def forward(self, input):
         output = torch.matmul(input, self.weight)
         if self.bias is not None:
-            return output
             return output + self.bias
         else:
             return output
@@ -33,7 +32,7 @@ class GraphLayer(Module):
 
 class GraphLayer_marabou(Module):
     def __init__(self, in_dim, out_dim, bias=True):
-        super(GraphLayer, self).__init__()
+        super(GraphLayer_marabou, self).__init__()
         self.in_dim = in_dim
         self.out_dim = out_dim
         self.weight = Parameter(torch.FloatTensor(in_dim, out_dim))

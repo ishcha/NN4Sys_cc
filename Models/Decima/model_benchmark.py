@@ -55,14 +55,16 @@ class model_benchmark(nn.Module):
         self.fc4 = nn.Linear(8, 1)
 
     def forward(self, input):
-        input = input.view([-1,4300])
-        node_inputs = input[:, :100].view([-1, 20, 5])
-        node_valid_mask = input[:, 100:120].view([-1, 1, 20])
-        gcn_mats = input[:, 120:3320].view([-1, 8, 20, 20])
-        gcn_masks = input[:, 3320:3480].view([-1, 8, 20, 1])
-        summ_mats = input[:, 3480:3880].view([-1, 20, 20])
-        running_dags_mat = input[:, 3880:3900].view([-1, 1, 20])
-        dag_summ_backward_map = input[:, 3900:4300].view([-1, 20, 20])
+        node_inputs, node_valid_mask, gcn_mats, gcn_masks, summ_mats, running_dags_mat, dag_summ_backward_map = torch.split(
+            input, [100, 20, 3200, 160, 400, 20, 400], dim=1)
+        node_inputs = node_inputs.view([-1, Max_Node, 5])
+        node_valid_mask = input[:, 100:120].view([-1, 1, Max_Node])
+        gcn_mats = input[:, 120:3320].view([-1, 8, Max_Node, Max_Node])
+        gcn_masks = input[:, 3320:3480].view([-1, 8, Max_Node, 1])
+        summ_mats = input[:, 3480:3880].view([-1, Max_Node, Max_Node])
+        running_dags_mat = input[:, 3880:3900].view([-1, 1, Max_Node])
+        dag_summ_backward_map = input[:, 3900:4300].view([-1, Max_Node, Max_Node])
+
 
         # gcn
         x = node_inputs
@@ -74,10 +76,6 @@ class model_benchmark(nn.Module):
         x = self.act_fn(x)
         x = self.h_gc3(x)
         x = self.act_fn(x)
-        print(x.size())
-
-        tmp = x[:, :, 1]
-        return tmp
 
         # -------------------------1------------------------
         # work flow: index_select -> f -> masked assemble via adj_mat -> g
@@ -102,16 +100,12 @@ class model_benchmark(nn.Module):
         y = self.f_gc3(y)
         y = self.act_fn(y)
 
-
         # remove the artifact from the bias term in g
 
         y = y * gcn_masks[:, 0]
 
         # assemble neighboring information
         x = x + y
-
-
-
 
         # -------------------------2------------------------
         # work flow: index_select -> f -> masked assemble via adj_mat -> g
@@ -316,24 +310,10 @@ class model_benchmark(nn.Module):
         # assemble neighboring information
         x = x + y
 
-
-
-
         gcn_output = x
-        print("gcn_output")
-        print(gcn_output.size())
-        print("node_inputs")
-        print(node_inputs.size())
 
         # gsn
         x = torch.concat([node_inputs, gcn_output], dim=2)
-
-        print("x")
-        print(x.size())
-
-        tmp = x[:,:,1]
-        return tmp
-
 
         # DAG level summary
         s = x
@@ -346,12 +326,6 @@ class model_benchmark(nn.Module):
 
         s = torch.matmul(summ_mats, s)
 
-
-
-
-
-
-
         gsn_dag_summary = s
 
         # global level summary
@@ -361,7 +335,6 @@ class model_benchmark(nn.Module):
         s = self.act_fn(s)
         s = self.global_gc3(s)
         s = self.act_fn(s)
-
 
         gsn_global_summary = torch.matmul(running_dags_mat, s)
 
@@ -408,7 +381,6 @@ class model_benchmark(nn.Module):
         # apply mask
         node_outputs = node_outputs + node_valid_mask
 
-
         return torch.flatten(node_outputs, start_dim=1)
 
 
@@ -450,7 +422,6 @@ class model_benchmark_marabou(nn.Module):
         self.fc2 = nn.Linear(32, 16)
         self.fc3 = nn.Linear(16, 8)
         self.fc4 = nn.Linear(8, 1)
-
 
         self.relu = nn.ReLU()
         '''

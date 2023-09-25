@@ -11,6 +11,7 @@ def main():
     unsat_dic={}
 
     for file in files:
+        file='./decima_running_result/'+file
         if file[-3:] != 'txt':
             continue
         index = file[:-4].split('_')
