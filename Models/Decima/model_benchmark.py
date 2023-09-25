@@ -1,7 +1,7 @@
 import torch.nn
 import torch.nn as nn
 
-from graph_convolution import GraphLayer
+from graph_convolution import GraphLayer, GraphLayer_marabou
 from torch.nn.parameter import Parameter
 
 Max_Node = 20
@@ -316,6 +316,7 @@ class model_benchmark(nn.Module):
         # gsn
         x = torch.concat([node_inputs, gcn_output], dim=2)
 
+
         # DAG level summary
         s = x
         s = self.dag_gc1(s)
@@ -328,10 +329,6 @@ class model_benchmark(nn.Module):
         s = torch.matmul(summ_mats, s)
 
 
-        print(s.size())
-        tmp = s[:,:,0]
-        print(tmp.size())
-        return tmp
 
 
 
@@ -393,7 +390,6 @@ class model_benchmark(nn.Module):
         # apply mask
         node_outputs = node_outputs + node_valid_mask
 
-        # do masked softmax over nodes on the graph
 
         return torch.flatten(node_outputs, start_dim=1)
 
@@ -404,31 +400,31 @@ class model_benchmark_marabou(nn.Module):
         # gcn
         # initialize message passing transformation parameters
         # h: x -> x'
-        self.h_gc1 = GraphLayer(5, 16)
-        self.h_gc2 = GraphLayer(16, 8)
-        self.h_gc3 = GraphLayer(8, 8)
+        self.h_gc1 = GraphLayer_marabou(5, 16)
+        self.h_gc2 = GraphLayer_marabou(16, 8)
+        self.h_gc3 = GraphLayer_marabou(8, 8)
 
         # f: x' -> e
-        self.f_gc1 = GraphLayer(8, 16)
-        self.f_gc2 = GraphLayer(16, 8)
-        self.f_gc3 = GraphLayer(8, 8)
+        self.f_gc1 = GraphLayer_marabou(8, 16)
+        self.f_gc2 = GraphLayer_marabou(16, 8)
+        self.f_gc3 = GraphLayer_marabou(8, 8)
 
         # g: e -> e
-        self.g_gc1 = GraphLayer(8, 16)
-        self.g_gc2 = GraphLayer(16, 8)
-        self.g_gc3 = GraphLayer(8, 8)
+        self.g_gc1 = GraphLayer_marabou(8, 16)
+        self.g_gc2 = GraphLayer_marabou(16, 8)
+        self.g_gc3 = GraphLayer_marabou(8, 8)
 
         # gsn
         self.act_fn = torch.nn.ReLU()
 
         # initialize summarization parameters for each hierarchy
-        self.dag_gc1 = GraphLayer(5 + 8, 16)
-        self.dag_gc2 = GraphLayer(16, 8)
-        self.dag_gc3 = GraphLayer(8, 8)
+        self.dag_gc1 = GraphLayer_marabou(5 + 8, 16)
+        self.dag_gc2 = GraphLayer_marabou(16, 8)
+        self.dag_gc3 = GraphLayer_marabou(8, 8)
 
-        self.global_gc1 = GraphLayer(8, 16)
-        self.global_gc2 = GraphLayer(16, 8)
-        self.global_gc3 = GraphLayer(8, 8)
+        self.global_gc1 = GraphLayer_marabou(8, 16)
+        self.global_gc2 = GraphLayer_marabou(16, 8)
+        self.global_gc3 = GraphLayer_marabou(8, 8)
 
         # actor network
 
@@ -437,7 +433,6 @@ class model_benchmark_marabou(nn.Module):
         self.fc3 = nn.Linear(16, 8)
         self.fc4 = nn.Linear(8, 1)
 
-        self.softmax = nn.Softmax(dim=-1)
 
         self.relu = nn.ReLU()
         '''
