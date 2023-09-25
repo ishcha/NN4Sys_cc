@@ -3,7 +3,7 @@ import sys
 
 os.environ['MKL_THREADING_LAYER'] = 'GNU'
 
-MODELS = ['empty', 'small', 'mid', 'big']
+MODELS = ['small', 'mid', 'big']
 MODEL_TYPES = ['simple', 'simple', 'simple', 'parallel', 'concat']
 DIFFICULTY = ['easy']
 SIZES = [10, 10, 10, 10, 10]
@@ -46,12 +46,13 @@ def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
 
 def main(abcrown_path):
     for i in range(len(SPEC_TYPES)):
-        for size in range(SIZE):
-            vnn_path = vnn_dir_path + '/aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
-            onnx_path = onnx_dir_path + '/aurora_mid_' + MODEL_TYPES[i] + '.onnx'
-            yaml = vnn_dir_path + '/aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
-            create_yaml(yaml, vnn_path, onnx_path)
-            os.system(f"python {abcrown_path} --config {yaml} | tee running_result/aurora_mid_{SPEC_TYPES[i]}_{size}.txt")
+        for MODEL in MODELS:
+            for size in range(SIZE):
+                vnn_path = vnn_dir_path + '/aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
+                onnx_path = onnx_dir_path + '/aurora_'+MODEL+'_' + MODEL_TYPES[i] + '.onnx'
+                yaml = vnn_dir_path + '/aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
+                create_yaml(yaml, vnn_path, onnx_path)
+                os.system(f"python {abcrown_path} --config {yaml} | tee running_result/aurora_mid_{SPEC_TYPES[i]}_{size}.txt")
 
 
 if __name__ == "__main__":
