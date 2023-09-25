@@ -14,7 +14,7 @@ def main():
         file='./decima_running_result/'+f
         if file[-3:] != 'txt':
             continue
-        index = f[:-4].split('_')
+        index = f[:-4].split('_')[0]+f[:-4].split('_')[1]+f[:-4].split('_')[2]
         timeout=-1
         with open(file,'r') as f:
             result=''
@@ -29,17 +29,17 @@ def main():
             timeout = math.ceil(timeout)
             if result=='unsat':
                 unsat+=1
-                if index[2] in unsat_dic.keys():
-                    unsat_dic[index[2]] = unsat_dic[index[2]]+1
+                if index in unsat_dic.keys():
+                    unsat_dic[index] = unsat_dic[index]+1
                 else:
-                    unsat_dic[index[2]] = 1
+                    unsat_dic[index] = 1
             elif result=='sat':
                 print(file)
                 sat+=1
-                if index[2] in sat_dic.keys():
-                    sat_dic[index[2]] = sat_dic[index[2]]+1
+                if index in sat_dic.keys():
+                    sat_dic[index] = sat_dic[index]+1
                 else:
-                    sat_dic[index[2]] = 1
+                    sat_dic[index] = 1
     print(f'sat: {sat}')
     print(f'unsat: {unsat}')
     print("sat")

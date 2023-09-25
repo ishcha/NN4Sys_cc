@@ -1,7 +1,7 @@
 import os
 import sys
 import csv
-from shuyi_gen import main as pen_main
+from pensieve_gen import main as pen_main
 from haoyu_gen import main as card_main
 from cheng_gen import main as index_main
 

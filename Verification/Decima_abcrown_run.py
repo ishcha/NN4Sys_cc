@@ -1,6 +1,4 @@
 import os
-import random
-import numpy as np
 import sys
 
 os.environ['MKL_THREADING_LAYER'] = 'GNU'
