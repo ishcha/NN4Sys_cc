@@ -8,7 +8,7 @@ STATISTIC_RANGE = [0.005, 0.005, 0, 1]
 P_RANGE = [1, 2, 3, 4, 5]
 MODELS = ['empty', 'small', 'mid', 'big']
 DIFFICULTY = ['easy']
-SIZES = [50, 50, 50, 50, 50]
+SIZES = [5, 5, 5, 5, 5]
 
 SPEC_TYPES = [101, 102, 2, 3, 4]
 SPEC_ARRAY_LENGTH = [30, 30, 30, 60, 150]

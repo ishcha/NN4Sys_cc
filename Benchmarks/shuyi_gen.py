@@ -8,7 +8,7 @@ P_RANGE = [0.05, 0.5, 0.7]
 MODELS = ['empty', 'small', 'mid', 'big']
 SPECS = ['simple', 'parallel']
 DIFFICULTY = ['easy', 'medium', 'difficult']
-SIZES = [35,35,35]
+SIZES = [5,5,5]
 
 
 # responsible for writing the file
@@ -161,6 +161,8 @@ if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: generate_properties.py <random seed>")
         exit(1)
+
+
 
     random_seed = int(sys.argv[1])
     main(random_seed)
