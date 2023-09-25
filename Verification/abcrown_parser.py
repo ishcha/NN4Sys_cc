@@ -15,7 +15,7 @@ def main(model):
         file=f'./{model}_running_result/'+f
         if file[-3:] != 'txt':
             continue
-        index = f[:-4].split('_')[0]+f[:-4].split('_')[1]+f[:-4].split('_')[2]
+        index = '_'.join(f[:-4].split('_')[:-1])
         timeout=-1
         with open(file,'r') as f:
             result=''
