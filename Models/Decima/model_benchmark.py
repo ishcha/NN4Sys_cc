@@ -55,6 +55,7 @@ class model_benchmark(nn.Module):
         self.fc4 = nn.Linear(8, 1)
 
     def forward(self, input):
+        input = input.view([-1,4300])
         node_inputs = input[:, :100].view([-1, Max_Node, 5])
         node_valid_mask = input[:, 100:120].view([-1, 1, Max_Node])
         gcn_mats = input[:, 120:3320].view([-1, 8, Max_Node, Max_Node])
