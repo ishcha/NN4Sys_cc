@@ -373,10 +373,10 @@ class model_benchmark(nn.Module):
         node_outputs = node_outputs.view([-1, 1, Max_Node])
 
         # valid mask on node
-        node_valid_mask = (node_valid_mask - 1) * 10000.0
+        #node_valid_mask = (node_valid_mask - 1) * 10000.0
 
         # apply mask
-        node_outputs = node_outputs + node_valid_mask
+        #node_outputs = node_outputs + node_valid_mask
 
         # do masked softmax over nodes on the graph
         node_outputs = node_outputs.reshape(-1, 20)
