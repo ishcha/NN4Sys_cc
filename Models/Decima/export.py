@@ -13,7 +13,7 @@ from spark_env.node import Node
 ONNX_DIR = f'../../Benchmarks/onnx'
 MODEL_LIST = ['mid']
 
-MODEL_TYPES = ['simple']
+MODEL_TYPES = ['simple','marabou']
 file_path = "./best_models/model_exec50_ep_" + str(6200)
 VNN_path = f'../../Benchmarks/src/decima/decima_resources'
 SPEC_TYPES = [1, 2]
