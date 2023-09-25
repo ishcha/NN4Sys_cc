@@ -308,14 +308,23 @@ class model_benchmark(nn.Module):
 
         # assemble neighboring information
         x = x + y
+        tmp = x[:,:,1]
+        return tmp
 
 
 
         gcn_output = x
+        print("gcn_output")
+        print(gcn_output.size())
+        print("node_inputs")
+        print(node_inputs.size())
 
         # gsn
         x = torch.concat([node_inputs, gcn_output], dim=2)
+
+        print("x")
         print(x.size())
+
         tmp = x[:,:,1]
         return tmp
 

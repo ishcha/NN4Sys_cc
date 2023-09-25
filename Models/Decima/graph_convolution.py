@@ -23,13 +23,14 @@ class GraphLayer(Module):
             self.bias.data.uniform_(-stdv, stdv)
 
     def forward(self, input):
-
         output = torch.matmul(input, self.weight)
         if self.bias is not None:
             return output
             return output + self.bias
         else:
             return output
+
+
 class GraphLayer_marabou(Module):
     def __init__(self, in_dim, out_dim, bias=True):
         super(GraphLayer, self).__init__()
