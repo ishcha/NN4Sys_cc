@@ -315,6 +315,9 @@ class model_benchmark(nn.Module):
 
         # gsn
         x = torch.concat([node_inputs, gcn_output], dim=2)
+        print(x.size())
+        tmp = x[:,:,1]
+        return tmp
 
 
         # DAG level summary
