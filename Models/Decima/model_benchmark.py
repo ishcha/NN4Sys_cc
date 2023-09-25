@@ -105,6 +105,9 @@ class model_benchmark(nn.Module):
         # assemble neighboring information
         x = x + y
 
+        tmp = x[:, :, 1]
+        return tmp
+
 
         # -------------------------2------------------------
         # work flow: index_select -> f -> masked assemble via adj_mat -> g
@@ -308,8 +311,7 @@ class model_benchmark(nn.Module):
 
         # assemble neighboring information
         x = x + y
-        tmp = x[:,:,1]
-        return tmp
+
 
 
 
