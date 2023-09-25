@@ -30,6 +30,7 @@ def main():
         os.makedirs(ONNX_DIR)
     for model_ptr in range(len(MODEL_TYPES)):
         for MODEL in MODEL_LIST:
+            NN_MODEL = f'./gym/results/pcc_model_{MODEL}_10_best.pt'
             MODEL_TYPE = MODEL_TYPES[model_ptr]
             save_path = ONNX_DIR + '/aurora_' + MODEL + '_' + MODEL_TYPE + ".onnx"
             print(save_path)
@@ -42,7 +43,7 @@ def main():
                     actor = model.CustomNetwork_small()
 
                 # load model
-                NN_MODEL = f'./gym/results/pcc_model_{MODEL}_10_best.pt'
+
                 actor = load_model(actor,NN_MODEL)
 
                 # run one time to test
@@ -67,12 +68,9 @@ def main():
                     actor = model.CustomNetwork_small_parallel()
 
                 # load model
-                actor = load_model(actor)
+                print(NN_MODEL)
+                actor = load_model(actor, NN_MODEL)
 
-                # export
-                para = torch.load(NN_MODEL, map_location=torch.device('cpu'))
-                actor.load_state_dict(para, strict=False)
-                actor = actor.eval()
 
                 # run one time to test
                 myinput = torch.zeros(1,60)
@@ -95,12 +93,8 @@ def main():
                     actor = model.CustomNetwork_small_concatnate()
 
                 # load model
-                actor = load_model(actor)
+                actor = load_model(actor, NN_MODEL)
 
-                # export
-                para = torch.load(NN_MODEL, map_location=torch.device('cpu'))
-                actor.load_state_dict(para, strict=False)
-                actor = actor.eval()
 
                 # run one time to test
 
