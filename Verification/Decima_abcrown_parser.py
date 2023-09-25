@@ -10,11 +10,11 @@ def main():
     sat_dic={}
     unsat_dic={}
 
-    for file in files:
-        file='./decima_running_result/'+file
+    for f in files:
+        file='./decima_running_result/'+f
         if file[-3:] != 'txt':
             continue
-        index = file[:-4].split('_')
+        index = f[:-4].split('_')
         timeout=-1
         with open(file,'r') as f:
             result=''
