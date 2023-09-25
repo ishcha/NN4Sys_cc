@@ -56,13 +56,13 @@ class model_benchmark(nn.Module):
 
     def forward(self, input):
         input = input.view([-1,4300])
-        node_inputs = input[:, :100].view([-1, Max_Node, 5])
-        node_valid_mask = input[:, 100:120].view([-1, 1, Max_Node])
-        gcn_mats = input[:, 120:3320].view([-1, 8, Max_Node, Max_Node])
-        gcn_masks = input[:, 3320:3480].view([-1, 8, Max_Node, 1])
-        summ_mats = input[:, 3480:3880].view([-1, Max_Node, Max_Node])
-        running_dags_mat = input[:, 3880:3900].view([-1, 1, Max_Node])
-        dag_summ_backward_map = input[:, 3900:4300].view([-1, Max_Node, Max_Node])
+        node_inputs = input[:, :100].view([-1, 20, 5])
+        node_valid_mask = input[:, 100:120].view([-1, 1, 20])
+        gcn_mats = input[:, 120:3320].view([-1, 8, 20, 20])
+        gcn_masks = input[:, 3320:3480].view([-1, 8, 20, 1])
+        summ_mats = input[:, 3480:3880].view([-1, 20, 20])
+        running_dags_mat = input[:, 3880:3900].view([-1, 1, 20])
+        dag_summ_backward_map = input[:, 3900:4300].view([-1, 20, 20])
 
         # gcn
         x = node_inputs
