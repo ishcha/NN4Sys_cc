@@ -47,9 +47,9 @@ def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
 def main(abcrown_path):
     for i in range(len(SPEC_TYPES)):
         for size in range(SIZE):
-            vnn_path = vnn_dir_path + 'aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
+            vnn_path = vnn_dir_path + '/aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
             onnx_path = onnx_dir_path + '/aurora_mid_' + MODEL_TYPES[i] + '.onnx'
-            yaml = vnn_dir_path + 'aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
+            yaml = vnn_dir_path + '/aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
             create_yaml(yaml, vnn_path, onnx_path)
             os.system(f"python {abcrown_path} --config {yaml} | tee running_result/aurora_mid_{SPEC_TYPES[i]}_{size}.txt")
 
