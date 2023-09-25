@@ -308,9 +308,6 @@ class model_benchmark(nn.Module):
 
         # assemble neighboring information
         x = x + y
-        tmp = x[:,:,0]
-        print(tmp.size())
-        return tmp
 
 
 
@@ -329,6 +326,16 @@ class model_benchmark(nn.Module):
         s = self.act_fn(s)
 
         s = torch.matmul(summ_mats, s)
+
+
+        print(s.size())
+        tmp = s[:,:,0]
+        print(tmp.size())
+        return tmp
+
+
+
+
 
         gsn_dag_summary = s
 
