@@ -45,7 +45,7 @@ def main(abcrown_path):
                 yaml = yaml_path + '/pensieve_' + MODEL_TYPE+'-'+MODEL_SIZE+str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
                 create_yaml(yaml, vnn_path, onnx_path)
                 os.system(
-                    f"python {abcrown_path} --config {yaml} | tee {running_result_path}/decima_mid_{SPEC_TYPES[i]}_{size}.txt")
+                    f"python {abcrown_path} --config {yaml} | tee {running_result_path}/pensieve_mid_{SPEC_TYPES[i]}_{size}.txt")
 
 
 if __name__ == "__main__":
