@@ -29,6 +29,7 @@ def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
     with open(yaml, mode='w') as f:
         f.write("general:\n  enable_incomplete_verification: False\n  conv_mode: matrix\n")
         f.write(f'model:\n  onnx_path: {onnx_path}\n')
+        f.write('  onnx_quirks: \"{\'Reshape\': {\'fix_batch_size\': True}}\"\n')
         f.write(f'specification:\n  vnnlib_path: {vnn_path}\n')
         f.write(
             "solver:\n  batch_size: 1\nbab:\n  branching:\n    method: sb\n    sb_coeff_thresh: 0.1\n    input_split:\n      enable: True")
