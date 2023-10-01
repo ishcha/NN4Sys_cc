@@ -14,21 +14,20 @@ DIR = f'../../Benchmarks/src/pensieve/pensieve_resources'
 
 def gene_spec():
     for spec_type in SPEC_TYPES:
-        if spec_type == SPEC_TYPES[0]:
+        if spec_type == SPEC_TYPES[0] or spec_type == SPEC_TYPES[1]:
             myarr = np.empty((SIZE, 48))
-        if spec_type == SPEC_TYPES[1]:
+        if spec_type == SPEC_TYPES[2]:
             myarr = np.empty((SIZE, 96))
         for i in range(SIZE):
             if spec_type == SPEC_TYPES[0]:
-                if i < 15000:
                     # specification 1
-                    X = get_inputs_array(0, random_seed=i).flatten()
-                else:
+                X = get_inputs_array(1, random_seed=i).flatten()
+            elif spec_type == SPEC_TYPES[1]:
                     # specification 2
-                    X = get_inputs_array(1, random_seed=i).flatten()
+                X = get_inputs_array(2, random_seed=i).flatten()
             else:
                 # specification 3
-                X = get_inputs_array(2, random_seed=i).flatten()
+                X = get_inputs_array(3, random_seed=i).flatten()
             myarr[i] = X
         np.save(DIR + f'/pensieve_fixedInput_{spec_type}.npy', myarr)
 

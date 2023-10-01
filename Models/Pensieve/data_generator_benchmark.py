@@ -14,7 +14,7 @@ VIDEO_BIT_RATE = [300, 750, 1200, 1850, 2850, 4300]  # Kbps
 BUFFER_NORM_FACTOR = 10.0
 M_IN_K = 1000.0
 CHUNK_TIL_VIDEO_END_CAP = 48.0
-RANDOM_SEED = 1
+RANDOM_SEED = 2024
 
 SMOOTH_PENALTY = 1
 BITRATE_LEVELS = 6
@@ -90,15 +90,15 @@ def get_inputs(all_cooked_time, all_cooked_bw, video_size, max_chunk_size=240000
 
 def get_inputs_array(spec_type, random_seed=RANDOM_SEED):
     random.seed(random_seed)
-    if spec_type == 0:
+    if spec_type == 1:
         all_cooked_time, all_cooked_bw = create_bw(random_seed=random_seed)
         video_size = create_video_size(random_seed=random_seed)
         return get_inputs(all_cooked_time, all_cooked_bw, video_size, condition="good")
-    if spec_type == 1:
+    if spec_type == 2:
         all_cooked_time, all_cooked_bw = create_bw(condition="bad", random_seed=random_seed)
         video_size = create_video_size(random_seed=random_seed)
         return get_inputs(all_cooked_time, all_cooked_bw, video_size, condition="bad")
-    if spec_type == 2:
+    if spec_type == 3:
         all_cooked_time, all_cooked_bw = create_bw(condition="good", random_seed=random_seed)
         video_size = create_video_size(random_seed=random_seed)
         good_condition_input = get_inputs(all_cooked_time, all_cooked_bw, video_size, condition="good")

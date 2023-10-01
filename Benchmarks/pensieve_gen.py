@@ -86,7 +86,6 @@ def add_range(X, spec_type, p_range):
             else:
                 ret[i * 2] = X[i]
                 ret[i * 2 + 1] = X[i]
-    print(ret)
     return ret
 
 
