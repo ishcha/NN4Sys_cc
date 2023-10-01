@@ -18,10 +18,10 @@ def write_vnnlib(X, spec_type, spec_path, Y_shape=6):
         f.write("\n")
         for i in range(int(X.shape[0] / 2)):
             f.write(f"(declare-const X_{i} Real)\n")
-        if spec_type == SPEC_TYPES[0]:
+        if spec_type == SPEC_TYPES[0] or spec_type==SPEC_TYPES[1]:
             for i in range(6):
                 f.write(f"(declare-const Y_{i} Real)\n")
-        if spec_type == SPEC_TYPES[1]:
+        if spec_type == SPEC_TYPES[2]:
             f.write(f"(declare-const Y_0 Real)\n")
         f.write("\n; Input constraints:\n")
 
@@ -86,7 +86,7 @@ def add_range(X, spec_type, p_range):
             else:
                 ret[i * 2] = X[i]
                 ret[i * 2 + 1] = X[i]
-
+    print(ret)
     return ret
 
 

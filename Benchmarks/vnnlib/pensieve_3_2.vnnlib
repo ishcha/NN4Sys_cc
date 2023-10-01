@@ -95,6 +95,7 @@
 (declare-const X_93 Real)
 (declare-const X_94 Real)
 (declare-const X_95 Real)
+(declare-const Y_0 Real)
 
 ; Input constraints:
 (assert (>= X_0 1.0))
