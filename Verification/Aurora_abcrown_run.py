@@ -47,7 +47,7 @@ def main(abcrown_path):
                 onnx_path = onnx_dir_path + '/aurora_'+MODEL+'_' + MODEL_TYPES[i] + '.onnx'
                 yaml = vnn_dir_path + '/aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
                 create_yaml(yaml, vnn_path, onnx_path)
-                os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/aurora_mid_{SPEC_TYPES[i]}_{size}.txt")
+                os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/aurora_{MODEL}_{SPEC_TYPES[i]}_{size}.txt")
 
 
 if __name__ == "__main__":
