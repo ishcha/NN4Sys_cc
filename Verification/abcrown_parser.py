@@ -4,7 +4,8 @@ import numpy as np
 import sys
 
 def main(model):
-    files = os.listdir(f'./{model}_abcrown_running_result')
+    dir = f'./{model}_abcrown_running_result'
+    files = os.listdir(dir)
 
     unsat = 0
     sat = 0
@@ -13,7 +14,7 @@ def main(model):
     print("sat files:----------------------------------------------------------")
 
     for f in files:
-        file=f'./{model}_running_result/'+f
+        file=f'{dir}/'+f
         if file[-3:] != 'txt':
             continue
         index = '_'.join(f[:-4].split('_')[:-1])
