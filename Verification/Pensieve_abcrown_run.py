@@ -40,7 +40,7 @@ def main(abcrown_path):
         for MODEL in MODEL_SIZES:
             MODEL_TYPE = MODEL_TYPES[i]
             for size in range(SIZE):
-                vnn_path = vnn_dir_path + '/aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
+                vnn_path = vnn_dir_path + '/pensieve_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
                 onnx_path = onnx_dir_path + '/pensieve_' + MODEL+'_'+MODEL_TYPE + '.onnx'
                 yaml = yaml_path + '/pensieve_' + MODEL_TYPE+'-'+MODEL+str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
                 create_yaml(yaml, vnn_path, onnx_path)
