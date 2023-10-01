@@ -8,7 +8,7 @@ SPEC_TYPES = [101, 102, 2, 3, 4]
 SPEC_ARRAY_LENGTH = [30, 30, 30, 60, 150]
 SPEC_ARRAY_NUM = 10000
 HISTORY = 10
-RANDOMSEED = 1
+RANDOMSEED = 2024
 DIR = f'../../Benchmarks/src/aurora/aurora_resources'
 
 '''

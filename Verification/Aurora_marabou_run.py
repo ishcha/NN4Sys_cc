@@ -18,13 +18,9 @@ HISTORY = 10
 
 
 
-def main():
-    if not os.path.exists('running_result'):
-        os.makedirs('running_result')
-    if len(sys.argv) != 2:
-        print("Usage: run.py runMarabou.py path")
-        exit(1)
-    marabou_path = sys.argv[1]
+def main(marabou_path):
+    if not os.path.exists(running_result_path):
+        os.makedirs(running_result_path)
     for spec_type in [4]:
         for num in range(SIZE):
             os.system(
@@ -32,4 +28,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) != 2:
+        print("Usage: Decima_marabou_run.py marabou_path")
+        exit(1)
+    marabou_path = sys.argv[1]
+    main(marabou_path)

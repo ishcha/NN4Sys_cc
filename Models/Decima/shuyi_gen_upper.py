@@ -28,7 +28,7 @@ MODEL_TYPE = MODEL_TYPES[0]
 file_path = "./best_models/model_exec50_ep_" + str(6200)
 SPEC_TYPES = [1, 2]
 SIZES = [10, 10]
-RANDOMSEED = 1
+RANDOMSEED = 2024
 DIR = f'../../Benchmarks/src/decima/decima_resources'
 
 

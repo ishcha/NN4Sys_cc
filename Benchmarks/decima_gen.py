@@ -150,7 +150,8 @@ def main(random_seed):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: generate_properties.py <random seed>")
-        exit(1)
-    random_seed = int(sys.argv[1])
+        print("Usage: decima_gen.py <random seed>")
+        random_seed = 2024
+    else:
+        random_seed = int(sys.argv[1])
     main(random_seed)

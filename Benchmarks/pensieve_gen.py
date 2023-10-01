@@ -8,8 +8,8 @@ P_RANGE = [0.05, 0.5, 0.7]
 P_RANGE = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
 MODELS = ['empty', 'small', 'mid', 'big']
 DIFFICULTY = ['easy']
-SIZES = [5,5,5]
-SPEC_TYPES = [1,2,3]
+SIZES = [5, 5, 5]
+SPEC_TYPES = [1, 2, 3]
 
 
 # responsible for writing the file
@@ -18,7 +18,7 @@ def write_vnnlib(X, spec_type, spec_path, Y_shape=6):
         f.write("\n")
         for i in range(int(X.shape[0] / 2)):
             f.write(f"(declare-const X_{i} Real)\n")
-        if spec_type == SPEC_TYPES[0] or spec_type==SPEC_TYPES[1]:
+        if spec_type == SPEC_TYPES[0] or spec_type == SPEC_TYPES[1]:
             for i in range(6):
                 f.write(f"(declare-const Y_{i} Real)\n")
         if spec_type == SPEC_TYPES[2]:
@@ -32,7 +32,7 @@ def write_vnnlib(X, spec_type, spec_path, Y_shape=6):
                 f.write(f"(assert (<= X_{int((i - 1) / 2)} {X[i]}))\n")
 
         f.write("\n; Output constraints:\n")
-        if spec_type == SPEC_TYPES[0] or spec_type==SPEC_TYPES[1]:
+        if spec_type == SPEC_TYPES[0] or spec_type == SPEC_TYPES[1]:
             if spec_type == SPEC_TYPES[0]:
                 cannot_be_largest = 0
             if spec_type == SPEC_TYPES[1]:
@@ -43,6 +43,7 @@ def write_vnnlib(X, spec_type, spec_path, Y_shape=6):
 
         if spec_type == SPEC_TYPES[2]:
             f.write(f"(assert (<= Y_0 0))\n\n")
+
 
 def write_txt(X, spec_type, spec_path, Y_shape=6):
     with open(spec_path, "w") as f:
@@ -63,6 +64,7 @@ def write_txt(X, spec_type, spec_path, Y_shape=6):
 
         if spec_type == SPEC_TYPES[2]:
             f.write(f"y0 <= 0\n\n")
+
 
 def add_range(X, spec_type, p_range):
     ret = np.empty(X.shape[0] * 2)
@@ -124,8 +126,8 @@ def gene_spec():
         for spec_type_ptr in range(len(SPEC_TYPES)):
             total_num = 0
             spec = SPEC_TYPES[spec_type_ptr]
-            indexes = list(np.load(pensieve_src_path+f'/pensieve_index_{spec}.npy'))
-            #dic = np.load(pensieve_src_path+f'/pen_{difficulty}.npy')
+            indexes = list(np.load(pensieve_src_path + f'/pensieve_index_{spec}.npy'))
+            # dic = np.load(pensieve_src_path+f'/pen_{difficulty}.npy')
 
             chosen_index = random.sample(indexes, SIZES[size_ptr])
 
@@ -135,18 +137,18 @@ def gene_spec():
                     continue
                 index, p_range, model = parser(i)
                 vnn_path = f'{vnn_dir_path}/pensieve_{spec}_{total_num}.vnnlib'
-                #onnx_path = onnx_dir_path + '/pensieve_' + model + '_' + spec + '.onnx'
-                input_array = np.load(pensieve_src_path+f'/pensieve_fixedInput_{spec}.npy')[index]
+                # onnx_path = onnx_dir_path + '/pensieve_' + model + '_' + spec + '.onnx'
+                input_array = np.load(pensieve_src_path + f'/pensieve_fixedInput_{spec}.npy')[index]
                 input_array_perturbed = add_range(input_array, spec, p_range)
 
                 write_vnnlib(input_array_perturbed, spec, vnn_path)
                 txt_path = f'{marabou_txt_dir_path}/pensieve_{spec}_{total_num}.txt'
                 write_txt(input_array_perturbed, spec, txt_path)
                 total_num += 1
-                #ground_truth, timeout = get_time(dic, i)
-                #if timeout == -1:
+                # ground_truth, timeout = get_time(dic, i)
+                # if timeout == -1:
                 #    continue
-                #csv_data.append([onnx_path, vnn_path, int(timeout)])
+                # csv_data.append([onnx_path, vnn_path, int(timeout)])
     return csv_data
 
 
@@ -158,7 +160,7 @@ def main(random_seed):
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: generate_properties.py <random seed>, default is 2024")
-        random_seed=2024
+        random_seed = 2024
     else:
         random_seed = int(sys.argv[1])
     main(random_seed)
