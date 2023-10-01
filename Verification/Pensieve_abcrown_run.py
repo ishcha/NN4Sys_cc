@@ -37,12 +37,12 @@ def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
 
 def main(abcrown_path):
     for i in range(len(SPEC_TYPES)):
-        for MODEL_SIZE in MODEL_SIZES:
+        for MODEL in MODEL_SIZES:
             MODEL_TYPE = MODEL_TYPES[i]
             for size in range(SIZE):
-                vnn_path = vnn_dir_path + '/pensieve_' + str(MODEL_TYPE) + '_' + str(size) + '.vnnlib'
-                onnx_path = onnx_dir_path + '/pensieve_' + MODEL_SIZE+'_'+MODEL_TYPE + '.onnx'
-                yaml = yaml_path + '/pensieve_' + MODEL_TYPE+'-'+MODEL_SIZE+str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
+                vnn_path = vnn_dir_path + '/aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
+                onnx_path = onnx_dir_path + '/pensieve_' + MODEL+'_'+MODEL_TYPE + '.onnx'
+                yaml = yaml_path + '/pensieve_' + MODEL_TYPE+'-'+MODEL+str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
                 create_yaml(yaml, vnn_path, onnx_path)
                 os.system(
                     f"python {abcrown_path} --config {yaml} | tee {running_result_path}/pensieve_mid_{SPEC_TYPES[i]}_{size}.txt")
