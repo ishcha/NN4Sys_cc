@@ -154,16 +154,17 @@ def get_time(all_dic, index):
 
 
 def gene_spec():
-    if not os.path.exists('vnnlib'):
-        os.makedirs('vnnlib')
-    if not os.path.exists('marabou_txt'):
-        os.makedirs('marabou_txt')
+
     aurora_src_path = './src/aurora/aurora_resources'
     vnn_dir_path = 'vnnlib'
     onnx_dir_path = 'onnx'
     marabou_txt_dir_path = 'marabou_txt'
-    csv_data = []
-    total_num = 0
+
+    if not os.path.exists(marabou_txt_dir_path):
+        os.makedirs(marabou_txt_dir_path)
+    if not os.path.exists(vnn_dir_path):
+        os.makedirs(vnn_dir_path)
+
 
     size_ptr = 0
     for difficulty in DIFFICULTY:

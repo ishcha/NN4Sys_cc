@@ -6,6 +6,7 @@ P_RANGE = [1, 2, 3, 4, 5]
 MODELS = ['empty', 'small', 'mid', 'big']
 MODEL_TYPES=['simple', 'simple', 'simple', 'parallel', 'concat']
 DIFFICULTY = ['easy']
+running_result_path = './aurora_marabou_running_result'
 SIZES = [10, 10, 10, 10, 10]
 SIZE=50
 

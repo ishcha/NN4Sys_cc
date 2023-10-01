@@ -576,7 +576,7 @@ def gene_spec():
                         enough = len(X) > SIZES[i]
                         print(len(X))
                         if enough:
-                            path = DIR + f'/decima_fixiedInput_{SPEC_TYPES[i]}.npy'
+                            path = DIR + f'/decima_fixedInput_{SPEC_TYPES[i]}.npy'
                             print(f"save to {path}")
                             np.save(path, X)
 

@@ -14,17 +14,12 @@ SPEC_ARRAY_LENGTH = [30, 30, 30, 60, 150]
 SPEC_ARRAY_NUM = 3000
 HISTORY = 10
 
-filePath = './'
-if not os.path.exists('running_result'):
-    os.makedirs('running_result')
-if not os.path.exists('vnnlib'):
-    os.makedirs('vnnlib')
 
 # create yaml
 vnn_dir_path = '../Benchmarks/vnnlib'
 onnx_dir_path = '../Benchmarks/onnx'
 yaml_path = './aurora_yaml'
-running_result_path = './aurora_running_result'
+running_result_path = './aurora_abcrown_running_result'
 timeout = 100
 csv_data = []
 total_num = 0
