@@ -26,7 +26,7 @@ cur_dir = os.getcwd()
 def main(marabou_path):
     if not os.path.exists(running_result_path):
         os.makedirs(running_result_path)
-    for spec_type in [4]:
+    for spec_type in range(len(SPEC_TYPES)):
         for num in range(SIZE):
             os.system(
                 f'python {marabou_path} {onnx_dir_path}/aurora_mid_{MODEL_TYPES[spec_type]}.onnx {txt_dir_path}/aurora_{SPEC_TYPES[spec_type]}_{num}.txt | tee {running_result_path}/mid_{MODEL_TYPES[spec_type]}_{SPEC_TYPES[spec_type]}_{num}.txt')
