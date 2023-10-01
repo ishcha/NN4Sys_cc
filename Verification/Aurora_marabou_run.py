@@ -15,6 +15,9 @@ SPEC_ARRAY_LENGTH = [30, 30, 30, 60, 150]
 SPEC_ARRAY_NUM = 3000
 HISTORY = 10
 
+txt_dir_path = '../Benchmarks/marabou_txt'
+onnx_dir_path = '../Benchmarks/onnx'
+
 
 
 
@@ -24,7 +27,7 @@ def main(marabou_path):
     for spec_type in [4]:
         for num in range(SIZE):
             os.system(
-                f'python {marabou_path} ../onnxs/aurora_mid_{MODEL_TYPES[spec_type]}.onnx aurora_{SPEC_TYPES[spec_type]}_{num}.txt | tee {running_result_path}/mid_{MODEL_TYPES[spec_type]}_{SPEC_TYPES[spec_type]}_{num}.txt')
+                f'python {marabou_path} {onnx_dir_path}/aurora_mid_{MODEL_TYPES[spec_type]}.onnx {txt_dir_path}/aurora_{SPEC_TYPES[spec_type]}_{num}.txt | tee {running_result_path}/mid_{MODEL_TYPES[spec_type]}_{SPEC_TYPES[spec_type]}_{num}.txt')
 
 
 if __name__ == "__main__":
