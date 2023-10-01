@@ -30,6 +30,7 @@ def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
         f.write("general:\n  enable_incomplete_verification: False\n  conv_mode: matrix\n")
         f.write(f'model:\n  onnx_path: {onnx_path}\n')
         f.write('  onnx_quirks: \"{\'Reshape\': {\'fix_batch_size\': True}}\"\n')
+        f.write(f'  input_shape: [-1, {inputshape}, 8]\n')
         f.write(f'specification:\n  vnnlib_path: {vnn_path}\n')
         f.write(
             "solver:\n  batch_size: 1\nbab:\n  branching:\n    method: sb\n    sb_coeff_thresh: 0.1\n    input_split:\n      enable: True")
@@ -43,7 +44,9 @@ def main(abcrown_path):
                 vnn_path = vnn_dir_path + '/pensieve_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
                 onnx_path = onnx_dir_path + '/pensieve_' + MODEL+'_'+MODEL_TYPE + '.onnx'
                 yaml = yaml_path + '/pensieve_' + MODEL_TYPE+'-'+MODEL+str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
-                create_yaml(yaml, vnn_path, onnx_path)
+
+                if MODEL_TYPE=='parallel':
+                    create_yaml(yaml, vnn_path, onnx_path, 12)
                 os.system(
                     f"python {abcrown_path} --config {yaml} | tee {running_result_path}/pensieve_mid_{SPEC_TYPES[i]}_{size}.txt")
 
