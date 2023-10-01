@@ -66,7 +66,8 @@ def write_txt(X, spec_type, spec_path, Y_shape=6):
 
 def add_range(X, spec_type, p_range):
     ret = np.empty(X.shape[0] * 2)
-    if spec_type == SPEC_TYPES[0]:
+    if spec_type == SPEC_TYPES[0] or spec_type == SPEC_TYPES[1]:
+
         for i in range(X.shape[0]):
             if 15 < i < 32:
                 ret[i * 2] = X[i]
@@ -74,7 +75,7 @@ def add_range(X, spec_type, p_range):
             else:
                 ret[i * 2] = X[i]
                 ret[i * 2 + 1] = X[i]
-    if spec_type == SPEC_TYPES[1]:
+    if spec_type == SPEC_TYPES[2]:
         for i in range(X.shape[0]):
             if 15 < i < 32:
                 ret[i * 2] = X[i]
@@ -85,6 +86,7 @@ def add_range(X, spec_type, p_range):
             else:
                 ret[i * 2] = X[i]
                 ret[i * 2 + 1] = X[i]
+
     return ret
 
 

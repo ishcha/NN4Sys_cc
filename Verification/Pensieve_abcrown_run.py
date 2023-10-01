@@ -7,7 +7,7 @@ MODEL_TYPES = ['simple', 'simple', 'parallel']
 MODEL_SIZES = ['small', 'mid', 'big']
 SIZES = [5, 5, 5]
 SPEC_TYPES = [1, 2, 3]
-SIZE = 5
+
 
 # create yaml
 vnn_dir_path = '../Benchmarks/vnnlib'
@@ -39,7 +39,7 @@ def main(abcrown_path):
     for i in range(len(SPEC_TYPES)):
         for MODEL in MODEL_SIZES:
             MODEL_TYPE = MODEL_TYPES[i]
-            for size in range(SIZE):
+            for size in range(SIZES[i]):
                 vnn_path = vnn_dir_path + '/pensieve_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
                 onnx_path = onnx_dir_path + '/pensieve_' + MODEL+'_'+MODEL_TYPE + '.onnx'
                 yaml = yaml_path + '/pensieve_' + MODEL_TYPE+'-'+MODEL+str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'

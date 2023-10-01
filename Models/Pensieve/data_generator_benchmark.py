@@ -28,7 +28,7 @@ def create_bw(condition="good", length=1000, random_seed=RANDOM_SEED):
 
     for i in range(length):
         if condition == "good":
-            cur_bw = 10 + 0.1*random.random()
+            cur_bw = 10 + 0.1 * random.random()
         if condition == "bad":
             cur_bw = 1 * random.random()
         time.append(cur_time)
@@ -47,6 +47,7 @@ def create_video_size(largest_size=2400000, length=100, random_seed=RANDOM_SEED)
         for i in range(length):
             video_size[bitrate].append(largest_size / math.pow(2, 5 - bitrate) + 100000 * random.random())
     return video_size
+
 
 def get_inputs(all_cooked_time, all_cooked_bw, video_size, max_chunk_size=2400000,
                chunk_num=6, buffer=10, difficulty=0, condition="good", step="multiple"):
@@ -85,6 +86,7 @@ def get_inputs(all_cooked_time, all_cooked_bw, video_size, max_chunk_size=240000
         if step < 0:
             break
     return state
+
 
 def get_inputs_array(spec_type, random_seed=RANDOM_SEED):
     random.seed(random_seed)
