@@ -40,6 +40,8 @@ def main(abcrown_path):
     for i in range(len(SPEC_TYPES)):
         for range_ptr in range(len(P_RANGE)):
             for MODEL in MODEL_SIZES:
+                if MODEL!='simple' and range_ptr>0:
+                    continue
                 MODEL_TYPE = MODEL_TYPES[i]
                 for size in range(SIZES[i]):
                     vnn_path = f'{vnn_dir_path}/pensieve_{SPEC_TYPES[i]}_{size}_{range_ptr}.vnnlib'
