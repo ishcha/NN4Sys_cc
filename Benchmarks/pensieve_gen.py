@@ -4,8 +4,8 @@ import os
 import random
 import numpy as np
 
-P_RANGE = [0.05, 0.5, 0.7]
-P_RANGE = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
+
+P_RANGE = [0.1,0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
 MODELS = ['empty', 'small', 'mid', 'big']
 DIFFICULTY = ['easy']
 SIZES = [10, 10, 10]
@@ -121,28 +121,29 @@ def gene_spec():
 
     pensieve_src_path = './src/pensieve/pensieve_resources'
 
-    size_ptr = 0
-    for difficulty in DIFFICULTY:
+
+    for range_ptr in range(len(P_RANGE)):
+        p_range = P_RANGE[range_ptr]
         for spec_type_ptr in range(len(SPEC_TYPES)):
             total_num = 0
             spec = SPEC_TYPES[spec_type_ptr]
             indexes = list(np.load(pensieve_src_path + f'/pensieve_index_{spec}.npy'))
             # dic = np.load(pensieve_src_path+f'/pen_{difficulty}.npy')
 
-            chosen_index = random.sample(indexes, SIZES[size_ptr])
+            chosen_index = random.sample(indexes, SIZES[spec_type_ptr])
 
-            size_ptr += 1
+
             for i in chosen_index:
                 if i == 0:
                     continue
-                index, p_range, model = parser(i)
-                vnn_path = f'{vnn_dir_path}/pensieve_{spec}_{total_num}.vnnlib'
+                index, _, model = parser(i)
+                vnn_path = f'{vnn_dir_path}/pensieve_{spec}_{total_num}_{range_ptr}.vnnlib'
                 # onnx_path = onnx_dir_path + '/pensieve_' + model + '_' + spec + '.onnx'
                 input_array = np.load(pensieve_src_path + f'/pensieve_fixedInput_{spec}.npy')[index]
                 input_array_perturbed = add_range(input_array, spec, p_range)
 
                 write_vnnlib(input_array_perturbed, spec, vnn_path)
-                txt_path = f'{marabou_txt_dir_path}/pensieve_{spec}_{total_num}.txt'
+                txt_path = f'{marabou_txt_dir_path}/pensieve_{spec}_{total_num}_{range_ptr}.txt'
                 write_txt(input_array_perturbed, spec, txt_path)
                 total_num += 1
                 # ground_truth, timeout = get_time(dic, i)

@@ -5,6 +5,7 @@ os.environ['MKL_THREADING_LAYER'] = 'GNU'
 
 MODEL_TYPES = ['simple', 'simple', 'parallel']
 MODEL_SIZES = ['small', 'mid', 'big']
+P_RANGE = [0.1,0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
 SIZES = [5, 5, 5]
 SPEC_TYPES = [1, 2, 3]
 
@@ -37,17 +38,19 @@ def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
 
 def main(abcrown_path):
     for i in range(len(SPEC_TYPES)):
-        for MODEL in MODEL_SIZES:
-            MODEL_TYPE = MODEL_TYPES[i]
-            for size in range(SIZES[i]):
-                vnn_path = vnn_dir_path + '/pensieve_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
-                onnx_path = onnx_dir_path + '/pensieve_' + MODEL + '_' + MODEL_TYPE + '.onnx'
-                yaml = yaml_path + '/pensieve_' + MODEL_TYPE + '-' + MODEL + str(SPEC_TYPES[i]) + '_' + str(
-                    size) + '.yaml'
-                if MODEL_TYPE == 'parallel':
-                    create_yaml(yaml, vnn_path, onnx_path, 12)
-                os.system(
-                    f"python {abcrown_path} --config {yaml} | tee {running_result_path}/pensieve_{MODEL}_{SPEC_TYPES[i]}_{size}.txt")
+        for range_ptr in range(len(P_RANGE)):
+            p_range = P_RANGE[range_ptr]
+            for MODEL in MODEL_SIZES:
+                MODEL_TYPE = MODEL_TYPES[i]
+                for size in range(SIZES[i]):
+                    vnn_path = f'{vnn_dir_path}/pensieve_{SPEC_TYPES[i]}_{size}_{p_range}.vnnlib'
+                    onnx_path = onnx_dir_path + '/pensieve_' + MODEL + '_' + MODEL_TYPE + '.onnx'
+                    yaml = yaml_path + '/pensieve_' + MODEL_TYPE + '-' + MODEL + str(SPEC_TYPES[i]) + '_' + str(
+                        size) + '.yaml'
+                    if MODEL_TYPE == 'parallel':
+                        create_yaml(yaml, vnn_path, onnx_path, 12)
+                    os.system(
+                        f"python {abcrown_path} --config {yaml} | tee {running_result_path}/pensieve_{MODEL}_{SPEC_TYPES[i]}_{size}.txt")
 
 
 if __name__ == "__main__":
