@@ -17,9 +17,8 @@ if not os.path.exists(running_result_path):
 
 def main(marabou_path):
     for spec_type_ptr in range(len(SPEC_TYPES)):
-        for num in range(SIZES[spec_type_ptr]):
-            os.system(
-                f'python {marabou_path} {onnx_dir_path}/decima_mid_{MODEL_TYPES[spec_type_ptr]}.onnx {txt_dir_path}/decima_{SPEC_TYPES[spec_type_ptr]}_{num}.txt | tee {running_result_path}/mid_{MODEL_TYPES[spec_type_ptr]}_{SPEC_TYPES[spec_type_ptr]}_{num}.txt')
+        os.system(
+                f'python {marabou_path} {onnx_dir_path}/decima_mid_marabou_{MODEL_TYPES[spec_type_ptr]}.onnx {txt_dir_path}/decima_{SPEC_TYPES[spec_type_ptr]}_1.txt | tee {running_result_path}/mid_{MODEL_TYPES[spec_type_ptr]}_{SPEC_TYPES[spec_type_ptr]}_1.txt')
 
 
 if __name__ == "__main__":
