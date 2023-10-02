@@ -440,14 +440,17 @@ class ActorNetwork_big_marabou(nn.Module):
 
         print(split_2.shape)
 
-        split_2 = split_2.reshape(1,-1)
-        split_3 = split_3.reshape(1,-1)
-        split_4 = split_4.reshape(1,-1)
+        split_2 = split_2.reshape(-1)
+        split_3 = split_3.reshape(-1)
+        split_4 = split_4.reshape(-1)
+        split_0 = split_0.reshape(-1)
+        split_1 = split_1.reshape(-1)
+        split_5 = split_5.reshape(-1)
 
 
 
 
-        x = torch.cat((split_0, split_1, split_2, split_3, split_4, split_5), 1)
+        x = torch.cat((split_0, split_1, split_2, split_3, split_4, split_5), 0)
         x = self.linear3(x)
         x = self.relu(x)
         x = self.linear4(x)
