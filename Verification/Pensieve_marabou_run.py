@@ -5,6 +5,7 @@ import sys
 
 MODELS = ['small', 'mid', 'big']
 MODEL_TYPES=['simple', 'simple', 'parallel']
+VERIFIERS = ['marabou']
 
 running_result_path = './pensieve_marabou_running_result'
 SIZES = [10, 10, 10, 10, 10]
@@ -24,13 +25,18 @@ cur_dir = os.getcwd()
 def main(marabou_path):
     if not os.path.exists(running_result_path):
         os.makedirs(running_result_path)
-    for spec_type in range(len(SPEC_TYPES)):
+    for spec_type in [2]:
         for num in range(SIZES[spec_type]):
-            command = f'python {marabou_path} {onnx_dir_path}/pensieve_small_{MODEL_TYPES[spec_type]}.onnx {txt_dir_path}/pensieve_{SPEC_TYPES[spec_type]}_{num}.txt | tee {running_result_path}/small_{MODEL_TYPES[spec_type]}_{SPEC_TYPES[spec_type]}_{num}.txt'
-            print("------------------------------------->")
-            print(command)
-            print("<------------------------------------->")
-            os.system(command)
+            for verifier in VERIFIERS:
+                if verifier=='marabou':
+                    command = f'python {marabou_path} {onnx_dir_path}/pensieve_small_{MODEL_TYPES[spec_type]}_marabou.onnx {txt_dir_path}/pensieve_{SPEC_TYPES[spec_type]}_{num}.txt | tee {running_result_path}/small_{MODEL_TYPES[spec_type]}_{SPEC_TYPES[spec_type]}_{num}.txt'
+
+                else:
+                    command = f'python {marabou_path} {onnx_dir_path}/pensieve_small_{MODEL_TYPES[spec_type]}.onnx {txt_dir_path}/pensieve_{SPEC_TYPES[spec_type]}_{num}.txt | tee {running_result_path}/small_{MODEL_TYPES[spec_type]}_{SPEC_TYPES[spec_type]}_{num}.txt'
+                print("------------------------------------->")
+                print(command)
+                print("<------------------------------------->")
+                os.system(command)
 
 
 if __name__ == "__main__":
