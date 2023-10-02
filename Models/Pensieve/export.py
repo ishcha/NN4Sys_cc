@@ -124,12 +124,12 @@ def main():
                     actor = onnx.load(save_path)
                     onnx.checker.check_model(actor)
         if verifier=='marabou':
-            for MODEL_ptr in range(len(MODEL_LIST)):
+            for MODEL_ptr in [0]:
                 for MODEL_TYPE in MODEL_TYPES:
                     MODEL = MODEL_LIST[MODEL_ptr]
                     NN_MODEL = NN_MODELS[MODEL_ptr]
 
-                    save_path = ONNX_DIR + '/pensieve_' + MODEL + '_' + MODEL_TYPE + ".onnx"
+                    save_path = ONNX_DIR + '/pensieve_' + MODEL + '_' + MODEL_TYPE + "_marabou.onnx"
                     print(save_path)
                     if MODEL_TYPE == 'simple':
                         if MODEL == 'mid':
