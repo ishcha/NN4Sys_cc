@@ -461,7 +461,7 @@ class ActorNetwork_small_parallel_marabou(nn.Module):
         x = self.linear7(x1)
 
         x = self.relu(x)
-        sq = torch.pow(x, 3)
+        sq = torch.mul(x,x)
         deno = torch.sum(sq, 1, keepdim=True)
         distribution = sq / deno
         bit_rate1 = torch.matmul(distribution, self.video_sizes)
@@ -495,7 +495,7 @@ class ActorNetwork_small_parallel_marabou(nn.Module):
         x = self.linear7(x)
 
         x = self.relu(x)
-        sq = torch.pow(x, 3)
+        sq = torch.mul(x,x)
         deno = torch.sum(sq, 1, keepdim=True)
         distribution = sq / deno
         bit_rate2 = torch.matmul(distribution, self.video_sizes)
