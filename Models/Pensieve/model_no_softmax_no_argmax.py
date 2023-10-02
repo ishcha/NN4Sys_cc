@@ -184,23 +184,7 @@ class ActorNetwork_mid_parallel_marabou(nn.Module):
         x = self.relu(x)
         x = self.linear4(x)
 
-
-
-
         x = self.relu(x)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         sq = torch.square(x)
         deno = torch.sum(sq, 1, keepdim=True)
