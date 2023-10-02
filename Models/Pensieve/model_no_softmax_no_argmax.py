@@ -47,42 +47,34 @@ class ActorNetwork_mid_marabou(nn.Module):
 
     def forward(self, x):
         # x = torch.reshape(x, (1, self.s_dim[0], self.s_dim[1]))
-        x = x.view([-1, self.s_dim[0], self.s_dim[1]])
-        split_0, split_1, split_2, split_3, split_4_5, a = torch.split(x, [1, 1, 1, 1, 1, 1], dim=1)
-
-        a, b, c, d, e, f, g, split_0 = torch.split(split_0, [1, 1, 1, 1, 1, 1, 1, 1], dim=2)
+        x = x.view([self.s_dim[0], self.s_dim[1]])
+        split_0, split_1, split_2, split_3, split_4_5, a = torch.split(x, [1, 1, 1, 1, 1, 1], dim=0)
+        a, b, c, d, e, f, g, split_0 = torch.split(split_0, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
         split_0 = split_0.view(split_0.shape[0], -1)
 
         split_0 = self.linear0(split_0)
         split_0 = self.relu(split_0)
 
-        a, b, c, d, e, f, g, split_1 = torch.split(split_1, [1, 1, 1, 1, 1, 1, 1, 1], dim=2)
-        split_1 = split_1.view(split_1.shape[0], -1)
+        a, b, c, d, e, f, g, split_1 = torch.split(split_1, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
 
         split_1 = self.linear1(split_1)
         split_1 = self.relu(split_1)
 
         split_2 = self.conv1(split_2)
+
         split_2 = self.relu(split_2)
         split_3 = self.conv1(split_3)
         split_3 = self.relu(split_3)
 
-        split_4, a, split_5 = torch.split(split_4_5, [A_DIM, 1, 1], dim=2)
+        split_4, a, split_5 = torch.split(split_4_5, [A_DIM, 1, 1], dim=1)
         split_4 = self.conv1(split_4)
         split_4 = self.relu(split_4)
         split_5 = split_5.view(split_5.shape[0], -1)
         split_5 = self.linear2(split_5)
 
-        split_2 = split_2.view(split_2.shape[0], -1)
-        split_3 = split_3.view(split_3.shape[0], -1)
-        split_4 = split_4.view(split_4.shape[0], -1)
-
-        print(split_0.shape)
-        print(split_1.shape)
-        print(split_2.shape)
-        print(split_3.shape)
-        print(split_4.shape)
-        print(split_5.shape)
+        split_2 = split_2.view(1, -1)
+        split_3 = split_3.view(1, -1)
+        split_4 = split_4.view(1, -1)
 
         x = torch.cat((split_0, split_1, split_2, split_3, split_4, split_5), 1)
         x = self.linear3(x)
@@ -126,8 +118,7 @@ class ActorNetwork_mid(nn.Module):
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
-        print(split_4.shape)
-        print(A_DIM)
+
         split_4 = split_4.view(split_4.shape[0], -1)
 
         x = torch.cat((split_0, split_1, split_2, split_3, split_4, split_5), 1)
@@ -136,6 +127,7 @@ class ActorNetwork_mid(nn.Module):
         x = self.linear4(x)
 
         return x
+
 
 class ActorNetwork_mid_parallel_marabou(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
@@ -156,53 +148,92 @@ class ActorNetwork_mid_parallel_marabou(nn.Module):
 
     def forward(self, x):
         # x = torch.reshape(x, (1, self.s_dim[0], self.s_dim[1]))
-        x = x.view([-1, 2 * self.s_dim[0], self.s_dim[1]])
-        x1, x2 = torch.split(x, 6, dim=1)
+        x = x.view([2 * self.s_dim[0], self.s_dim[1]])
+        x1, x2 = torch.split(x, 6, dim=0)
 
-        split_0 = self.linear0(x1[:, 0:1, -1])
+        split_0, split_1, split_2, split_3, split_4_5, a = torch.split(x1, [1, 1, 1, 1, 1, 1], dim=0)
+        a, b, c, d, e, f, g, split_0 = torch.split(split_0, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
+        split_0 = split_0.view(split_0.shape[0], -1)
+
+        split_0 = self.linear0(split_0)
         split_0 = self.relu(split_0)
-        split_1 = self.linear1(x1[:, 1:2, -1])
+
+        a, b, c, d, e, f, g, split_1 = torch.split(split_1, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
+
+        split_1 = self.linear1(split_1)
         split_1 = self.relu(split_1)
 
-        split_2 = self.conv1(x1[:, 2:3, :])
-        split_2 = self.relu(split_2)
-        split_3 = self.conv1(x1[:, 3:4, :])
-        split_3 = self.relu(split_3)
-        split_4 = self.conv1(x1[:, 4:5, :A_DIM])
-        split_4 = self.relu(split_4)
-        split_5 = self.linear2(x1[:, 4:5, -1])
+        split_2 = self.conv1(split_2)
 
-        split_2 = split_2.flatten(1)
-        split_3 = split_3.flatten(1)
-        split_4 = split_4.flatten(1)
+        split_2 = self.relu(split_2)
+        split_3 = self.conv1(split_3)
+        split_3 = self.relu(split_3)
+
+        split_4, a, split_5 = torch.split(split_4_5, [A_DIM, 1, 1], dim=1)
+        split_4 = self.conv1(split_4)
+        split_4 = self.relu(split_4)
+        split_5 = split_5.view(split_5.shape[0], -1)
+        split_5 = self.linear2(split_5)
+
+        split_2 = split_2.view(1, -1)
+        split_3 = split_3.view(1, -1)
+        split_4 = split_4.view(1, -1)
 
         x = torch.cat((split_0, split_1, split_2, split_3, split_4, split_5), 1)
         x = self.linear3(x)
         x = self.relu(x)
         x = self.linear4(x)
 
+
+
+
         x = self.relu(x)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         sq = torch.square(x)
         deno = torch.sum(sq, 1, keepdim=True)
         distribution = sq / deno
         bit_rate1 = torch.matmul(distribution, self.video_sizes)
 
-        split_0 = self.linear0(x2[:, 0:1, -1])
+        split_0, split_1, split_2, split_3, split_4_5, a = torch.split(x2, [1, 1, 1, 1, 1, 1], dim=0)
+        a, b, c, d, e, f, g, split_0 = torch.split(split_0, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
+        split_0 = split_0.view(split_0.shape[0], -1)
+
+        split_0 = self.linear0(split_0)
         split_0 = self.relu(split_0)
-        split_1 = self.linear1(x2[:, 1:2, -1])
+
+        a, b, c, d, e, f, g, split_1 = torch.split(split_1, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
+
+        split_1 = self.linear1(split_1)
         split_1 = self.relu(split_1)
 
-        split_2 = self.conv1(x2[:, 2:3, :])
-        split_2 = self.relu(split_2)
-        split_3 = self.conv1(x2[:, 3:4, :])
-        split_3 = self.relu(split_3)
-        split_4 = self.conv1(x2[:, 4:5, :A_DIM])
-        split_4 = self.relu(split_4)
-        split_5 = self.linear2(x2[:, 4:5, -1])
+        split_2 = self.conv1(split_2)
 
-        split_2 = split_2.flatten(1)
-        split_3 = split_3.flatten(1)
-        split_4 = split_4.flatten(1)
+        split_2 = self.relu(split_2)
+        split_3 = self.conv1(split_3)
+        split_3 = self.relu(split_3)
+
+        split_4, a, split_5 = torch.split(split_4_5, [A_DIM, 1, 1], dim=1)
+        split_4 = self.conv1(split_4)
+        split_4 = self.relu(split_4)
+        split_5 = split_5.view(split_5.shape[0], -1)
+        split_5 = self.linear2(split_5)
+
+        split_2 = split_2.view(1, -1)
+        split_3 = split_3.view(1, -1)
+        split_4 = split_4.view(1, -1)
 
         x = torch.cat((split_0, split_1, split_2, split_3, split_4, split_5), 1)
         x = self.linear3(x)
@@ -214,6 +245,8 @@ class ActorNetwork_mid_parallel_marabou(nn.Module):
         distribution = sq / deno
         bit_rate2 = torch.matmul(distribution, self.video_sizes)
         return bit_rate1 - bit_rate2
+
+
 class ActorNetwork_mid_parallel(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
         super().__init__()
@@ -414,7 +447,7 @@ class ActorNetwork_small_parallel_marabou(nn.Module):
 
     def forward(self, x):
         # x = torch.reshape(x, (1, self.s_dim[0], self.s_dim[1]))
-        x = x.view([ self.s_dim[0] * 2, self.s_dim[1]])
+        x = x.view([self.s_dim[0] * 2, self.s_dim[1]])
         x1, x2 = torch.split(x, 6, dim=0)
 
         split_0, split_1, split_2, split_3, split_4_5, a = torch.split(x1, [1, 1, 1, 1, 1, 1], dim=0)
@@ -485,6 +518,7 @@ class ActorNetwork_small_parallel_marabou(nn.Module):
         distribution = sq / deno
         bit_rate2 = torch.matmul(distribution, self.video_sizes)
         return bit_rate1 - bit_rate2
+
 
 class ActorNetwork_small_parallel(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
@@ -566,6 +600,8 @@ class ActorNetwork_small_parallel(nn.Module):
         distribution = sq / deno
         bit_rate2 = torch.matmul(distribution, self.video_sizes)
         return bit_rate1 - bit_rate2
+
+
 class ActorNetwork_big(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
         super().__init__()
