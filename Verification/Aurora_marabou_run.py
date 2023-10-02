@@ -7,7 +7,7 @@ MODEL_TYPES = ['simple', 'simple', 'simple', 'parallel', 'concat']
 running_result_path = './aurora_marabou_running_result'
 SIZES = [10, 10, 10, 10, 10]
 
-SPEC_TYPES = [101, 102, 2, 3, 4]
+SPEC_TYPES = [101, 102, 2, 3]
 SPEC_ARRAY_LENGTH = [30, 30, 30, 60, 150]
 SPEC_ARRAY_NUM = 3000
 HISTORY = 10
