@@ -245,7 +245,7 @@ class ActorNetwork_small(nn.Module):
         split_4, split_5 = torch.split(split_4_5, [A_DIM-1, 1], dim=0)
         split_5 = self.linear5(split_5)
         print(split_5.shape)
-        ret,a = torch.split(split_5,[1,127], dim=1)
+        ret,a = torch.split(split_5,[6,122], dim=1)
         print(ret.shape)
 
         return ret
