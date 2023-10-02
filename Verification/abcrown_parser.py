@@ -45,12 +45,17 @@ def main(model):
                     sat_dic[index] = sat_dic[index]+1
                 else:
                     sat_dic[index] = 1
+            else:
+                print("no result")
+                print(file)
     print("----------------------------------------------------------sat files")
     print(f'sat: {sat}')
     print(f'unsat: {unsat}')
     print("sat")
+    sat_dic = dict(sorted(sat_dic.items()))
     print(sat_dic)
     print("unsat")
+    unsat_dic = dict(sorted(unsat_dic.items()))
     print(unsat_dic)
 
 
