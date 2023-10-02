@@ -164,39 +164,10 @@ def main():
                                           output_names=['output'])  # the model's output names
 
                     if MODEL_TYPE == 'parallel':
-                        if MODEL == 'mid':
-                            actor = model.ActorNetwork_mid_parallel_marabou(state_dim=[S_INFO, S_LEN], action_dim=A_DIM,
-                                                                    learning_rate=ACTOR_LR_RATE)
-                        if MODEL == 'big':
-                            actor = model.ActorNetwork_big_parallel_marabou(state_dim=[S_INFO, S_LEN], action_dim=A_DIM,
-                                                                    learning_rate=ACTOR_LR_RATE)
-                        if MODEL == 'small':
-                            actor = model.ActorNetwork_small_parallel_marabou(state_dim=[S_INFO, S_LEN], action_dim=A_DIM,
-                                                                      learning_rate=ACTOR_LR_RATE)
+                        continue
 
-                        # export
-                        para = torch.load(NN_MODEL, map_location=torch.device('cpu'))
-                        actor.load_state_dict(para)
 
-                        # run one time to test
-                        actor = actor.eval()
-                        myinput = torch.zeros(12, 8)  # Define your input here
 
-                        print(myinput)
-                        torch_out = actor(myinput)
-                        print("-----")
-                        print(torch_out)
-
-                        torch.onnx.export(actor,  # model being run
-                                          myinput,  # model input (or a tuple for multiple inputs)
-                                          save_path,  # where to save the model (can be a file or file-like object)
-                                          export_params=True,
-                                          # store the trained parameter weights inside the model file
-                                          opset_version=12,  # the ONNX version to export the model to
-                                          do_constant_folding=False,
-                                          # whether to execute constant folding for optimization
-                                          input_names=['input', 'bw', 'video_size'],  # the model's input names
-                                          output_names=['output'])  # the model's output names
 
 
 
