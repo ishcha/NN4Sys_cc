@@ -39,7 +39,7 @@ class ActorNetwork_mid(nn.Module):
         self.a_dim = action_dim
         self.lr_rate = learning_rate
 
-        self.conv1 = nn.Conv1d(1, 128, 4)
+        self.conv1 = nn.Conv1d(1, 128, 4, padding=0)
         self.relu = nn.ReLU()
         self.linear0 = nn.Linear(1, 128)
         self.linear1 = nn.Linear(1, 128)
