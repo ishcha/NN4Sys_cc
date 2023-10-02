@@ -250,17 +250,19 @@ class ActorNetwork_small(nn.Module):
         # x = torch.reshape(x, (1, self.s_dim[0], self.s_dim[1]))
 
 
-        x = x.view([-1, self.s_dim[0], self.s_dim[1]])
-        split_0, split_1, split_2, split_3, split_4_5,a = torch.split(x, [1, 1, 1, 1, 1,1], dim=1)
+        x = x.view([self.s_dim[0], self.s_dim[1]])
+        split_0, split_1, split_2, split_3, split_4_5,a = torch.split(x, [1, 1, 1, 1, 1,1], dim=0)
 
-        a, b, c, d, e, f, g, split_0 = torch.split(split_0, [1, 1, 1, 1, 1, 1, 1, 1], dim=2)
-        split_0 = split_0.view(split_0.shape[0], -1)
+        a, b, c, d, e, f, g, split_0 = torch.split(split_0, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
+        print(split_0.shape)
+        split_0 = split_0.view(-1)
+        print(split_0.shape)
 
         split_0 = self.linear0(split_0)
         split_0 = self.relu(split_0)
 
-        a, b, c, d, e, f, g, split_1 = torch.split(split_1, [1, 1, 1, 1, 1, 1, 1, 1], dim=2)
-        split_1 = split_1.view(split_1.shape[0], -1)
+        a, b, c, d, e, f, g, split_1 = torch.split(split_1, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
+        split_1 = split_1.view(-1)
 
         split_1 = self.linear1(split_1)
         split_1 = self.relu(split_1)
@@ -270,10 +272,10 @@ class ActorNetwork_small(nn.Module):
         split_3 = self.linear3(split_3)
         split_3 = self.relu(split_3)
 
-        split_4, a, split_5 = torch.split(split_4_5, [A_DIM,1, 1], dim=2)
+        split_4, a, split_5 = torch.split(split_4_5, [A_DIM,1, 1], dim=1)
         split_4 = self.linear4(split_4)
         split_4 = self.relu(split_4)
-        split_5 = split_5.view(split_5.shape[0], -1)
+        split_5 = split_5.view(-1)
         split_5 = self.linear5(split_5)
 
 
@@ -287,11 +289,11 @@ class ActorNetwork_small(nn.Module):
 
 
 
-        split_2 = split_2.view(split_2.shape[0], -1)
-        split_3 = split_3.view(split_3.shape[0], -1)
-        split_4 = split_4.view(split_4.shape[0], -1)
+        split_2 = split_2.view(-1)
+        split_3 = split_3.view(-1)
+        split_4 = split_4.view(-1)
 
-        x = torch.cat((split_0, split_1, split_2, split_3, split_4, split_5), 1)
+        x = torch.cat((split_0, split_1, split_2, split_3, split_4, split_5), 0)
         x = self.linear6(x)
         x = self.relu(x)
         x = self.linear7(x)
