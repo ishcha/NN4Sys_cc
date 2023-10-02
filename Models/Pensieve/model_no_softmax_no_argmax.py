@@ -65,9 +65,9 @@ class ActorNetwork_mid(nn.Module):
         split_1 = self.linear1(split_1)
         split_1 = self.relu(split_1)
 
-        split_2 = self.conv1(x[:, 2:3, :])
+        split_2 = self.conv1(split_2)
         split_2 = self.relu(split_2)
-        split_3 = self.conv1(x[:, 3:4, :])
+        split_3 = self.conv1(split_3)
         split_3 = self.relu(split_3)
 
         split_4, a, split_5 = torch.split(split_4_5, [A_DIM,1, 1], dim=2)
