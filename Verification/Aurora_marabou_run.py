@@ -2,12 +2,10 @@ import os
 import sys
 
 STATISTIC_RANGE = [0.05, 0.01, 0, 1]
-P_RANGE = [1, 2, 3, 4, 5]
 MODEL_SIZES = ['small', 'mid', 'big']
-MODEL_TYPES=['simple', 'simple', 'simple', 'parallel', 'concat']
+MODEL_TYPES = ['simple', 'simple', 'simple', 'parallel', 'concat']
 running_result_path = './aurora_marabou_running_result'
 SIZES = [10, 10, 10, 10, 10]
-SIZE=10
 
 SPEC_TYPES = [101, 102, 2, 3, 4]
 SPEC_ARRAY_LENGTH = [30, 30, 30, 60, 150]
@@ -16,10 +14,6 @@ HISTORY = 10
 
 txt_dir_path = '../Benchmarks/marabou_txt'
 onnx_dir_path = '../Benchmarks/onnx'
-
-cur_dir = os.getcwd()
-
-
 
 
 def main(marabou_path):
