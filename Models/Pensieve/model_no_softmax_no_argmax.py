@@ -29,7 +29,7 @@ LINK_RTT = 80  # millisec
 PACKET_SIZE = 1500  # bytes
 
 
-class ActorNetwork_mid(nn.Module):
+class ActorNetwork_mid_marabou(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
         super().__init__()
         self.s_dim = state_dim
@@ -92,7 +92,7 @@ class ActorNetwork_mid(nn.Module):
         return x
 
 
-class ActorNetwork_mid_bak(nn.Module):
+class ActorNetwork_mid(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
         super().__init__()
         self.s_dim = state_dim
@@ -137,7 +137,83 @@ class ActorNetwork_mid_bak(nn.Module):
 
         return x
 
+class ActorNetwork_mid_parallel_marabou(nn.Module):
+    def __init__(self, state_dim, action_dim, learning_rate):
+        super().__init__()
+        self.s_dim = state_dim
+        self.a_dim = action_dim
+        self.lr_rate = learning_rate
 
+        self.conv1 = nn.Conv1d(1, 128, 4)
+        self.relu = nn.ReLU()
+        self.linear0 = nn.Linear(1, 128)
+        self.linear1 = nn.Linear(1, 128)
+        self.linear2 = nn.Linear(1, 128)
+
+        self.linear3 = nn.Linear(2048, 128)
+        self.linear4 = nn.Linear(128, self.a_dim)
+        self.video_sizes = torch.tensor([10, 20, 40, 80, 160, 320]).to(torch.float32).reshape(-1, 1)
+
+    def forward(self, x):
+        # x = torch.reshape(x, (1, self.s_dim[0], self.s_dim[1]))
+        x = x.view([-1, 2 * self.s_dim[0], self.s_dim[1]])
+        x1, x2 = torch.split(x, 6, dim=1)
+
+        split_0 = self.linear0(x1[:, 0:1, -1])
+        split_0 = self.relu(split_0)
+        split_1 = self.linear1(x1[:, 1:2, -1])
+        split_1 = self.relu(split_1)
+
+        split_2 = self.conv1(x1[:, 2:3, :])
+        split_2 = self.relu(split_2)
+        split_3 = self.conv1(x1[:, 3:4, :])
+        split_3 = self.relu(split_3)
+        split_4 = self.conv1(x1[:, 4:5, :A_DIM])
+        split_4 = self.relu(split_4)
+        split_5 = self.linear2(x1[:, 4:5, -1])
+
+        split_2 = split_2.flatten(1)
+        split_3 = split_3.flatten(1)
+        split_4 = split_4.flatten(1)
+
+        x = torch.cat((split_0, split_1, split_2, split_3, split_4, split_5), 1)
+        x = self.linear3(x)
+        x = self.relu(x)
+        x = self.linear4(x)
+
+        x = self.relu(x)
+        sq = torch.square(x)
+        deno = torch.sum(sq, 1, keepdim=True)
+        distribution = sq / deno
+        bit_rate1 = torch.matmul(distribution, self.video_sizes)
+
+        split_0 = self.linear0(x2[:, 0:1, -1])
+        split_0 = self.relu(split_0)
+        split_1 = self.linear1(x2[:, 1:2, -1])
+        split_1 = self.relu(split_1)
+
+        split_2 = self.conv1(x2[:, 2:3, :])
+        split_2 = self.relu(split_2)
+        split_3 = self.conv1(x2[:, 3:4, :])
+        split_3 = self.relu(split_3)
+        split_4 = self.conv1(x2[:, 4:5, :A_DIM])
+        split_4 = self.relu(split_4)
+        split_5 = self.linear2(x2[:, 4:5, -1])
+
+        split_2 = split_2.flatten(1)
+        split_3 = split_3.flatten(1)
+        split_4 = split_4.flatten(1)
+
+        x = torch.cat((split_0, split_1, split_2, split_3, split_4, split_5), 1)
+        x = self.linear3(x)
+        x = self.relu(x)
+        x = self.linear4(x)
+        x = self.relu(x)
+        sq = torch.square(x)
+        deno = torch.sum(sq, 1, keepdim=True)
+        distribution = sq / deno
+        bit_rate2 = torch.matmul(distribution, self.video_sizes)
+        return bit_rate1 - bit_rate2
 class ActorNetwork_mid_parallel(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
         super().__init__()
@@ -217,7 +293,7 @@ class ActorNetwork_mid_parallel(nn.Module):
         return bit_rate1 - bit_rate2
 
 
-class ActorNetwork_small(nn.Module):
+class ActorNetwork_small_marabou(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
         super().__init__()
         self.s_dim = state_dim
@@ -270,7 +346,7 @@ class ActorNetwork_small(nn.Module):
         return x
 
 
-class ActorNetwork_small_bak(nn.Module):
+class ActorNetwork_small(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
         super().__init__()
         self.s_dim = state_dim
@@ -317,7 +393,7 @@ class ActorNetwork_small_bak(nn.Module):
         return x
 
 
-class ActorNetwork_small_parallel(nn.Module):
+class ActorNetwork_small_parallel_marabou(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
         super().__init__()
         self.s_dim = state_dim
@@ -410,7 +486,7 @@ class ActorNetwork_small_parallel(nn.Module):
         bit_rate2 = torch.matmul(distribution, self.video_sizes)
         return bit_rate1 - bit_rate2
 
-class ActorNetwork_small_parallel_bak(nn.Module):
+class ActorNetwork_small_parallel(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
         super().__init__()
         self.s_dim = state_dim
