@@ -238,14 +238,13 @@ class ActorNetwork_small(nn.Module):
     def forward(self, x):
         # x = torch.reshape(x, (1, self.s_dim[0], self.s_dim[1]))
 
+
         x = x.view([self.s_dim[0], self.s_dim[1]])
-        split_0, split_1, split_2, split_3, split_4_5, a = torch.split(x, [1, 1, 1, 1, 1, 1], dim=0)
+        split_0, split_1, split_2, split_3, split_4_5, a,c,d = torch.split(x, [1, 1, 1, 1, 1, 1,1,1], dim=1)
 
-        split_4, a, split_5 = torch.split(split_4_5, [A_DIM, 1, 1], dim=1)
 
-        split_5 = split_5.view(-1)
-        split_5 = self.linear5(split_5)
-        ret,a = torch.split(split_5,[6,122], dim=0)
+        split_5 = self.linear5(split_0)
+        ret,a = torch.split(split_5,[6,122], dim=1)
         print(ret.shape)
 
         return ret
