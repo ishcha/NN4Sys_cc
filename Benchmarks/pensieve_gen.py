@@ -60,7 +60,7 @@ def write_txt(X, spec_type, spec_path, Y_shape=6):
                 cannot_be_largest = Y_shape - 1
             for i in range(Y_shape):
                 if not i == cannot_be_largest:
-                    f.write(f"+y{i} - y{cannot_be_largest} <= 0\n")
+                    f.write(f"+y{i} -y{cannot_be_largest} <= 0\n")
 
         if spec_type == SPEC_TYPES[2]:
             f.write(f"y0 <= 0\n\n")
