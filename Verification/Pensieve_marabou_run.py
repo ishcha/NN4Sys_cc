@@ -24,7 +24,7 @@ cur_dir = os.getcwd()
 def main(marabou_path):
     if not os.path.exists(running_result_path):
         os.makedirs(running_result_path)
-    for spec_type in [2]:
+    for spec_type in [1]:
         for num in range(SIZES[spec_type]):
 
                 command = f'python {marabou_path} {onnx_dir_path}/pensieve_big_{MODEL_TYPES[spec_type]}_marabou.onnx {txt_dir_path}/pensieve_{SPEC_TYPES[spec_type]}_{num}.txt | tee {running_result_path}/big_{MODEL_TYPES[spec_type]}_{SPEC_TYPES[spec_type]}_{num}.txt'
