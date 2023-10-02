@@ -18,6 +18,7 @@ def main(model):
         file=f'{dir}/'+f
         if file[-3:] != 'txt':
             continue
+        print(f[:-4].split('_'))
         index = '_'.join(f[:-4].split('_')[:-1])
         timeout=-1
 
