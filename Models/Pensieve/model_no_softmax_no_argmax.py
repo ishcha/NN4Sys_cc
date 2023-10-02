@@ -242,8 +242,8 @@ class ActorNetwork_small(nn.Module):
         x = x.view([self.s_dim[0], self.s_dim[1]])
         split_0, split_1, split_2, split_3, split_4_5, a,c,d = torch.split(x, [1, 1, 1, 1, 1, 1,1,1], dim=1)
 
-
-        split_5 = self.linear5(split_0)
+        #split_4, a, split_5 = torch.split(split_4_5, [A_DIM, 1, 1], dim=2)
+        split_5 = self.linear5(split_4_5)
         print(split_5.shape)
         ret,a = torch.split(split_5,[1,127], dim=1)
         print(ret.shape)
