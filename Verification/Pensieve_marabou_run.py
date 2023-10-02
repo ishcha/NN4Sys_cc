@@ -27,7 +27,9 @@ def main(marabou_path):
     for spec_type in range(len(SPEC_TYPES)):
         for num in range(SIZES[spec_type]):
             command = f'python {marabou_path} {onnx_dir_path}/pensieve_mid_{MODEL_TYPES[spec_type]}.onnx {txt_dir_path}/pensieve_{SPEC_TYPES[spec_type]}_{num}.txt | tee {running_result_path}/mid_{MODEL_TYPES[spec_type]}_{SPEC_TYPES[spec_type]}_{num}.txt'
+            print("------------------------------------->")
             print(command)
+            print("<------------------------------------->")
             os.system(command)
 
 
