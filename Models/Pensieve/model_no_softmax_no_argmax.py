@@ -238,17 +238,13 @@ class ActorNetwork_small(nn.Module):
     def forward(self, x):
         # x = torch.reshape(x, (1, self.s_dim[0], self.s_dim[1]))
 
-
         x = x.view([self.s_dim[0], self.s_dim[1]])
         split_0, split_1, split_2, split_3, split_4_5, a = torch.split(x, [1, 1, 1, 1, 1, 1], dim=0)
         a, b, c, d, e, f, g, split_0 = torch.split(split_0, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
         split_0 = split_0.view(split_0.shape[0], -1)
 
-        print(split_0.shape)
-
         split_0 = self.linear0(split_0)
         split_0 = self.relu(split_0)
-        print(split_0.shape)
 
         a, b, c, d, e, f, g, split_1 = torch.split(split_1, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
         split_1 = split_1.view(split_1.shape[0], -1)
@@ -260,19 +256,11 @@ class ActorNetwork_small(nn.Module):
         split_2 = self.relu(split_2)
         split_3 = self.linear3(split_3)
         split_3 = self.relu(split_3)
-        split_4, a,split_5 = torch.split(split_4_5, [A_DIM, 1, 1], dim=1)
+        split_4, a, split_5 = torch.split(split_4_5, [A_DIM, 1, 1], dim=1)
 
         split_4 = self.linear4(split_4)
         split_4 = self.relu(split_4)
         split_5 = self.linear5(split_5)
-
-        print(split_0.shape)
-        print(split_1.shape)
-        print(split_2.shape)
-        print(split_3.shape)
-        print(split_4.shape)
-        print(split_5.shape)
-
 
         x = torch.cat((split_0, split_1, split_2, split_3, split_4, split_5), 1)
         x = self.linear6(x)
@@ -330,6 +318,99 @@ class ActorNetwork_small_bak(nn.Module):
 
 
 class ActorNetwork_small_parallel(nn.Module):
+    def __init__(self, state_dim, action_dim, learning_rate):
+        super().__init__()
+        self.s_dim = state_dim
+        self.a_dim = action_dim
+        self.lr_rate = learning_rate
+
+        self.relu = nn.ReLU()
+        self.linear0 = nn.Linear(1, 128)
+        self.linear1 = nn.Linear(1, 128)
+        self.linear2 = nn.Linear(8, 128)
+        self.linear3 = nn.Linear(8, 128)
+        self.linear4 = nn.Linear(6, 128)
+        self.linear5 = nn.Linear(1, 128)
+
+        self.linear6 = nn.Linear(768, 128)
+        self.linear7 = nn.Linear(128, self.a_dim)
+        self.video_sizes = torch.tensor([10, 20, 40, 80, 160, 320]).to(torch.float32).reshape(-1, 1)
+
+    def forward(self, x):
+        # x = torch.reshape(x, (1, self.s_dim[0], self.s_dim[1]))
+        x = x.view([ self.s_dim[0] * 2, self.s_dim[1]])
+        x1, x2 = torch.split(x, 6, dim=0)
+
+        split_0, split_1, split_2, split_3, split_4_5, a = torch.split(x1, [1, 1, 1, 1, 1, 1], dim=0)
+        a, b, c, d, e, f, g, split_0 = torch.split(split_0, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
+        split_0 = split_0.view(split_0.shape[0], -1)
+
+        split_0 = self.linear0(split_0)
+        split_0 = self.relu(split_0)
+
+        a, b, c, d, e, f, g, split_1 = torch.split(split_1, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
+        split_1 = split_1.view(split_1.shape[0], -1)
+
+        split_1 = self.linear1(split_1)
+        split_1 = self.relu(split_1)
+
+        split_2 = self.linear2(split_2)
+        split_2 = self.relu(split_2)
+        split_3 = self.linear3(split_3)
+        split_3 = self.relu(split_3)
+        split_4, a, split_5 = torch.split(split_4_5, [A_DIM, 1, 1], dim=1)
+
+        split_4 = self.linear4(split_4)
+        split_4 = self.relu(split_4)
+        split_5 = self.linear5(split_5)
+
+        x1 = torch.cat((split_0, split_1, split_2, split_3, split_4, split_5), 1)
+        x1 = self.linear6(x1)
+        x1 = self.relu(x1)
+        x = self.linear7(x1)
+
+        x = self.relu(x)
+        sq = torch.pow(x, 3)
+        deno = torch.sum(sq, 1, keepdim=True)
+        distribution = sq / deno
+        bit_rate1 = torch.matmul(distribution, self.video_sizes)
+
+        split_0, split_1, split_2, split_3, split_4_5, a = torch.split(x2, [1, 1, 1, 1, 1, 1], dim=0)
+        a, b, c, d, e, f, g, split_0 = torch.split(split_0, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
+        split_0 = split_0.view(split_0.shape[0], -1)
+
+        split_0 = self.linear0(split_0)
+        split_0 = self.relu(split_0)
+
+        a, b, c, d, e, f, g, split_1 = torch.split(split_1, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
+        split_1 = split_1.view(split_1.shape[0], -1)
+
+        split_1 = self.linear1(split_1)
+        split_1 = self.relu(split_1)
+
+        split_2 = self.linear2(split_2)
+        split_2 = self.relu(split_2)
+        split_3 = self.linear3(split_3)
+        split_3 = self.relu(split_3)
+        split_4, a, split_5 = torch.split(split_4_5, [A_DIM, 1, 1], dim=1)
+
+        split_4 = self.linear4(split_4)
+        split_4 = self.relu(split_4)
+        split_5 = self.linear5(split_5)
+
+        x = torch.cat((split_0, split_1, split_2, split_3, split_4, split_5), 1)
+        x = self.linear6(x)
+        x = self.relu(x)
+        x = self.linear7(x)
+
+        x = self.relu(x)
+        sq = torch.pow(x, 3)
+        deno = torch.sum(sq, 1, keepdim=True)
+        distribution = sq / deno
+        bit_rate2 = torch.matmul(distribution, self.video_sizes)
+        return bit_rate1 - bit_rate2
+
+class ActorNetwork_small_parallel_bak(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
         super().__init__()
         self.s_dim = state_dim
@@ -409,8 +490,6 @@ class ActorNetwork_small_parallel(nn.Module):
         distribution = sq / deno
         bit_rate2 = torch.matmul(distribution, self.video_sizes)
         return bit_rate1 - bit_rate2
-
-
 class ActorNetwork_big(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
         super().__init__()
