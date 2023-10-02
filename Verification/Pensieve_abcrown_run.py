@@ -5,7 +5,7 @@ os.environ['MKL_THREADING_LAYER'] = 'GNU'
 
 MODEL_TYPES = ['simple', 'simple', 'parallel']
 MODEL_SIZES = ['small', 'mid', 'big']
-P_RANGE = [0.1,0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
+P_RANGE = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
 SIZES = [5, 5, 5]
 SPEC_TYPES = [1, 2, 3]
 
@@ -40,9 +40,10 @@ def main(abcrown_path):
     for i in range(len(SPEC_TYPES)):
         for range_ptr in range(len(P_RANGE)):
             for MODEL in MODEL_SIZES:
-                if MODEL!='simple' and range_ptr>0:
-                    continue
+
                 MODEL_TYPE = MODEL_TYPES[i]
+                if MODEL_TYPE != 'simple' and range_ptr > 0:
+                    continue
                 for size in range(SIZES[i]):
                     vnn_path = f'{vnn_dir_path}/pensieve_{SPEC_TYPES[i]}_{size}_{range_ptr}.vnnlib'
                     onnx_path = onnx_dir_path + '/pensieve_' + MODEL + '_' + MODEL_TYPE + '.onnx'
