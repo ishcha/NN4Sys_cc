@@ -286,7 +286,7 @@ class ActorNetwork_small(nn.Module):
 
 
 
-        return x
+        return split_5
 
 class ActorNetwork_small_bak(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
