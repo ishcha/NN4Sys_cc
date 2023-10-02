@@ -29,9 +29,6 @@ LINK_RTT = 80  # millisec
 PACKET_SIZE = 1500  # bytes
 
 
-
-
-
 class ActorNetwork_mid(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
         super().__init__()
@@ -51,7 +48,7 @@ class ActorNetwork_mid(nn.Module):
     def forward(self, x):
         # x = torch.reshape(x, (1, self.s_dim[0], self.s_dim[1]))
         x = x.view([-1, self.s_dim[0], self.s_dim[1]])
-        split_0, split_1, split_2, split_3, split_4_5,a = torch.split(x, [1, 1, 1, 1, 1,1], dim=1)
+        split_0, split_1, split_2, split_3, split_4_5, a = torch.split(x, [1, 1, 1, 1, 1, 1], dim=1)
 
         a, b, c, d, e, f, g, split_0 = torch.split(split_0, [1, 1, 1, 1, 1, 1, 1, 1], dim=2)
         split_0 = split_0.view(split_0.shape[0], -1)
@@ -70,20 +67,15 @@ class ActorNetwork_mid(nn.Module):
         split_3 = self.conv1(split_3)
         split_3 = self.relu(split_3)
 
-        split_4, a, split_5 = torch.split(split_4_5, [A_DIM,1, 1], dim=2)
+        split_4, a, split_5 = torch.split(split_4_5, [A_DIM, 1, 1], dim=2)
         split_4 = self.conv1(split_4)
         split_4 = self.relu(split_4)
         split_5 = split_5.view(split_5.shape[0], -1)
         split_5 = self.linear2(split_5)
 
-
-
-
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
         split_4 = split_4.view(split_4.shape[0], -1)
-
-
 
         print(split_0.shape)
         print(split_1.shape)
@@ -92,13 +84,14 @@ class ActorNetwork_mid(nn.Module):
         print(split_4.shape)
         print(split_5.shape)
 
-
         x = torch.cat((split_0, split_1, split_2, split_3, split_4, split_5), 1)
         x = self.linear3(x)
         x = self.relu(x)
         x = self.linear4(x)
 
         return x
+
+
 class ActorNetwork_mid_bak(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
         super().__init__()
@@ -136,10 +129,6 @@ class ActorNetwork_mid_bak(nn.Module):
         print(split_4.shape)
         print(A_DIM)
         split_4 = split_4.view(split_4.shape[0], -1)
-
-
-
-
 
         x = torch.cat((split_0, split_1, split_2, split_3, split_4, split_5), 1)
         x = self.linear3(x)
@@ -249,20 +238,16 @@ class ActorNetwork_small(nn.Module):
     def forward(self, x):
         # x = torch.reshape(x, (1, self.s_dim[0], self.s_dim[1]))
 
-
         x = x.view([self.s_dim[0], self.s_dim[1]])
-        split_0, split_1, split_2, split_3, split_4_5,a = torch.split(x, [1, 1, 1, 1, 1,1], dim=0)
+        split_0, split_1, split_2, split_3, split_4_5, a = torch.split(x, [1, 1, 1, 1, 1, 1], dim=0)
 
-
-
-        split_4, a, split_5 = torch.split(split_4_5, [A_DIM,1, 1], dim=1)
+        split_4, a, split_5 = torch.split(split_4_5, [A_DIM, 1, 1], dim=1)
 
         split_5 = split_5.view(-1)
-
-
-
+        split_5 = self.linear5(split_5)
 
         return split_5
+
 
 class ActorNetwork_small_bak(nn.Module):
     def __init__(self, state_dim, action_dim, learning_rate):
