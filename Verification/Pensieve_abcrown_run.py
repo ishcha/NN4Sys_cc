@@ -43,7 +43,7 @@ def main(abcrown_path):
             for MODEL in MODEL_SIZES:
                 MODEL_TYPE = MODEL_TYPES[i]
                 for size in range(SIZES[i]):
-                    vnn_path = f'{vnn_dir_path}/pensieve_{SPEC_TYPES[i]}_{size}_{p_range}.vnnlib'
+                    vnn_path = f'{vnn_dir_path}/pensieve_{SPEC_TYPES[i]}_{size}_{range_ptr}.vnnlib'
                     onnx_path = onnx_dir_path + '/pensieve_' + MODEL + '_' + MODEL_TYPE + '.onnx'
                     yaml = yaml_path + '/pensieve_' + MODEL_TYPE + '-' + MODEL + str(SPEC_TYPES[i]) + '_' + str(
                         size) + '.yaml'
