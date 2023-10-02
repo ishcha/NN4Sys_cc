@@ -93,7 +93,7 @@ def main():
 
                 # run one time to test
                 actor = actor.eval()
-                myinput = data_generator.get_inputs_array(2, random_seed=1)
+                myinput = data_generator.get_inputs_array(3, random_seed=1)
                 myinput = torch.from_numpy(myinput).to(torch.float32)
                 #myinput2 = data_generator.get_inputs_array(2, random_seed=4)
                 #myinput2 = torch.from_numpy(myinput2).to(torch.float32)
