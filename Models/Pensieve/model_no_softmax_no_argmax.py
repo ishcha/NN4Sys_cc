@@ -436,13 +436,11 @@ class ActorNetwork_small_parallel_marabou(nn.Module):
 
         split_0, split_1, split_2, split_3, split_4_5, a = torch.split(x1, [1, 1, 1, 1, 1, 1], dim=0)
         a, b, c, d, e, f, g, split_0 = torch.split(split_0, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
-        split_0 = split_0.view(split_0.shape[0], -1)
 
         split_0 = self.linear0(split_0)
         split_0 = self.relu(split_0)
 
         a, b, c, d, e, f, g, split_1 = torch.split(split_1, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
-        split_1 = split_1.view(split_1.shape[0], -1)
 
         split_1 = self.linear1(split_1)
         split_1 = self.relu(split_1)
