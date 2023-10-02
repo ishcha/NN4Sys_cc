@@ -25,7 +25,7 @@ cur_dir = os.getcwd()
 def main(marabou_path):
     if not os.path.exists(running_result_path):
         os.makedirs(running_result_path)
-    for spec_type in [2]:
+    for spec_type in [0]:
         for num in range(SIZES[spec_type]):
             for verifier in VERIFIERS:
                 if verifier=='marabou':
