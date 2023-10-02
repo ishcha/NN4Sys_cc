@@ -7,6 +7,7 @@ MODEL_TYPES = ['simple', 'simple', 'parallel']
 MODEL_SIZES = ['small', 'mid', 'big']
 P_RANGE = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
 SIZES = [5, 5, 5]
+SIZE=10
 SPEC_TYPES = [1, 2, 3]
 
 # create yaml
@@ -44,7 +45,7 @@ def main(abcrown_path):
                 MODEL_TYPE = MODEL_TYPES[i]
                 if MODEL_TYPE != 'simple' and range_ptr > 0:
                     continue
-                for size in range(SIZES[i]):
+                for size in range(SIZE):
                     vnn_path = f'{vnn_dir_path}/pensieve_{SPEC_TYPES[i]}_{size}_{range_ptr}.vnnlib'
                     onnx_path = onnx_dir_path + '/pensieve_' + MODEL + '_' + MODEL_TYPE + '.onnx'
                     yaml = yaml_path + '/pensieve_' + MODEL_TYPE + '-' + MODEL + str(SPEC_TYPES[i]) + '_' + str(
