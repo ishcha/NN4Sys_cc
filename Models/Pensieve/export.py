@@ -129,7 +129,7 @@ def main():
                     MODEL = MODEL_LIST[MODEL_ptr]
                     NN_MODEL = NN_MODELS[MODEL_ptr]
 
-                    save_path = ONNX_DIR + '/pensieve_' + MODEL + '_' + MODEL_TYPE + ".onnx"
+                    save_path = ONNX_DIR + '/pensieve_' + MODEL + '_' + MODEL_TYPE + "_marabou.onnx"
                     print(save_path)
                     if MODEL_TYPE == 'simple':
                         if MODEL == 'mid':
