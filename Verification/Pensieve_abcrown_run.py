@@ -39,7 +39,6 @@ def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
 def main(abcrown_path):
     for i in range(len(SPEC_TYPES)):
         for range_ptr in range(len(P_RANGE)):
-            p_range = P_RANGE[range_ptr]
             for MODEL in MODEL_SIZES:
                 MODEL_TYPE = MODEL_TYPES[i]
                 for size in range(SIZES[i]):
@@ -53,7 +52,7 @@ def main(abcrown_path):
                     if MODEL_TYPE == 'parallel':
                         create_yaml(yaml, vnn_path, onnx_path, 12)
                     os.system(
-                        f"python {abcrown_path} --config {yaml} | tee {running_result_path}/pensieve_{MODEL}_{SPEC_TYPES[i]}_{size}.txt")
+                        f"python {abcrown_path} --config {yaml} | tee {running_result_path}/pensieve_{MODEL}_{SPEC_TYPES[i]}_{size}_{range_ptr}.txt")
 
 
 if __name__ == "__main__":
