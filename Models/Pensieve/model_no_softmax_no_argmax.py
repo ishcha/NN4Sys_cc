@@ -254,15 +254,17 @@ class ActorNetwork_small(nn.Module):
         split_0, split_1, split_2, split_3, split_4_5,a = torch.split(x, [1, 1, 1, 1, 1,1], dim=0)
 
         a, b, c, d, e, f, g, split_0 = torch.split(split_0, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
-        print(split_0.shape)
+
         split_0 = split_0.view(-1)
-        print(split_0.shape)
+
 
         split_0 = self.linear0(split_0)
         split_0 = self.relu(split_0)
 
         a, b, c, d, e, f, g, split_1 = torch.split(split_1, [1, 1, 1, 1, 1, 1, 1, 1], dim=1)
+
         split_1 = split_1.view(-1)
+        print(split_1.shape)
 
         split_1 = self.linear1(split_1)
         split_1 = self.relu(split_1)
@@ -278,25 +280,11 @@ class ActorNetwork_small(nn.Module):
         split_5 = split_5.view(-1)
         split_5 = self.linear5(split_5)
 
-
-
-
-
-
-
-
-
-
-
-
         split_2 = split_2.view(-1)
         split_3 = split_3.view(-1)
         split_4 = split_4.view(-1)
 
-        x = torch.cat((split_0, split_1, split_2, split_3, split_4, split_5), 0)
-        x = self.linear6(x)
-        x = self.relu(x)
-        x = self.linear7(x)
+
 
         return x
 
