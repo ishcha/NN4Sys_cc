@@ -425,6 +425,7 @@ class ActorNetwork_big_marabou(nn.Module):
 
         split_1 = self.linear1(split_1)
         split_1 = self.relu(split_1)
+        print(split_1.shape)
 
         split_2 = self.conv1(split_2)
 
@@ -436,6 +437,8 @@ class ActorNetwork_big_marabou(nn.Module):
         split_4 = self.conv1(split_4)
         split_4 = self.relu(split_4)
         split_5 = self.linear2(split_5)
+
+        print(split_2.shape)
 
         split_2 = split_2.flatten()
         split_3 = split_3.flatten()
