@@ -2,7 +2,7 @@ import os
 import sys
 
 MODELS = ['mid', 'mid', 'mid']
-MODEL_TYPES = ['simple', 'simple', 'concat']
+MODEL_TYPES = ['simple', 'simple']
 SIZES = [10, 10, 10]
 
 SPEC_TYPES = [1, 2]
