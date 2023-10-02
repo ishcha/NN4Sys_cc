@@ -8,7 +8,7 @@ P_RANGE = [0.05, 0.5, 0.7]
 P_RANGE = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
 MODELS = ['empty', 'small', 'mid', 'big']
 DIFFICULTY = ['easy']
-SIZES = [5, 5, 5]
+SIZES = [10, 10, 10]
 SPEC_TYPES = [1, 2, 3]
 
 
