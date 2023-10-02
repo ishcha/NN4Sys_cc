@@ -47,6 +47,9 @@ def main(abcrown_path):
                     onnx_path = onnx_dir_path + '/pensieve_' + MODEL + '_' + MODEL_TYPE + '.onnx'
                     yaml = yaml_path + '/pensieve_' + MODEL_TYPE + '-' + MODEL + str(SPEC_TYPES[i]) + '_' + str(
                         size) + '.yaml'
+                    if MODEL_TYPE == 'simple':
+                        create_yaml(yaml, vnn_path, onnx_path, 6)
+
                     if MODEL_TYPE == 'parallel':
                         create_yaml(yaml, vnn_path, onnx_path, 12)
                     os.system(
