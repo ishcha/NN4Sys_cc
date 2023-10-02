@@ -435,7 +435,6 @@ class ActorNetwork_big_marabou(nn.Module):
         split_4, a, split_5 = torch.split(split_4_5, [A_DIM, 1, 1], dim=1)
         split_4 = self.conv1(split_4)
         split_4 = self.relu(split_4)
-        split_5 = split_5.view(split_5.shape[0], -1)
         split_5 = self.linear2(split_5)
 
         split_2 = split_2.flatten()
