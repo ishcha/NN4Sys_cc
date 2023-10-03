@@ -5,13 +5,13 @@ import sys
 
 def calculate_avg_time(dic1, dic2, times1, times2):
     ret={}
-    for key in times1:
-        if key in times2:
+    for key in times2:
+        if key in times1:
             times1[key]+=times2[key]
         else:
             times1[key] = times2[key]
-    for key in dic1:
-        if key in dic2:
+    for key in dic2:
+        if key in dic1:
             dic1[key]+=dic2[key]
         else:
             dic1[key] = dic2[key]
