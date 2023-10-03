@@ -50,7 +50,7 @@ def main(model):
                     timeout = float(line[6:15])
             if timeout == -1:
                 continue
-            timeout = math.ceil(timeout)
+            timeout = float(timeout)
             if result == 'unsat':
                 unsat += 1
                 if index in unsat_dic.keys():
