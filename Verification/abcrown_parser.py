@@ -70,9 +70,9 @@ def main(model):
                 print(file)
     print("----------------------------------------------------------sat files")
     print(f'sat: {sat}')
-    print(len(sat))
+    print(len(sat_dic))
     print(f'unsat: {unsat}')
-    print(len(unsat))
+    print(len(unsat_dic))
     sat_dic = dict(sorted(sat_dic.items()))
     unsat_dic = dict(sorted(unsat_dic.items()))
 
