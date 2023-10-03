@@ -46,7 +46,7 @@ def main(abcrown_path):
                 if MODEL_TYPE != 'simple' and range_ptr > 0:
                     continue
                 for size in range(SIZE):
-                    vnn_path = f'{vnn_dir_path}/pensieve_{SPEC_TYPES[i]}_{size}_{range_ptr}.vnnlib'
+                    vnn_path = f'{vnn_dir_path}/pensieve_{SPEC_TYPES[i]}_{range_ptr}_{size}.vnnlib'
                     onnx_path = onnx_dir_path + '/pensieve_' + MODEL + '_' + MODEL_TYPE + '.onnx'
                     yaml = yaml_path + '/pensieve_' + MODEL_TYPE + '-' + MODEL + str(SPEC_TYPES[i]) + '_' + str(
                         size) + '.yaml'

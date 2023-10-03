@@ -139,13 +139,13 @@ def gene_spec():
                 if i == 0:
                     continue
                 index, _, model = parser(i)
-                vnn_path = f'{vnn_dir_path}/pensieve_{spec}_{total_num}_{range_ptr}.vnnlib'
+                vnn_path = f'{vnn_dir_path}/pensieve_{spec}_{range_ptr}_{total_num}.vnnlib'
                 # onnx_path = onnx_dir_path + '/pensieve_' + model + '_' + spec + '.onnx'
                 input_array = np.load(pensieve_src_path + f'/pensieve_fixedInput_{spec}.npy')[index]
                 input_array_perturbed = add_range(input_array, spec, p_range)
 
                 write_vnnlib(input_array_perturbed, spec, vnn_path)
-                txt_path = f'{marabou_txt_dir_path}/pensieve_{spec}_{total_num}_{range_ptr}.txt'
+                txt_path = f'{marabou_txt_dir_path}/pensieve_{spec}_{range_ptr}_{total_num}.txt'
                 write_txt(input_array_perturbed, spec, txt_path)
                 total_num += 1
                 # ground_truth, timeout = get_time(dic, i)
