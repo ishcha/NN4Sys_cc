@@ -7,7 +7,7 @@ MODELS = ['small', 'mid', 'big']
 MODEL_TYPES = ['simple', 'simple', 'simple', 'parallel', 'concat']
 DIFFICULTY = ['easy']
 SIZES = [10, 10, 10, 10, 10]
-SIZE = 5
+SIZE = 10
 
 SPEC_TYPES = [101, 102, 2, 3, 4]
 SPEC_ARRAY_LENGTH = [30, 30, 30, 60, 150]
