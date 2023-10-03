@@ -3,10 +3,16 @@ import math
 import numpy as np
 import sys
 
-def avg_time(dic, times):
+def avg_time(dic1, dic2, times1, times2):
     ret={}
-    for key in times:
-        ret[key] = times[key]/dic[key]
+    for key in times1:
+        if key in times2:
+            times1[key]+=times2[key]
+    for key in dic1:
+        if key in dic2:
+            dic1[key]+=dic2[key]
+    for key in dic1:
+        ret[key] = times1[key]/dic1[key]
     return ret
 def main(model):
     dir = f'./{model}_abcrown_running_result'
