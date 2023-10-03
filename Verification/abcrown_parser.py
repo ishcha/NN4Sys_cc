@@ -3,7 +3,7 @@ import math
 import numpy as np
 import sys
 
-def avg_time(dic1, dic2, times1, times2):
+def calculate_avg_time(dic1, dic2, times1, times2):
     ret={}
     for key in times1:
         if key in times2:
@@ -70,7 +70,7 @@ def main(model):
     sat_dic = dict(sorted(sat_dic.items()))
     unsat_dic = dict(sorted(unsat_dic.items()))
 
-    avg_time = avg_time(sat_dic, unsat_dic, sat_time, unsat_time)
+    avg_time = calculate_avg_time(sat_dic, unsat_dic, sat_time, unsat_time)
 
 
 
