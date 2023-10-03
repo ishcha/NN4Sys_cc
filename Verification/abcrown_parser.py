@@ -70,9 +70,9 @@ def main(model):
                 print(file)
     print("----------------------------------------------------------sat files")
     print(f'sat: {sat}')
-    print(len(sat_dic))
+
     print(f'unsat: {unsat}')
-    print(len(unsat_dic))
+
     sat_dic = dict(sorted(sat_dic.items()))
     unsat_dic = dict(sorted(unsat_dic.items()))
 
@@ -81,12 +81,12 @@ def main(model):
 
 
     print("sat")
-
+    print(len(sat_dic))
     print(sat_dic)
 
 
     print("unsat")
-
+    print(len(unsat_dic))
     print(unsat_dic)
     print(avg_time)
 
