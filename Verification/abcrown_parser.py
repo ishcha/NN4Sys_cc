@@ -8,9 +8,13 @@ def calculate_avg_time(dic1, dic2, times1, times2):
     for key in times1:
         if key in times2:
             times1[key]+=times2[key]
+        else:
+            times1[key] = times2[key]
     for key in dic1:
         if key in dic2:
             dic1[key]+=dic2[key]
+        else:
+            dic1[key] = dic2[key]
     for key in dic1:
         ret[key] = times1[key]/dic1[key]
     return ret
@@ -66,7 +70,9 @@ def main(model):
                 print(file)
     print("----------------------------------------------------------sat files")
     print(f'sat: {sat}')
+    print(len(sat))
     print(f'unsat: {unsat}')
+    print(len(unsat))
     sat_dic = dict(sorted(sat_dic.items()))
     unsat_dic = dict(sorted(unsat_dic.items()))
 
