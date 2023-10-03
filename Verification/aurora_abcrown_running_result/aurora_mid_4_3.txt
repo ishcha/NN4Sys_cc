@@ -1,0 +1,392 @@
+Configurations:
+
+general:
+  device: cuda
+  seed: 100
+  conv_mode: matrix
+  deterministic: false
+  double_fp: false
+  loss_reduction_func: sum
+  sparse_alpha: true
+  sparse_interm: true
+  save_adv_example: false
+  show_adv_example: false
+  precompile_jit: false
+  complete_verifier: bab
+  enable_incomplete_verification: false
+  csv_name: null
+  results_file: out.txt
+  root_path: ''
+  deterministic_opt: false
+model:
+  name: null
+  path: null
+  onnx_path: ../Benchmarks/onnx/aurora_mid_concat.onnx
+  onnx_path_prefix: ''
+  cache_onnx_conversion: false
+  debug_onnx: false
+  onnx_quirks: null
+  input_shape: null
+  onnx_loader: default_onnx_and_vnnlib_loader
+  onnx_optimization_flags: none
+data:
+  start: 0
+  end: 10000
+  select_instance: null
+  num_outputs: 10
+  mean: 0.0
+  std: 1.0
+  pkl_path: null
+  dataset: null
+  data_filter_path: null
+  data_idx_file: null
+specification:
+  type: lp
+  robustness_type: verified-acc
+  norm: .inf
+  epsilon: null
+  epsilon_min: 0.0
+  vnnlib_path: ../Benchmarks/vnnlib/aurora_4_3.vnnlib
+  vnnlib_path_prefix: ''
+solver:
+  batch_size: 2048
+  min_batch_size_ratio: 0.1
+  use_float64_in_last_iteration: false
+  early_stop_patience: 10
+  start_save_best: 0.5
+  bound_prop_method: alpha-crown
+  init_bound_prop_method: same
+  prune_after_crown: false
+  real_loss: false
+  crown:
+    batch_size: 1000000000
+    max_crown_size: 1000000000
+  alpha-crown:
+    alpha: true
+    lr_alpha: 0.1
+    iteration: 100
+    share_alphas: false
+    lr_decay: 0.98
+    full_conv_alpha: true
+    max_coeff_mul: .inf
+    matmul_share_alphas: null
+  beta-crown:
+    lr_alpha: 0.01
+    lr_beta: 0.05
+    lr_decay: 0.98
+    optimizer: adam
+    iteration: 50
+    beta: true
+    beta_warmup: true
+    enable_opt_interm_bounds: false
+    all_node_split_LP: false
+    alpha_masks: false
+  forward:
+    refine: false
+    dynamic: false
+    max_dim: 10000
+  intermediate_refinement:
+    enabled: false
+    batch_size: 10
+    opt_coeffs: false
+    opt_bias: false
+    lr: 0.05
+    layers: [-1]
+    max_domains: 1000
+  multi_class:
+    label_batch_size: 32
+    skip_with_refined_bound: true
+  mip:
+    parallel_solvers: null
+    solver_threads: 1
+    refine_neuron_timeout: 15
+    refine_neuron_time_percentage: 0.8
+    early_stop: true
+    adv_warmup: true
+    mip_solver: gurobi
+bab:
+  initial_max_domains: 1
+  max_domains: .inf
+  decision_thresh: 0
+  timeout: 360
+  timeout_scale: 1
+  override_timeout: null
+  get_upper_bound: false
+  dfs_percent: 0.0
+  pruning_in_iteration: true
+  pruning_in_iteration_ratio: 0.2
+  sort_targets: false
+  batched_domain_list: true
+  optimized_interm: ''
+  interm_transfer: true
+  cut:
+    enabled: false
+    implication: false
+    bab_cut: false
+    lp_cut: false
+    method: null
+    lr: 0.01
+    lr_decay: 1.0
+    iteration: 100
+    bab_iteration: -1
+    early_stop_patience: -1
+    lr_beta: 0.02
+    number_cuts: 50
+    topk_cuts_in_filter: 1000
+    batch_size_primal: 100
+    max_num: 1000000000
+    patches_cut: false
+    cplex_cuts: false
+    cplex_cuts_wait: 0
+    cplex_cuts_revpickup: true
+    cut_reference_bounds: true
+    fix_intermediate_bounds: false
+    _tmp_cuts: null
+    fixed_cuts: false
+    add_implied_cuts: false
+    add_input_cuts: false
+  branching:
+    method: sb
+    candidates: 3
+    reduceop: min
+    enable_intermediate_bound_opt: false
+    branching_input_and_activation: false
+    branching_input_and_activation_order: [input, relu]
+    sort_domain_interval: -1
+    branching_input_iterations: 30
+    branching_relu_iterations: 50
+    sb_coeff_thresh: 0.1
+    nonlinear_split:
+      method: shortcut
+      branching_point_method: middle
+      num_branches: 2
+      branching_point_refinement: false
+      filter: false
+      filter_beta: false
+      filter_batch_size: 10000
+      filter_iterations: 25
+      faster: false
+      loose_tanh_threshold: null
+      batch_size: 51200
+      shortlist_size: 500
+    new_input_split:
+      enable: false
+      batch_size: 2
+      rounds: 1
+      init_alpha_batch_size: 8192
+      full_alpha: false
+    input_split:
+      enable: true
+      enhanced_bound_prop_method: alpha-crown
+      enhanced_branching_method: naive
+      enhanced_bound_patience: 100000000.0
+      attack_patience: 100000000.0
+      adv_check: 0
+      split_partitions: 2
+      sb_margin_weight: 1.0
+      sb_primary_spec: null
+      sb_primary_spec_iter: 1
+      sb_sum: false
+      ibp_enhancement: false
+      alpha_enhancement: null
+      alpha_enhancement_batch: 2048
+      qp_enhancement: null
+  attack:
+    enabled: false
+    beam_candidates: 8
+    beam_depth: 7
+    max_dive_fix_ratio: 0.8
+    min_local_free_ratio: 0.2
+    mip_start_iteration: 5
+    mip_timeout: 30.0
+    adv_pool_threshold: null
+    refined_mip_attacker: false
+    refined_batch_size: null
+attack:
+  pgd_order: before
+  pgd_steps: 100
+  pgd_restarts: 30
+  pgd_batch_size: 100000000
+  pgd_early_stop: true
+  pgd_lr_decay: 0.99
+  pgd_alpha: auto
+  pgd_loss_mode: null
+  enable_mip_attack: false
+  cex_path: ./test_cex.txt
+  attack_mode: PGD
+  gama_lambda: 10.0
+  gama_decay: 0.9
+  check_clean: false
+  input_split:
+    pgd_steps: 100
+    pgd_restarts: 30
+    pgd_alpha: auto
+  input_split_enhanced:
+    pgd_steps: 200
+    pgd_restarts: 500000
+    pgd_alpha: auto
+  input_split_check_adv:
+    pgd_steps: 5
+    pgd_restarts: 5
+    pgd_alpha: auto
+debug:
+  lp_test: null
+  test_optimized_bounds: false
+  test_optimized_bounds_after_n_iterations: 0
+  include_output_constraint: false
+
+Experiments at Mon Oct  2 11:45:15 2023 on Yak
+Internal results will be saved to out.txt.
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Using onnx ../Benchmarks/onnx/aurora_mid_concat.onnx
+Using vnnlib ../Benchmarks/vnnlib/aurora_4_3.vnnlib
+Precompiled vnnlib file found at ../Benchmarks/vnnlib/aurora_4_3.vnnlib.compiled
+Loading onnx ../Benchmarks/onnx/aurora_mid_concat.onnx wih quirks {}
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.0006250143051147461, initialization=uniform, GAMA=False
+Model output of first 5 examples:
+ tensor([[1.07393563]], device='cuda:0')
+Adv example prediction (first 2 examples and 2 restarts):
+ tensor([[[1.07379651]]], device='cuda:0')
+PGD attack margin (first 2 examles and 10 specs):
+ tensor([[[0.07379651]]], device='cuda:0')
+number of violation:  0
+Attack finished in 1.1927 seconds.
+PGD attack failed
+Total VNNLIB file length: 1, max property batch size: 1, total number of batches: 1
+
+Properties batch 0, size 1
+Remaining timeout: 356.9657208919525
+##### Instance 0 first 10 spec matrices: 
+tensor([[[1.]]], dtype=torch.float64)
+thresholds: tensor([1.], device='cuda:0') ######
+Model prediction is: tensor([1.07393563], device='cuda:0')
+Model: BoundedModule(
+  (/tensor.1): BoundInput(name=/tensor.1, inputs=[], perturbed=True)
+  (/7): BoundParams(name=/7, inputs=[], perturbed=False)
+  (/8): BoundParams(name=/8, inputs=[], perturbed=False)
+  (/9): BoundParams(name=/9, inputs=[], perturbed=False)
+  (/10): BoundParams(name=/10, inputs=[], perturbed=False)
+  (/11): BoundParams(name=/11, inputs=[], perturbed=False)
+  (/12): BoundParams(name=/12, inputs=[], perturbed=False)
+  (/13): BoundBuffers(name=/13, inputs=[], perturbed=False)
+  (/14): BoundBuffers(name=/14, inputs=[], perturbed=False)
+  (/15): BoundParams(name=/15, inputs=[], perturbed=False)
+  (/16): BoundParams(name=/16, inputs=[], perturbed=False)
+  (/17): BoundParams(name=/17, inputs=[], perturbed=False)
+  (/18): BoundParams(name=/18, inputs=[], perturbed=False)
+  (/19): BoundParams(name=/19, inputs=[], perturbed=False)
+  (/20): BoundParams(name=/20, inputs=[], perturbed=False)
+  (/21): BoundBuffers(name=/21, inputs=[], perturbed=False)
+  (/22): BoundParams(name=/22, inputs=[], perturbed=False)
+  (/23): BoundParams(name=/23, inputs=[], perturbed=False)
+  (/24): BoundParams(name=/24, inputs=[], perturbed=False)
+  (/25): BoundParams(name=/25, inputs=[], perturbed=False)
+  (/26): BoundParams(name=/26, inputs=[], perturbed=False)
+  (/27): BoundParams(name=/27, inputs=[], perturbed=False)
+  (/28): BoundBuffers(name=/28, inputs=[], perturbed=False)
+  (/29): BoundParams(name=/29, inputs=[], perturbed=False)
+  (/30): BoundParams(name=/30, inputs=[], perturbed=False)
+  (/31): BoundParams(name=/31, inputs=[], perturbed=False)
+  (/32): BoundParams(name=/32, inputs=[], perturbed=False)
+  (/33): BoundParams(name=/33, inputs=[], perturbed=False)
+  (/34): BoundParams(name=/34, inputs=[], perturbed=False)
+  (/35): BoundBuffers(name=/35, inputs=[], perturbed=False)
+  (/36): BoundParams(name=/36, inputs=[], perturbed=False)
+  (/37): BoundParams(name=/37, inputs=[], perturbed=False)
+  (/38): BoundParams(name=/38, inputs=[], perturbed=False)
+  (/39): BoundParams(name=/39, inputs=[], perturbed=False)
+  (/40): BoundParams(name=/40, inputs=[], perturbed=False)
+  (/41): BoundParams(name=/41, inputs=[], perturbed=False)
+  (/42): BoundBuffers(name=/42, inputs=[], perturbed=False)
+  (/43): BoundSplit(name=/43, inputs=[/tensor.1], perturbed=True)
+  (/tensor): BoundSplit(name=/tensor, inputs=[/tensor.1], perturbed=True)
+  (/tensor.4): BoundSplit(name=/tensor.4, inputs=[/tensor.1], perturbed=True)
+  (/tensor.8): BoundSplit(name=/tensor.8, inputs=[/tensor.1], perturbed=True)
+  (/tensor.12): BoundSplit(name=/tensor.12, inputs=[/tensor.1], perturbed=True)
+  (/48): BoundSplit(name=/48, inputs=[/tensor.1], perturbed=True)
+  (/49): BoundLinear(name=/49, inputs=[/43, /7, /8], perturbed=True)
+  (/50): BoundLinear(name=/50, inputs=[/49, /9, /10], perturbed=True)
+  (/51): BoundLinear(name=/51, inputs=[/50, /11, /12], perturbed=True)
+  (/52): BoundTanh(name=/52, inputs=[/51], perturbed=True)
+  (/53): BoundMul(name=/53, inputs=[/52, /13], perturbed=True)
+  (/54): BoundAdd(name=/54, inputs=[/53, /14], perturbed=True)
+  (/55): BoundSplit(name=/55, inputs=[/tensor], perturbed=True)
+  (/56): BoundSplit(name=/56, inputs=[/tensor], perturbed=True)
+  (/57): BoundSplit(name=/57, inputs=[/tensor], perturbed=True)
+  (/58): BoundAdd(name=/58, inputs=[/56, /53], perturbed=True)
+  (/59): BoundConcat(name=/59, inputs=[/55, /58, /57], perturbed=True)
+  (/60): BoundLinear(name=/60, inputs=[/59, /15, /16], perturbed=True)
+  (/61): BoundLinear(name=/61, inputs=[/60, /17, /18], perturbed=True)
+  (/62): BoundLinear(name=/62, inputs=[/61, /19, /20], perturbed=True)
+  (/63): BoundTanh(name=/63, inputs=[/62], perturbed=True)
+  (/64): BoundMul(name=/64, inputs=[/63, /21], perturbed=True)
+  (/65): BoundAdd(name=/65, inputs=[/64, /48], perturbed=True)
+  (/66): BoundMul(name=/66, inputs=[/54, /65], perturbed=True)
+  (/67): BoundSplit(name=/67, inputs=[/tensor.4], perturbed=True)
+  (/68): BoundSplit(name=/68, inputs=[/tensor.4], perturbed=True)
+  (/69): BoundSplit(name=/69, inputs=[/tensor.4], perturbed=True)
+  (/70): BoundAdd(name=/70, inputs=[/68, /65], perturbed=True)
+  (/71): BoundConcat(name=/71, inputs=[/67, /70, /69], perturbed=True)
+  (/72): BoundLinear(name=/72, inputs=[/71, /22, /23], perturbed=True)
+  (/73): BoundLinear(name=/73, inputs=[/72, /24, /25], perturbed=True)
+  (/74): BoundLinear(name=/74, inputs=[/73, /26, /27], perturbed=True)
+  (/75): BoundTanh(name=/75, inputs=[/74], perturbed=True)
+  (/76): BoundMul(name=/76, inputs=[/75, /28], perturbed=True)
+  (/77): BoundAdd(name=/77, inputs=[/76, /48], perturbed=True)
+  (/78): BoundMul(name=/78, inputs=[/66, /77], perturbed=True)
+  (/79): BoundSplit(name=/79, inputs=[/tensor.8], perturbed=True)
+  (/80): BoundSplit(name=/80, inputs=[/tensor.8], perturbed=True)
+  (/81): BoundSplit(name=/81, inputs=[/tensor.8], perturbed=True)
+  (/82): BoundAdd(name=/82, inputs=[/80, /77], perturbed=True)
+  (/83): BoundConcat(name=/83, inputs=[/79, /82, /81], perturbed=True)
+  (/84): BoundLinear(name=/84, inputs=[/83, /29, /30], perturbed=True)
+  (/85): BoundLinear(name=/85, inputs=[/84, /31, /32], perturbed=True)
+  (/86): BoundLinear(name=/86, inputs=[/85, /33, /34], perturbed=True)
+  (/87): BoundTanh(name=/87, inputs=[/86], perturbed=True)
+  (/88): BoundMul(name=/88, inputs=[/87, /35], perturbed=True)
+  (/89): BoundAdd(name=/89, inputs=[/88, /48], perturbed=True)
+  (/90): BoundMul(name=/90, inputs=[/78, /89], perturbed=True)
+  (/91): BoundSplit(name=/91, inputs=[/tensor.12], perturbed=True)
+  (/92): BoundSplit(name=/92, inputs=[/tensor.12], perturbed=True)
+  (/93): BoundSplit(name=/93, inputs=[/tensor.12], perturbed=True)
+  (/94): BoundAdd(name=/94, inputs=[/92, /89], perturbed=True)
+  (/95): BoundConcat(name=/95, inputs=[/91, /94, /93], perturbed=True)
+  (/96): BoundLinear(name=/96, inputs=[/95, /36, /37], perturbed=True)
+  (/97): BoundLinear(name=/97, inputs=[/96, /38, /39], perturbed=True)
+  (/98): BoundLinear(name=/98, inputs=[/97, /40, /41], perturbed=True)
+  (/99): BoundTanh(name=/99, inputs=[/98], perturbed=True)
+  (/100): BoundMul(name=/100, inputs=[/99, /42], perturbed=True)
+  (/101): BoundAdd(name=/101, inputs=[/100, /48], perturbed=True)
+  (/102): BoundMul(name=/102, inputs=[/90, /101], perturbed=True)
+)
+Split layers:
+  BoundLinear(name=/51, inputs=[/50, /11, /12], perturbed=True): [(BoundTanh(name=/52, inputs=[/51], perturbed=True), 0)]
+  BoundLinear(name=/62, inputs=[/61, /19, /20], perturbed=True): [(BoundTanh(name=/63, inputs=[/62], perturbed=True), 0)]
+  BoundAdd(name=/54, inputs=[/53, /14], perturbed=True): [(BoundMul(name=/66, inputs=[/54, /65], perturbed=True), 0)]
+  BoundAdd(name=/65, inputs=[/64, /48], perturbed=True): [(BoundMul(name=/66, inputs=[/54, /65], perturbed=True), 1)]
+  BoundLinear(name=/74, inputs=[/73, /26, /27], perturbed=True): [(BoundTanh(name=/75, inputs=[/74], perturbed=True), 0)]
+  BoundMul(name=/66, inputs=[/54, /65], perturbed=True): [(BoundMul(name=/78, inputs=[/66, /77], perturbed=True), 0)]
+  BoundAdd(name=/77, inputs=[/76, /48], perturbed=True): [(BoundMul(name=/78, inputs=[/66, /77], perturbed=True), 1)]
+  BoundLinear(name=/86, inputs=[/85, /33, /34], perturbed=True): [(BoundTanh(name=/87, inputs=[/86], perturbed=True), 0)]
+  BoundMul(name=/78, inputs=[/66, /77], perturbed=True): [(BoundMul(name=/90, inputs=[/78, /89], perturbed=True), 0)]
+  BoundAdd(name=/89, inputs=[/88, /48], perturbed=True): [(BoundMul(name=/90, inputs=[/78, /89], perturbed=True), 1)]
+  BoundLinear(name=/98, inputs=[/97, /40, /41], perturbed=True): [(BoundTanh(name=/99, inputs=[/98], perturbed=True), 0)]
+  BoundMul(name=/90, inputs=[/78, /89], perturbed=True): [(BoundMul(name=/102, inputs=[/90, /101], perturbed=True), 0)]
+  BoundAdd(name=/101, inputs=[/100, /48], perturbed=True): [(BoundMul(name=/102, inputs=[/90, /101], perturbed=True), 1)]
+Nonlinear functions:
+   BoundTanh(name=/52, inputs=[/51], perturbed=True)
+   BoundTanh(name=/63, inputs=[/62], perturbed=True)
+   BoundMul(name=/66, inputs=[/54, /65], perturbed=True)
+   BoundTanh(name=/75, inputs=[/74], perturbed=True)
+   BoundMul(name=/78, inputs=[/66, /77], perturbed=True)
+   BoundTanh(name=/87, inputs=[/86], perturbed=True)
+   BoundMul(name=/90, inputs=[/78, /89], perturbed=True)
+   BoundTanh(name=/99, inputs=[/98], perturbed=True)
+   BoundMul(name=/102, inputs=[/90, /101], perturbed=True)
+Optimizable variables initialized.
+initial CROWN bounds: tensor([[1.07379639]], device='cuda:0') None
+Verified with initial CROWN!
+Verified by initial bound!
+Result: unsat
+Time: 3.753735303878784

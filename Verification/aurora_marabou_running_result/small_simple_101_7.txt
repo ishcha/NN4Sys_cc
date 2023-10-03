@@ -1,0 +1,18 @@
+InputQuery: /tmp/tmpdj6gtua2
+Engine::processInputQuery: Input query (before preprocessing): 27 equations, 58 variables
+unsat
+-------------
+Gemm
+-------------
+Gemm
+-------------
+Gemm
+-------------
+Tanh
+Running Marabou with the following arguments:  []
+Property: ../Benchmarks/marabou_txt/aurora_101_7.txt
+Number of variables: 58
+Number of lower bounds: 31
+Number of upper bounds: 31
+Number of equations: 27
+Number of non-linear constraints: 1

@@ -1,0 +1,53 @@
+InputQuery: /tmp/tmpa5alazzg
+Engine::processInputQuery: Input query (before preprocessing): 99 equations, 130 variables
+Engine::processInputQuery: Input query (after preprocessing): 99 equations, 130 variables
+
+Input bounds:
+	x0: [  0.0094,   0.0094] [FIXED]
+	x1: [  0.0014,   0.0014] [FIXED]
+	x2: [  0.0041,   0.0041] [FIXED]
+	x3: [  0.0092,   0.0092] [FIXED]
+	x4: [  0.0057,   0.0057] [FIXED]
+	x5: [  0.0028,   0.0028] [FIXED]
+	x6: [  0.0073,   0.0073] [FIXED]
+	x7: [  0.0022,   0.0022] [FIXED]
+	x8: [  0.0013,   0.0013] [FIXED]
+	x9: [  0.0064,   0.0064] [FIXED]
+	x10: [  1.0058,   1.0058] [FIXED]
+	x11: [  1.0043,   1.0043] [FIXED]
+	x12: [  1.0012,   1.0012] [FIXED]
+	x13: [  1.0055,   1.0055] [FIXED]
+	x14: [  1.0076,   1.0076] [FIXED]
+	x15: [  1.0088,   1.0088] [FIXED]
+	x16: [  1.0021,   1.0021] [FIXED]
+	x17: [  1.0030,   1.0030] [FIXED]
+	x18: [  1.0024,   1.0024] [FIXED]
+	x19: [  1.0092,   1.0092] [FIXED]
+	x20: [  2.3908,   3.3908] 
+	x21: [  2.1579,   3.1579] 
+	x22: [  2.3593,   3.3593] 
+	x23: [  2.0712,   3.0712] 
+	x24: [  2.5469,   3.5469] 
+	x25: [  2.2808,   3.2808] 
+	x26: [  2.9289,   3.9289] 
+	x27: [  2.4509,   3.4509] 
+	x28: [  2.3935,   3.3935] 
+	x29: [  2.7173,   3.7173] 
+
+Branching heuristics set to PseudoImpact
+unsat
+-------------
+Gemm
+-------------
+Gemm
+-------------
+Gemm
+-------------
+Tanh
+Running Marabou with the following arguments:  []
+Property: ../Benchmarks/marabou_txt/aurora_2_9.txt
+Number of variables: 130
+Number of lower bounds: 31
+Number of upper bounds: 31
+Number of equations: 99
+Number of non-linear constraints: 1
