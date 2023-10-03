@@ -52,7 +52,7 @@ def main(model):
     print(f'sat: {sat}')
     print(f'unsat: {unsat}')
     print("sat")
-    sat_dic = dict(sorted(unsat_dic.items()))
+    sat_dic = dict(sorted(sat_dic.items()))
     print(sat_dic)
     print("unsat")
     unsat_dic = dict(sorted(unsat_dic.items()))
