@@ -3,7 +3,11 @@ import math
 import numpy as np
 import sys
 
-
+def avg_time(dic, times):
+    ret={}
+    for key in times:
+        ret[key] = times[key]/dic[key]
+    return ret
 def main(model):
     dir = f'./{model}_abcrown_running_result'
     files = os.listdir(dir)
@@ -12,6 +16,8 @@ def main(model):
     sat = 0
     sat_dic={}
     unsat_dic={}
+    sat_time={}
+    unsat_time={}
     print("sat files:----------------------------------------------------------")
 
     for f in files:
@@ -36,27 +42,42 @@ def main(model):
                 unsat+=1
                 if index in unsat_dic.keys():
                     unsat_dic[index] = unsat_dic[index]+1
+                    unsat_time[index] = unsat_time[index] + timeout
                 else:
                     unsat_dic[index] = 1
+                    unsat_time[index] = timeout
             elif result=='sat':
                 print(file)
                 sat+=1
                 if index in sat_dic.keys():
                     sat_dic[index] = sat_dic[index]+1
+                    sat_time[index] = unsat_time[index] + timeout
                 else:
                     sat_dic[index] = 1
+                    sat_time[index] = timeout
             else:
                 print("no result")
                 print(file)
     print("----------------------------------------------------------sat files")
     print(f'sat: {sat}')
     print(f'unsat: {unsat}')
-    print("sat")
     sat_dic = dict(sorted(sat_dic.items()))
-    print(sat_dic)
-    print("unsat")
     unsat_dic = dict(sorted(unsat_dic.items()))
+
+    sat_avg_time = avg_time(sat_dic, sat_time)
+    unsat_avg_time = avg_time(unsat_dic, unsat_time)
+
+
+
+    print("sat")
+
+    print(sat_dic)
+    print(sat_avg_time)
+
+    print("unsat")
+
     print(unsat_dic)
+    print(unsat_avg_time)
 
 
 if __name__ == "__main__":
