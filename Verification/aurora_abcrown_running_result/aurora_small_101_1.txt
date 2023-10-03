@@ -235,14 +235,13 @@ debug:
   test_optimized_bounds_after_n_iterations: 0
   include_output_constraint: false
 
-Experiments at Mon Oct  2 11:40:30 2023 on Yak
+Experiments at Tue Oct  3 01:35:44 2023 on Yak
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Using onnx ../Benchmarks/onnx/aurora_small_simple.onnx
 Using vnnlib ../Benchmarks/vnnlib/aurora_101_1.vnnlib
-.compiled file md5: 49ec4373b76a368a7af9f42c63dbd000 does not match the current vnnlib md5: f0967a8807d244fbdb14493ca5f6e6fd. Regenerating...
-30 inputs and 1 outputs in vnnlib
+Precompiled vnnlib file found at ../Benchmarks/vnnlib/aurora_101_1.vnnlib.compiled
 Loading onnx ../Benchmarks/onnx/aurora_small_simple.onnx wih quirks {}
 Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.0006250000442378223, initialization=uniform, GAMA=False
 Model output of first 5 examples:
@@ -252,12 +251,12 @@ Adv example prediction (first 2 examples and 2 restarts):
 PGD attack margin (first 2 examles and 10 specs):
  tensor([[[0.57402754]]], device='cuda:0')
 number of violation:  0
-Attack finished in 0.8594 seconds.
+Attack finished in 0.8605 seconds.
 PGD attack failed
 Total VNNLIB file length: 1, max property batch size: 1, total number of batches: 1
 
 Properties batch 0, size 1
-Remaining timeout: 357.31262373924255
+Remaining timeout: 357.22715425491333
 ##### Instance 0 first 10 spec matrices: 
 tensor([[[1.]]], dtype=torch.float64)
 thresholds: tensor([0.], device='cuda:0') ######
@@ -284,4 +283,4 @@ initial CROWN bounds: tensor([[0.57402778]], device='cuda:0') None
 Verified with initial CROWN!
 Verified by initial bound!
 Result: unsat
-Time: 2.900597095489502
+Time: 2.9813637733459473

@@ -235,14 +235,13 @@ debug:
   test_optimized_bounds_after_n_iterations: 0
   include_output_constraint: false
 
-Experiments at Mon Oct  2 11:41:43 2023 on Yak
+Experiments at Tue Oct  3 01:38:09 2023 on Yak
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Using onnx ../Benchmarks/onnx/aurora_small_simple.onnx
 Using vnnlib ../Benchmarks/vnnlib/aurora_102_3.vnnlib
-.compiled file md5: e6344ee3fa6e5db9df400f757e4365f2 does not match the current vnnlib md5: 9167a060d56caee3a86576caa587996b. Regenerating...
-30 inputs and 1 outputs in vnnlib
+Precompiled vnnlib file found at ../Benchmarks/vnnlib/aurora_102_3.vnnlib.compiled
 Loading onnx ../Benchmarks/onnx/aurora_small_simple.onnx wih quirks {}
 Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.125, initialization=uniform, GAMA=False
 Model output of first 5 examples:
@@ -254,4 +253,4 @@ PGD attack margin (first 2 examles and 10 specs):
  tensor([[[-0.96378517]]], device='cuda:0')
 number of violation:  1
 Result: sat
-Time: 2.3073198795318604
+Time: 2.3152105808258057
