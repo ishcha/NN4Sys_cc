@@ -70,20 +70,19 @@ def main(model):
     sat_dic = dict(sorted(sat_dic.items()))
     unsat_dic = dict(sorted(unsat_dic.items()))
 
-    sat_avg_time = avg_time(sat_dic, sat_time)
-    unsat_avg_time = avg_time(unsat_dic, unsat_time)
+    avg_time = avg_time(sat_dic, unsat_dic, sat_time, unsat_time)
 
 
 
     print("sat")
 
     print(sat_dic)
-    print(sat_avg_time)
+
 
     print("unsat")
 
     print(unsat_dic)
-    print(unsat_avg_time)
+    print(avg_time)
 
 
 if __name__ == "__main__":
