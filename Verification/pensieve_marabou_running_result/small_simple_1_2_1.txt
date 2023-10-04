@@ -1,0 +1,72 @@
+InputQuery: /tmp/tmpc1k5rl3k
+Engine::processInputQuery: Input query (before preprocessing): 956 equations, 1767 variables
+unsat
+start time 1696402621.185855
+-------------
+Constant
+-------------
+Reshape
+-------------
+Split
+-------------
+Split
+-------------
+Constant
+-------------
+Reshape
+-------------
+Gemm
+-------------
+Relu
+-------------
+Split
+-------------
+Split
+-------------
+Constant
+-------------
+Reshape
+-------------
+Gemm
+-------------
+Relu
+-------------
+Split
+-------------
+Gemm
+-------------
+Relu
+-------------
+Split
+-------------
+Gemm
+-------------
+Relu
+-------------
+Split
+-------------
+Split
+-------------
+Gemm
+-------------
+Relu
+-------------
+Split
+-------------
+Gemm
+-------------
+Concat
+-------------
+Gemm
+-------------
+Relu
+-------------
+Gemm
+Running Marabou with the following arguments:  []
+Time 1.187394142150879
+Property: ../Benchmarks/marabou_txt/pensieve_1_2_1.txt
+Number of variables: 1767
+Number of lower bounds: 816
+Number of upper bounds: 48
+Number of equations: 956
+Number of non-linear constraints: 768
