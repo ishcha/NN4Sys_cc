@@ -138,7 +138,7 @@ def gene_spec():
             write_vnnlib(input_array_perturbed, int(cannot_be_highest), spec, vnn_path)
 
             total_num += 1
-
+        total_num = 0
         input_array = \
         np.load(f'./src/decima/decima_resources/decima_fixedInput_{SPEC_TYPES[spec_type_ptr]}_marabou.npy')[0]
         spec = SPEC_TYPES[spec_type_ptr]
