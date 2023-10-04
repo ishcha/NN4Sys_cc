@@ -27,7 +27,7 @@ MODEL_TYPES = ['simple', 'marabou']
 MODEL_TYPE = MODEL_TYPES[0]
 file_path = "./best_models/model_exec50_ep_" + str(6200)
 SPEC_TYPES = [1, 2]
-SIZES = [10, 10]
+SIZES = [100, 100]
 RANDOMSEED = 2024
 DIR = f'../../Benchmarks/src/decima/decima_resources'
 
@@ -580,8 +580,6 @@ def gene_spec():
                             print(f"save to {path}")
                             np.save(path, X)
 
-
-
                     if i == 1 and MODEL_TYPE == MODEL_TYPES[0]:
                         # choose one of the cousin
                         frontier_nodes = frontier_nodes.to_list()
@@ -612,10 +610,9 @@ def gene_spec():
                         enough = len(X) > SIZES[i]
                         print(len(X))
                         if enough:
-                            path = DIR + f'/decima_fixiedInput_{SPEC_TYPES[i]}.npy'
+                            path = DIR + f'/decima_fixedInput_{SPEC_TYPES[i]}.npy'
                             print(f"save to {path}")
                             np.save(path, X)
-
 
                     if i == 0 and MODEL_TYPE == MODEL_TYPES[1]:
                         # choose one of the child
@@ -628,10 +625,9 @@ def gene_spec():
                         enough = len(X) == 1
                         print(len(X))
                         if enough:
-                            path = DIR + f'/decima_fixiedInput_{SPEC_TYPES[i]}_marabou.npy'
+                            path = DIR + f'/decima_fixedInput_{SPEC_TYPES[i]}_marabou.npy'
                             print(f"save to {path}")
                             np.save(path, X)
-
 
                     if i == 1 and MODEL_TYPE == MODEL_TYPES[1]:
                         # choose one of the cousin
@@ -663,13 +659,9 @@ def gene_spec():
                         enough = len(X) == 1
                         print(len(X))
                         if enough:
-                            path = DIR + f'/decima_fixiedInput_{SPEC_TYPES[i]}_marabou.npy'
+                            path = DIR + f'/decima_fixedInput_{SPEC_TYPES[i]}_marabou.npy'
                             print(f"save to {path}")
                             np.save(path, X)
-
-
-
-
 
 
 def gen_index():

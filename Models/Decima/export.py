@@ -41,7 +41,7 @@ def main():
                 if MODEL_TYPE == 'marabou':
                     if MODEL == 'mid':
                         save_path = ONNX_DIR + '/decima_' + MODEL + '_' + MODEL_TYPE + f"_{SPEC_TYPE}.onnx"
-                        input_arrays = np.load(VNN_path + f'/decima_fixiedInput_{SPEC_TYPE}_marabou.npy')
+                        input_arrays = np.load(VNN_path + f'/decima_fixedInput_{SPEC_TYPE}_marabou.npy')
                         actor = model.model_benchmark_marabou(torch.tensor(input_arrays[0][:4300]))
 
                 print(save_path)
