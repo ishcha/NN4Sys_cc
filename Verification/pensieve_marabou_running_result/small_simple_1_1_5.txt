@@ -1,7 +1,7 @@
-InputQuery: /tmp/tmp7xp4twsu
+InputQuery: /tmp/tmp5tvlwb46
 Engine::processInputQuery: Input query (before preprocessing): 956 equations, 1767 variables
 unsat
-start time 1696402602.4395864
+start time 1696404333.6233723
 -------------
 Constant
 -------------
@@ -63,7 +63,7 @@ Relu
 -------------
 Gemm
 Running Marabou with the following arguments:  []
-Time 1.1745822429656982
+Time 1.1766088008880615
 Property: ../Benchmarks/marabou_txt/pensieve_1_1_5.txt
 Number of variables: 1767
 Number of lower bounds: 816

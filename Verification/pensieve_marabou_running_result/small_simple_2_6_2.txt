@@ -1,4 +1,4 @@
-start time 1696402973.5195267
+start time 1696404704.9447148
 -------------
 Constant
 -------------
@@ -60,7 +60,7 @@ Relu
 -------------
 Gemm
 Running Marabou with the following arguments:  []
-Time 1.283013105392456
+Time 1.2672743797302246
 Property: ../Benchmarks/marabou_txt/pensieve_2_6_2.txt
 Number of variables: 1767
 Number of lower bounds: 816
