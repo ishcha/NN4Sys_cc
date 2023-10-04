@@ -1,4 +1,4 @@
-InputQuery: /tmp/tmp727d9yay
+InputQuery: /tmp/tmppdoesylk
 Engine::processInputQuery: Input query (before preprocessing): 99 equations, 130 variables
 Engine::processInputQuery: Input query (after preprocessing): 99 equations, 130 variables
 
@@ -38,7 +38,7 @@ Branching heuristics set to PseudoImpact
 
 Engine::solve: Initial statistics
 
-23:48:13 Statistics update:
+01:55:44 Statistics update:
 	--- Time Statistics ---
 	Total time elapsed: 18 milli (00:00:00)
 		Main loop: 0 milli (00:00:00)
@@ -118,15 +118,15 @@ Before declaring sat, recomputing...
 
 Engine::solve: sat assignment found
 
-23:48:13 Statistics update:
+01:55:44 Statistics update:
 	--- Time Statistics ---
-	Total time elapsed: 20 milli (00:00:00)
+	Total time elapsed: 21 milli (00:00:00)
 		Main loop: 2 milli (00:00:00)
 		Preprocessing time: 8 milli (00:00:00)
 		Unknown: 10 milli (00:00:00)
 	Breakdown for main loop:
-		[3.30%] Simplex steps: 0 milli
-		[57.99%] Explicit-basis bound tightening: 1 milli
+		[3.31%] Simplex steps: 0 milli
+		[58.07%] Explicit-basis bound tightening: 1 milli
 		[0.00%] Constraint-matrix bound tightening: 0 milli
 		[0.00%] Degradation checking: 0 milli
 		[0.00%] Precision restoration: 0 milli
@@ -135,10 +135,10 @@ Engine::solve: sat assignment found
 		[0.00%] Valid case splits: 0 milli. Average per split: 0.00 milli
 		[0.00%] Applying stored bound-tightening: 0 milli
 		[0.00%] SMT core: 0 milli
-		[84.75%] Symbolic Bound Tightening: 1 milli
+		[85.15%] Symbolic Bound Tightening: 1 milli
 		[0.00%] SoI-based local search: 0 milli
 		[0.00%] SoI-based local search: 0 milli
-		[790010452835526784.00%] Unaccounted for: 0 milli
+		[794091436664207872.00%] Unaccounted for: 0 milli
 	--- Preprocessor Statistics ---
 	Number of preprocessor bound-tightening loop iterations: 3
 	Number of eliminated variables: 20
@@ -228,6 +228,7 @@ Input assignment:
 Output:
 	y0 = -0.000000
 
+start time 1696398944.553795
 -------------
 Gemm
 -------------
@@ -237,6 +238,7 @@ Gemm
 -------------
 Tanh
 Running Marabou with the following arguments:  []
+Time 0.07606148719787598
 Property: ../Benchmarks/marabou_txt/aurora_2_0.txt
 Number of variables: 130
 Number of lower bounds: 31

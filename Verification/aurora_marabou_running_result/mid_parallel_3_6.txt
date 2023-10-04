@@ -1,4 +1,4 @@
-InputQuery: /tmp/tmpofg4j802
+InputQuery: /tmp/tmpz4e81enw
 Engine::processInputQuery: Input query (before preprocessing): 164 equations, 226 variables
 Engine::processInputQuery: Input query (after preprocessing): 144 equations, 206 variables
 
@@ -68,12 +68,12 @@ Branching heuristics set to PseudoImpact
 
 Engine::solve: Initial statistics
 
-23:49:05 Statistics update:
+01:56:36 Statistics update:
 	--- Time Statistics ---
-	Total time elapsed: 20 milli (00:00:00)
+	Total time elapsed: 19 milli (00:00:00)
 		Main loop: 0 milli (00:00:00)
 		Preprocessing time: 10 milli (00:00:00)
-		Unknown: 10 milli (00:00:00)
+		Unknown: 9 milli (00:00:00)
 	Breakdown for main loop:
 		[0.00%] Simplex steps: 0 milli
 		[0.00%] Explicit-basis bound tightening: 0 milli
@@ -147,15 +147,15 @@ Engine::solve: Initial statistics
 
 Engine::solve: sat assignment found
 
-23:49:05 Statistics update:
+01:56:36 Statistics update:
 	--- Time Statistics ---
-	Total time elapsed: 25 milli (00:00:00)
+	Total time elapsed: 23 milli (00:00:00)
 		Main loop: 3 milli (00:00:00)
 		Preprocessing time: 10 milli (00:00:00)
-		Unknown: 11 milli (00:00:00)
+		Unknown: 9 milli (00:00:00)
 	Breakdown for main loop:
 		[0.00%] Simplex steps: 0 milli
-		[36.62%] Explicit-basis bound tightening: 1 milli
+		[36.61%] Explicit-basis bound tightening: 1 milli
 		[0.00%] Constraint-matrix bound tightening: 0 milli
 		[0.00%] Degradation checking: 0 milli
 		[0.00%] Precision restoration: 0 milli
@@ -164,10 +164,10 @@ Engine::solve: sat assignment found
 		[0.00%] Valid case splits: 0 milli. Average per split: 0.00 milli
 		[0.00%] Applying stored bound-tightening: 0 milli
 		[0.00%] SMT core: 0 milli
-		[133.71%] Symbolic Bound Tightening: 5 milli
+		[132.78%] Symbolic Bound Tightening: 5 milli
 		[0.00%] SoI-based local search: 0 milli
 		[0.00%] SoI-based local search: 0 milli
-		[487364440520727872.00%] Unaccounted for: 0 milli
+		[487622100811777664.00%] Unaccounted for: 0 milli
 	--- Preprocessor Statistics ---
 	Number of preprocessor bound-tightening loop iterations: 6
 	Number of eliminated variables: 40
@@ -287,6 +287,7 @@ Input assignment:
 Output:
 	y0 = 0.002474
 
+start time 1696398996.8625095
 -------------
 Split
 -------------
@@ -316,6 +317,7 @@ Mul
 -------------
 Add
 Running Marabou with the following arguments:  []
+Time 0.08267402648925781
 Property: ../Benchmarks/marabou_txt/aurora_3_6.txt
 Number of variables: 226
 Number of lower bounds: 62

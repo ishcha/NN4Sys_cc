@@ -235,7 +235,7 @@ debug:
   test_optimized_bounds_after_n_iterations: 0
   include_output_constraint: false
 
-Experiments at Mon Oct  2 23:10:21 2023 on Yak
+Experiments at Tue Oct  3 02:19:33 2023 on Yak
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -243,3 +243,26 @@ Using onnx ../Benchmarks/onnx/decima_mid_simple.onnx
 Using vnnlib ../Benchmarks/vnnlib/decima_1_9.vnnlib
 Precompiled vnnlib file found at ../Benchmarks/vnnlib/decima_1_9.vnnlib.compiled
 Loading onnx ../Benchmarks/onnx/decima_mid_simple.onnx wih quirks {}
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=2.3844470977783203, initialization=uniform, GAMA=False
+Model output of first 5 examples:
+ tensor([[-10095.68457031, -10077.69628906,   -212.56315613, -10145.87890625,
+         -10155.29492188, -10153.89160156, -10153.81640625, -10143.54785156,
+         -10054.57421875, -10054.57421875, -10054.57421875, -10054.57421875,
+         -10054.57421875, -10054.57421875, -10054.57421875, -10054.57421875,
+         -10054.57421875, -10054.57421875, -10054.57421875, -10054.57421875]],
+       device='cuda:0')
+Clean prediction incorrect, attack skipped.
+Adv example prediction (first 2 examples and 2 restarts):
+ tensor([[[-10095.68457031, -10077.69628906,   -212.56315613, -10145.87890625,
+          -10155.29492188, -10153.89160156, -10153.81640625, -10143.54785156,
+          -10054.57421875, -10054.57421875, -10054.57421875, -10054.57421875,
+          -10054.57421875, -10054.57421875, -10054.57421875, -10054.57421875,
+          -10054.57421875, -10054.57421875, -10054.57421875, -10054.57421875]]],
+       device='cuda:0')
+PGD attack margin (first 2 examles and 10 specs):
+ tensor([[[-9883.12109375, -9865.13281250, -9933.31542969, -9942.73144531,
+          -9941.32812500, -9941.25292969, -9930.98437500, -9842.01074219,
+          -9842.01074219, -9842.01074219]]], device='cuda:0')
+number of violation:  19
+Result: sat
+Time: 2.3746917247772217

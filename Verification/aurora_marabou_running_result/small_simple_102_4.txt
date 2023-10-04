@@ -1,4 +1,4 @@
-InputQuery: /tmp/tmpb0cq4dri
+InputQuery: /tmp/tmpe3ecaoph
 Engine::processInputQuery: Input query (before preprocessing): 27 equations, 58 variables
 Engine::processInputQuery: Input query (after preprocessing): 27 equations, 58 variables
 
@@ -38,7 +38,7 @@ Branching heuristics set to PseudoImpact
 
 Engine::solve: Initial statistics
 
-23:46:42 Statistics update:
+01:54:13 Statistics update:
 	--- Time Statistics ---
 	Total time elapsed: 3 milli (00:00:00)
 		Main loop: 0 milli (00:00:00)
@@ -117,12 +117,12 @@ Engine::solve: Initial statistics
 
 Engine::solve: sat assignment found
 
-23:46:42 Statistics update:
+01:54:13 Statistics update:
 	--- Time Statistics ---
 	Total time elapsed: 4 milli (00:00:00)
 		Main loop: 0 milli (00:00:00)
 		Preprocessing time: 1 milli (00:00:00)
-		Unknown: 2 milli (00:00:00)
+		Unknown: 1 milli (00:00:00)
 	Breakdown for main loop:
 		[0.00%] Simplex steps: 0 milli
 		[23.99%] Explicit-basis bound tightening: 0 milli
@@ -134,7 +134,7 @@ Engine::solve: sat assignment found
 		[0.00%] Valid case splits: 0 milli. Average per split: 0.00 milli
 		[0.00%] Applying stored bound-tightening: 0 milli
 		[0.00%] SMT core: 0 milli
-		[170.06%] Symbolic Bound Tightening: 0 milli
+		[171.55%] Symbolic Bound Tightening: 0 milli
 		[0.00%] SoI-based local search: 0 milli
 		[0.00%] SoI-based local search: 0 milli
 		[3916506172762113024.00%] Unaccounted for: 0 milli
@@ -227,6 +227,7 @@ Input assignment:
 Output:
 	y0 = 0.994408
 
+start time 1696398853.14382
 -------------
 Gemm
 -------------
@@ -236,6 +237,7 @@ Gemm
 -------------
 Tanh
 Running Marabou with the following arguments:  []
+Time 0.03400731086730957
 Property: ../Benchmarks/marabou_txt/aurora_102_4.txt
 Number of variables: 58
 Number of lower bounds: 31

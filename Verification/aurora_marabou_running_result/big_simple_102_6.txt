@@ -1,4 +1,4 @@
-InputQuery: /tmp/tmpvyg8jjuo
+InputQuery: /tmp/tmp34uaq_z1
 Engine::processInputQuery: Input query (before preprocessing): 99 equations, 130 variables
 Engine::processInputQuery: Input query (after preprocessing): 99 equations, 130 variables
 
@@ -36,6 +36,7 @@ Input bounds:
 
 Branching heuristics set to PseudoImpact
 unsat
+start time 1696398896.9106605
 -------------
 Gemm
 -------------
@@ -45,6 +46,7 @@ Gemm
 -------------
 Tanh
 Running Marabou with the following arguments:  []
+Time 0.07065105438232422
 Property: ../Benchmarks/marabou_txt/aurora_102_6.txt
 Number of variables: 130
 Number of lower bounds: 31

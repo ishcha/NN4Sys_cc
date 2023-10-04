@@ -235,7 +235,7 @@ debug:
   test_optimized_bounds_after_n_iterations: 0
   include_output_constraint: false
 
-Experiments at Tue Oct  3 01:37:04 2023 on Yak
+Experiments at Tue Oct  3 19:12:02 2023 on Yak
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -256,7 +256,7 @@ PGD attack failed
 Total VNNLIB file length: 1, max property batch size: 1, total number of batches: 1
 
 Properties batch 0, size 1
-Remaining timeout: 357.26960921287537
+Remaining timeout: 357.30613350868225
 ##### Instance 0 first 10 spec matrices: 
 tensor([[[1.]]], dtype=torch.float64)
 thresholds: tensor([0.], device='cuda:0') ######
@@ -283,4 +283,4 @@ initial CROWN bounds: tensor([[0.79772210]], device='cuda:0') None
 Verified with initial CROWN!
 Verified by initial bound!
 Result: unsat
-Time: 2.938957452774048
+Time: 2.902717113494873

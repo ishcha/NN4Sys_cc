@@ -1,6 +1,7 @@
-InputQuery: /tmp/tmpljdua7md
+InputQuery: /tmp/tmpaqsmqm1t
 Engine::processInputQuery: Input query (before preprocessing): 27 equations, 58 variables
 unsat
+start time 1696398791.4222417
 -------------
 Gemm
 -------------
@@ -10,6 +11,7 @@ Gemm
 -------------
 Tanh
 Running Marabou with the following arguments:  []
+Time 0.030216455459594727
 Property: ../Benchmarks/marabou_txt/aurora_101_3.txt
 Number of variables: 58
 Number of lower bounds: 31

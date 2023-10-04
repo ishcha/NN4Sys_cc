@@ -235,7 +235,7 @@ debug:
   test_optimized_bounds_after_n_iterations: 0
   include_output_constraint: false
 
-Experiments at Tue Oct  3 01:44:15 2023 on Yak
+Experiments at Tue Oct  3 19:19:01 2023 on Yak
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -253,4 +253,4 @@ PGD attack margin (first 2 examles and 10 specs):
  tensor([[[-0.00711977]]], device='cuda:0')
 number of violation:  1
 Result: sat
-Time: 2.340733766555786
+Time: 2.2802670001983643

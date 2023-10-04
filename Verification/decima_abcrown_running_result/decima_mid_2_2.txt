@@ -235,7 +235,7 @@ debug:
   test_optimized_bounds_after_n_iterations: 0
   include_output_constraint: false
 
-Experiments at Mon Oct  2 23:10:26 2023 on Yak
+Experiments at Tue Oct  3 02:20:00 2023 on Yak
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -243,3 +243,28 @@ Using onnx ../Benchmarks/onnx/decima_mid_simple.onnx
 Using vnnlib ../Benchmarks/vnnlib/decima_2_2.vnnlib
 Precompiled vnnlib file found at ../Benchmarks/vnnlib/decima_2_2.vnnlib.compiled
 Loading onnx ../Benchmarks/onnx/decima_mid_simple.onnx wih quirks {}
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=3.2507152557373047, initialization=uniform, GAMA=False
+Model output of first 5 examples:
+ tensor([[  -245.90843201, -10152.81152344,   -226.57618713,   -200.41038513,
+         -10263.85351562, -10251.54394531, -10205.30078125, -10194.89648438,
+         -10077.11328125, -10077.11328125, -10077.11328125, -10077.11328125,
+         -10077.11328125, -10077.11328125, -10077.11328125, -10077.11328125,
+         -10077.11328125, -10077.11328125, -10077.11328125, -10077.11328125]],
+       device='cuda:0')
+pgd early stop
+Adv example prediction (first 2 examples and 2 restarts):
+ tensor([[[  -142.54426575, -10104.36718750,   -173.68843079,   -171.39756775,
+          -10234.82421875, -10209.06347656, -10174.00000000, -10163.71289062,
+          -10062.55664062, -10062.55664062, -10062.55664062, -10062.55664062,
+          -10062.55664062, -10062.55664062, -10062.55664062, -10062.55664062,
+          -10062.55664062, -10062.55664062, -10062.55664062, -10062.55664062]]],
+       device='cuda:0')
+PGD attack margin (first 2 examles and 10 specs):
+ tensor([[[ -9961.82324219,    -31.14416504,    -28.85330200, -10092.28027344,
+          -10066.51953125, -10031.45605469, -10021.16894531,  -9920.01269531,
+           -9920.01269531,  -9920.01269531]]], device='cuda:0')
+number of violation:  19
+Attack finished in 0.4996 seconds.
+PGD attack succeeded!
+Result: sat
+Time: 2.4104154109954834

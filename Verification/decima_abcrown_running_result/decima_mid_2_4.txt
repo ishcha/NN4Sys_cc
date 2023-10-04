@@ -235,7 +235,7 @@ debug:
   test_optimized_bounds_after_n_iterations: 0
   include_output_constraint: false
 
-Experiments at Mon Oct  2 23:10:29 2023 on Yak
+Experiments at Tue Oct  3 02:20:14 2023 on Yak
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -243,3 +243,26 @@ Using onnx ../Benchmarks/onnx/decima_mid_simple.onnx
 Using vnnlib ../Benchmarks/vnnlib/decima_2_4.vnnlib
 Precompiled vnnlib file found at ../Benchmarks/vnnlib/decima_2_4.vnnlib.compiled
 Loading onnx ../Benchmarks/onnx/decima_mid_simple.onnx wih quirks {}
+Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=2.735750436782837, initialization=uniform, GAMA=False
+Model output of first 5 examples:
+ tensor([[  -222.38825989, -10145.63183594,   -259.95959473, -10237.03515625,
+         -10308.38281250, -10292.54589844, -10245.31347656, -10235.33984375,
+         -10080.87304688, -10080.87304688, -10080.87304688, -10080.87304688,
+         -10080.87304688, -10080.87304688, -10080.87304688, -10080.87304688,
+         -10080.87304688, -10080.87304688, -10080.87304688, -10080.87304688]],
+       device='cuda:0')
+Clean prediction incorrect, attack skipped.
+Adv example prediction (first 2 examples and 2 restarts):
+ tensor([[[  -222.38825989, -10145.63183594,   -259.95959473, -10237.03515625,
+          -10308.38281250, -10292.54589844, -10245.31347656, -10235.33984375,
+          -10080.87304688, -10080.87304688, -10080.87304688, -10080.87304688,
+          -10080.87304688, -10080.87304688, -10080.87304688, -10080.87304688,
+          -10080.87304688, -10080.87304688, -10080.87304688, -10080.87304688]]],
+       device='cuda:0')
+PGD attack margin (first 2 examles and 10 specs):
+ tensor([[[ -9923.24316406,    -37.57133484, -10014.64648438, -10085.99414062,
+          -10070.15722656, -10022.92480469, -10012.95117188,  -9858.48437500,
+           -9858.48437500,  -9858.48437500]]], device='cuda:0')
+number of violation:  19
+Result: sat
+Time: 2.377317190170288
