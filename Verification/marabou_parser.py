@@ -5,6 +5,7 @@ import sys
 
 
 def calculate_avg_time(dic1, dic2, times1, times2):
+
     ret = {}
     for key in times2:
         if key in times1:
@@ -18,11 +19,12 @@ def calculate_avg_time(dic1, dic2, times1, times2):
             dic1[key] = dic2[key]
     for key in dic1:
         ret[key] = times1[key] / dic1[key]
+
     return ret
 
 
 def main(model):
-    dir = f'./{model}_abcrown_running_result'
+    dir = f'./{model}_marabou_running_result'
     files = os.listdir(dir)
 
     unsat = 0
@@ -44,10 +46,13 @@ def main(model):
             result = ''
             for line in f:
                 line = line.strip()
-                if line[:6] == "Result":
-                    result = line[8:]
+                if line[:3] == "sat":
+                    result = "sat"
+                if line[:5] == "unsat":
+                    result = "unsat"
                 if line[:4] == "Time":
-                    timeout = float(line[6:15])
+                    timeout = float(line[5:15])
+
             if timeout == -1:
                 continue
             timeout = float(timeout)
@@ -59,15 +64,16 @@ def main(model):
                 else:
                     unsat_dic[index] = 1
                     unsat_time[index] = timeout
+
             elif result == 'sat':
-                print(file)
                 sat += 1
                 if index in sat_dic.keys():
                     sat_dic[index] = sat_dic[index] + 1
-                    sat_time[index] = sat_dic[index] + timeout
+                    sat_time[index] = sat_time[index] + timeout
                 else:
                     sat_dic[index] = 1
                     sat_time[index] = timeout
+
             else:
                 print("no result")
                 print(file)

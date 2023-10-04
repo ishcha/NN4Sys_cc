@@ -1,25 +1,19 @@
 import os
 import sys
 
-
-
 MODELS = ['small', 'mid', 'big']
-MODEL_TYPES=['simple', 'simple']
+MODEL_TYPES = ['simple', 'simple']
 
 running_result_path = './pensieve_marabou_running_result'
 SIZES = [10, 10, 10, 10, 10]
 P_RANGE = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
 
-
 SPEC_TYPES = [1, 2]
-
 
 txt_dir_path = '../Benchmarks/marabou_txt'
 onnx_dir_path = '../Benchmarks/onnx'
 
 cur_dir = os.getcwd()
-
-
 
 
 def main(marabou_path):
@@ -28,16 +22,13 @@ def main(marabou_path):
     for spec_type in range(len(SPEC_TYPES)):
         for range_ptr in range(len(P_RANGE)):
 
-
-
             for num in range(SIZES[spec_type]):
+                command = f'python {marabou_path} {onnx_dir_path}/pensieve_small_{MODEL_TYPES[spec_type]}_marabou.onnx {txt_dir_path}/pensieve_{SPEC_TYPES[spec_type]}_{range_ptr}_{num}.txt | tee {running_result_path}/small_{MODEL_TYPES[spec_type]}_{SPEC_TYPES[spec_type]}_{range_ptr}_{num}.txt'
 
-                    command = f'python {marabou_path} {onnx_dir_path}/pensieve_small_{MODEL_TYPES[spec_type]}_marabou.onnx {txt_dir_path}/pensieve_{SPEC_TYPES[spec_type]}_{range_ptr}_{num}.txt | tee {running_result_path}/small_{MODEL_TYPES[spec_type]}_{SPEC_TYPES[spec_type]}_{range_ptr}_{num}.txt'
-
-                    print("------------------------------------->")
-                    print(command)
-                    print("<------------------------------------->")
-                    os.system(command)
+                print("------------------------------------->")
+                print(command)
+                print("<------------------------------------->")
+                os.system(command)
 
 
 if __name__ == "__main__":

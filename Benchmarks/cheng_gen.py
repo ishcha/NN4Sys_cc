@@ -143,7 +143,8 @@ def main(seed):
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: generate_properties.py <random seed>")
-        exit(1)
-
-    seed = sys.argv[1]
+        #exit(1)
+        random_seed = 2024
+    else:
+        seed = sys.argv[1]
     main(seed)
