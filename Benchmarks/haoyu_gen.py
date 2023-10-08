@@ -126,12 +126,14 @@ def gene_spec():
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
     single_difficulties = [1]
-    single_difficulties.extend([(i + 1) * 250 for i in range(1, 4)])
-    single_difficulties.extend([(i + 1) * 560 + 1000 for i in range(1, 8)])
+    single_difficulties.extend([(i + 1) * 250 for i in range(1, 6)])
+    single_difficulties.extend([(i + 1) * 560 + 1000 for i in range(1, 6)])
     for model in ['128', '2048']:
         # generate single instances
         for size in single_difficulties:
+            print(size)
             for sf, indexes in enumerate(np.load(f'src/mscn/mscn_resources/sf_list_{model}.npy', allow_pickle=True)):
+                print("===")
                 if sf == 0:
                     continue
                 # chosen_dmap = {0: [i for i in indexes if difficulties[i]=='0'],
@@ -141,6 +143,7 @@ def gene_spec():
                 try:
                     # chosen_index = random.sample(chosen_dmap[difficulty], size)
                     chosen_index = random.sample(indexes, size)
+
                 except:
                     continue
                 trans_multi_vnnlib(f'{dir_path}/cardinality_0_{size}_{model}.vnnlib',
@@ -153,8 +156,8 @@ def gene_spec():
                                  time_dict_single['single'][size]])
         # generate dual instances
         dual_difficulties = [1]
-        dual_difficulties.extend([(i + 1) * 120 for i in range(1, 8)])
-        dual_difficulties.extend([(i + 1) * 630 + 1000 for i in range(1, 16)])
+        dual_difficulties.extend([(i + 1) * 120 for i in range(1, 6)])
+        dual_difficulties.extend([(i + 1) * 630 + 1000 for i in range(1, 6)])
         for size in dual_difficulties:
             for sf, indexes in enumerate(
                     np.load(f'src/mscn/mscn_resources/sf_list_{model}_dual.npy', allow_pickle=True)):
@@ -183,5 +186,5 @@ if __name__ == "__main__":
         #exit(1)
         random_seed = 2024
     else:
-        seed = sys.argv[1]
-    main(seed)
+        random_seed = sys.argv[1]
+    main(random_seed)

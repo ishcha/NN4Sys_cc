@@ -146,5 +146,5 @@ if __name__ == "__main__":
         #exit(1)
         random_seed = 2024
     else:
-        seed = sys.argv[1]
-    main(seed)
+        random_seed = sys.argv[1]
+    main(random_seed)
