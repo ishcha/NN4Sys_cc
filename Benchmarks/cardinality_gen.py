@@ -101,8 +101,11 @@ def trans_multi_vnnlib(spec_path, queries, doppel_queries, label_range, testset,
 
                 # for tt in range(len(tensor)):
                 #     lr = sub_label_range[tt]
-
+                index1=0
                 for ri, r in enumerate(sub_label_range):
+                    if index1==1:
+                        continue
+                    index1+=1
 
                     if r == None:
                         continue
@@ -131,8 +134,14 @@ def trans_multi_vnnlib(spec_path, queries, doppel_queries, label_range, testset,
 
                 # for tt in range(len(tensor)):
                 #     lr = sub_label_range[tt]
+                index1 = 0
 
                 for ri, r in enumerate(sub_label_range):
+
+                    if index1==0:
+                        index1 += 1
+                        continue
+                    index1+=1
 
                     if r == None:
                         continue
