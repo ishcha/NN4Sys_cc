@@ -12,11 +12,10 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 random.seed(2024)
 save_path = "./result"
 pt_path = 'pre-model-dict.pt'
-pt_path = 'model-dict-3.pt'
+pt_path = 'model-dict-50.pt'
 
 
 def weights_init(m):
@@ -36,10 +35,8 @@ def predict(model, data_loader):
 
     model.eval()
 
-
     for batch in tqdm(data_loader, desc="Validation"):
         inputs, labels = batch
-
 
         outputs = torch.squeeze(model(inputs, train=False)).detach().numpy()
         all_labels.append(torch.squeeze(labels).detach().numpy())
@@ -61,7 +58,6 @@ train_dataset = TensorDataset(torch.Tensor(train_data[['Lat', 'Long']].values),
 
 train_dataset, eval_dataset = random_split(train_dataset, [0.9, 0.1], generator=torch.Generator().manual_seed(2024))
 
-
 val_dataloader = DataLoader(eval_dataset, shuffle=False, batch_size=10240)
 
 
@@ -73,7 +69,7 @@ def accuracy(pred, label):
         if pred[i] == label[i]:
             correct += 1
         total += 1
-    print(f"Accuracy is {correct} / {total}  {correct/total}")
+    print(f"Accuracy is {correct} / {total}  {correct / total}")
 
 
 model.eval()
@@ -86,33 +82,30 @@ eval_data = train_data.sample(n=size)
 x = eval_data['Lat'].values
 y = eval_data['Long'].values
 label = eval_data['label'].values
-correct=0
-X1=[]
-Y1=[]
-X2=[]
-Y2=[]
+correct = 0
+X1 = []
+Y1 = []
+X2 = []
+Y2 = []
 for i in range(size):
     input = torch.tensor([x[i], y[i]]).float()
-    output = model(input,train=False).item()
+    output = model(input, train=False).item()
 
-    if output<0.5:
-        output=0
+    if output < 0.5:
+        output = 0
         X2.append(x[i])
         Y2.append(y[i])
 
     else:
-        output=1
+        output = 1
         X1.append(x[i])
         Y1.append(y[i])
-    if output==label[i]:
-        correct+=1
-print(correct/size)
+    if output == label[i]:
+        correct += 1
+print(correct / size)
 plt.scatter(x=X1, y=Y1)
-#plt.scatter(x=X2, y=Y2)
+# plt.scatter(x=X2, y=Y2)
 plt.show()
 # pos_acc = sum(preds[:crime_count] == all_labels[:crime_count]) / crime_count
 # neg_acc = sum(preds[crime_count:] == all_labels[crime_count:]) / (data.shape[0] - crime_count)
 # print(f"Accuracy is {acc}, accuracy for positive samples is {pos_acc}, for negative samples is {neg_acc}")
-
-
-

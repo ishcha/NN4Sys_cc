@@ -4,7 +4,7 @@ import sys
 
 MODEL_SIZES = ['small', 'mid', 'big']
 MODEL_TYPES = ['simple', 'simple', 'simple', 'parallel', 'concat']
-running_result_path = './aurora_marabou_running_result'
+running_result_path = './lindex_marabou_running_result'
 SIZES = [10, 10, 10, 10, 10]
 SIZE = 10
 MODEL_NAMES=["lindex_deep","lindex_deep"]
