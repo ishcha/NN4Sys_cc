@@ -15,10 +15,11 @@ ONNX_DIR = f'../../Benchmarks/onnx'
 
 
 def main():
-    os.system(f'cp lindex.onnx {ONNX_DIR}/lindex.onnx')
-    os.system(f'cp lindex_deep.onnx {ONNX_DIR}/lindex_deep.onnx')
     if not os.path.exists(ONNX_DIR):
         os.makedirs(ONNX_DIR)
+
+    os.system(f'cp lindex.onnx {ONNX_DIR}/lindex.onnx')
+    os.system(f'cp lindex_deep.onnx {ONNX_DIR}/lindex_deep.onnx')
 
 
     actor = LINN(1,1)

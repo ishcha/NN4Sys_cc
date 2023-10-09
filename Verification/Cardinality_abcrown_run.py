@@ -3,7 +3,7 @@ import sys
 
 os.environ['MKL_THREADING_LAYER'] = 'GNU'
 
-MODELS = ['small', 'mid', 'big']
+MODELS = ["cardinality_128.onnx", "cardinality_128_dual.onnx", "cardinality_2048.onnx", "cardinality_2048_dual.onnx"]
 MODEL_TYPES = ['simple', 'simple', 'simple', 'parallel', 'concat']
 DIFFICULTY = ['easy']
 SIZES = [10, 10, 10, 10, 10]
@@ -14,12 +14,13 @@ SPEC_ARRAY_LENGTH = [30, 30, 30, 60, 150]
 SPEC_ARRAY_NUM = 3000
 HISTORY = 10
 
+model_name = "cardinality"
 
 # create yaml
 vnn_dir_path = '../Benchmarks/vnnlib'
 onnx_dir_path = '../Benchmarks/onnx'
-yaml_path = './aurora_yaml'
-running_result_path = './aurora_abcrown_running_result'
+yaml_path = f'./{model_name}_yaml'
+running_result_path = f'./{model_name}_abcrown_running_result'
 timeout = 100
 csv_data = []
 total_num = 0
@@ -40,19 +41,23 @@ def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
 
 
 def main(abcrown_path):
-    for i in range(len(SPEC_TYPES)):
-        for MODEL in MODELS:
-            for size in range(SIZE):
-                vnn_path = vnn_dir_path + '/aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
-                onnx_path = onnx_dir_path + '/aurora_'+MODEL+'_' + MODEL_TYPES[i] + '.onnx'
-                yaml = yaml_path + '/aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
-                create_yaml(yaml, vnn_path, onnx_path)
-                os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/aurora_{MODEL}_{SPEC_TYPES[i]}_{size}.txt")
+    for MODEL in MODELS:
+        for size in range(SIZE):
+            vnn_path = f'{vnn_dir_path}/{MODEL}_1_{size}.vnnlib'
+            onnx_path = f'{onnx_dir_path}/{MODEL}.onnx'
+            yaml = f'{yaml_path}/{MODEL}_1_{size}.yaml'
+            create_yaml(yaml, vnn_path, onnx_path)
+            os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/{MODEL}_1_{size}.txt")
+
+            vnn_path = f'{vnn_dir_path}/{MODEL}_12{size}.vnnlib'
+            yaml = f'{yaml_path}/{MODEL}_2_{size}.yaml'
+            create_yaml(yaml, vnn_path, onnx_path)
+            os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/{MODEL}_2_{size}.txt")
 
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: Decima_abcorwn_run.py abcrown_path")
+        print("Usage: Cadinality_abcorwn_run.py abcrown_path")
         exit(1)
     abcrown_path = sys.argv[1]
     main(abcrown_path)

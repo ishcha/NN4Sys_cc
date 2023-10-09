@@ -2,8 +2,8 @@ import os
 import sys
 import csv
 from pensieve_gen import main as pen_main
-from haoyu_gen import main as card_main
-from cheng_gen import main as index_main
+from cardinality_gen import main as card_main
+from lindex_gen import main as index_main
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
