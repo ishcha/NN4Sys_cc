@@ -5,8 +5,7 @@ import random
 import numpy as np
 import pandas as pd
 
-
-P_RANGE = [1/300]
+P_RANGE = [1 / 300]
 MODELS = ['mid']
 DIFFICULTY = ['easy']
 SIZES = [10]
@@ -27,13 +26,8 @@ def write_vnnlib(X, spec_path):
         f.write(f"(assert (>= Y_0 0.5))\n")
 
 
-
-
-
 def write_txt(X, spec_path):
     with open(spec_path, "w") as f:
-
-
         f.write(f"x0 >= {X[0]}\n")
         f.write(f"x0 <= {X[0] + P_RANGE[0]}\n")
         f.write(f"x1 >= {X[1]}\n")
@@ -41,29 +35,25 @@ def write_txt(X, spec_path):
         f.write(f"y0 >= 0.5\n")
 
 
-
-
-
 def main(random_seed):
     random.seed(random_seed)
     vnn_dir_path = 'vnnlib'
     marabou_txt_dir_path = 'marabou_txt'
-    df = pd.read_csv('./src/bloom_filter/bloom_filter_resources/crime_processed.csv')
+    df = pd.read_csv('./src/bloom_filter/bloom_filter_resources/no_crime_loc.csv')
     all = np.array(df)
 
-    indexes = np.random.randint(0,all.shape[0]-1,size=SIZES[0])
+    indexes = np.random.randint(0, all.shape[0] - 1, size=SIZES[0])
     print(indexes)
 
-    total_num=0
+    total_num = 0
 
     for index in indexes:
-        x=all[index]
+        x = all[index]
         vnn_path = f'{vnn_dir_path}/bloom_filter_{total_num}.vnnlib'
         txt_path = f'{marabou_txt_dir_path}/bloom_filter_{total_num}.txt'
-        write_vnnlib(x,vnn_path)
-        write_txt(x,txt_path)
-        total_num+=1
-
+        write_vnnlib(x, vnn_path)
+        write_txt(x, txt_path)
+        total_num += 1
 
 
 if __name__ == "__main__":

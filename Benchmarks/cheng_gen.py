@@ -1,8 +1,10 @@
 import math
 import sys
 import random
+import numpy as np
 
 spec_path = "src/spec_all.txt"
+SIZE=10
 
 
 def load_spec():
@@ -112,32 +114,67 @@ def gen_uspec(uspecs):
         write_uspec(fname, chosen_ones)
         print(f"[DONE] generate {fname}")
 
+def write_vnnlib(X, spec_path):
+    with open(spec_path, "w") as f:
+        f.write("\n")
+        f.write(f"(declare-const X_0 Real)\n")
+        f.write(f"(declare-const Y_0 Real)\n")
+        f.write(f"\n(assert (>= X_0 {X[0]}))\n")
+        f.write(f"(assert (<= X_0 {X[1]}))\n")
+        f.write(f"(assert (<= Y_0 {X[2]}))\n")
+        f.write(f"(assert (>= Y_0 {X[3]}))\n")
+
+def write_txt(X, spec_path):
+    with open(spec_path, "w") as f:
+
+
+        f.write(f"x0 >= {X[0]}\n")
+        f.write(f"x0 <= {X[1]}\n")
+
+        f.write(f"y0 <= {X[2]}\n")
+        f.write(f"y0 >= {X[3]}\n")
 
 def main(seed):
     random.seed(seed)
     # load specs
     specs = load_spec()
+
     # print(len(specs))
 
     # three difficulties
-    difficulties = [1]
+    #difficulties = [1]
     # 100 instances: 20-30-50
     # (a) easy [1, 1k] (20 instances)
-    for i in range(1, 5):
-        difficulties.append(i * 200)  # max: 900
+    #for i in range(1, 5):
+    #    difficulties.append(i * 200)  # max: 900
 
     # (b) medium  [1K, 10K] (30 instances)
-    for i in range(5):
-        difficulties.append(1000 + i * 2000)  # max: 9700
+    #for i in range(5):
+    #    difficulties.append(1000 + i * 2000)  # max: 9700
 
     # (c) hard [10K, 144K] (50 instances)
-    for i in range(2):
-        difficulties.append(10000 + i * 50000)  # max: 147200
+    #for i in range(2):
+    #    difficulties.append(10000 + i * 50000)  # max: 147200
 
-    return gen_spec(specs, difficulties)
+    #return gen_spec(specs, difficulties)
 
     # uspecs = specs_shift(specs, 500)
     # gen_uspec(uspecs)
+    specs = np.array(specs)
+    indexes = np.random.randint(0, specs.shape[0] - 1, size=SIZE)
+    total_num=0
+
+    vnn_dir_path = 'vnnlib'
+    marabou_txt_dir_path = 'marabou_txt'
+
+    for index in indexes:
+        x = specs[index]
+        vnn_path = f'{vnn_dir_path}/lindex_{total_num}.vnnlib'
+        txt_path = f'{marabou_txt_dir_path}/lindex_{total_num}.txt'
+        write_vnnlib(x,vnn_path)
+        write_txt(x,txt_path)
+        total_num+=1
+
 
 
 if __name__ == "__main__":

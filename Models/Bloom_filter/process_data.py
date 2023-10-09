@@ -7,24 +7,22 @@ from sklearn import preprocessing
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 random.seed(2024)
 
-
-size = 200
+size = 3000
 grid = np.zeros([size, size])
 
 crime_df = pd.read_csv('crime_processed.csv')[['Lat', 'Long']]
 crime_df.insert(crime_df.shape[1], 'label', 1)
 
-
 lats = crime_df['Lat'].values
 longs = crime_df['Long'].values
 
+
 def is_ocp(lat, long):
-    x = lat*size
-    y = long*size
-    if x==size or y==size:
+    x = lat * size
+    y = long * size
+    if x == size or y == size:
         return True
     if grid[int(x)][int(y)] == 1:
         return True
@@ -32,17 +30,18 @@ def is_ocp(lat, long):
         grid[int(x)][int(y)] = 1
         return False
 
-index=0
+
+index = 0
 for lat, long in tqdm(zip(lats, longs), total=len(lats)):
     is_ocp(lat, long)
 
-X=[]
-Y=[]
-X1=[]
-Y1=[]
+X = []
+Y = []
+X1 = []
+Y1 = []
 for i in range(size):
     for j in range(size):
-        if grid[i][j]==0:
+        if grid[i][j] == 0:
             X.append(i)
             Y.append(j)
         else:
@@ -50,15 +49,14 @@ for i in range(size):
             Y1.append(j)
 
 plt.scatter(x=X1, y=Y1)
-#plt.scatter(x=X, y=Y)
+# plt.scatter(x=X, y=Y)
 
 plt.show()
 
 
-
 def is_ocp2(lat, long):
-    x = lat*size
-    y = long*size
+    x = lat * size
+    y = long * size
     if grid[int(x)][int(y)] == 1:
         return True
     else:
@@ -66,8 +64,8 @@ def is_ocp2(lat, long):
 
 
 def generate_random_gps():
-    latitude = float(random.uniform(0,1))
-    longitude = float(random.uniform(0,1))
+    latitude = float(random.uniform(0, 1))
+    longitude = float(random.uniform(0, 1))
     loga = '%.8f' % longitude
     lata = '%.8f' % latitude
     if not is_ocp2(float(lata), float(loga)):
@@ -80,7 +78,7 @@ df_size = crime_df.shape[0] * 10
 gene_logs = list(range(df_size))
 
 gene_lats = list(range(df_size))
-index=0
+index = 0
 with tqdm(total=df_size) as pbar:
     while index < df_size:
         returned = generate_random_gps()
@@ -104,9 +102,6 @@ import numpy as np
 
 np.random.seed(19680801)
 
-
-
-
 number = 100000
 crime_df = crime_df.sample(n=number)
 lats = crime_df['Lat'].values
@@ -123,14 +118,5 @@ longs = mydf['Long'].values
 lats = np.array(lats)
 longs = np.array(longs)
 
-#plt.scatter(x=lats, y=longs)
+# plt.scatter(x=lats, y=longs)
 plt.show()
-
-
-
-
-
-
-
-
-
