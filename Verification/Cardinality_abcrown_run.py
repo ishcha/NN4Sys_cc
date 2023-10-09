@@ -4,15 +4,11 @@ import sys
 os.environ['MKL_THREADING_LAYER'] = 'GNU'
 
 MODELS = ["cardinality_128", "cardinality_128_dual", "cardinality_2048", "cardinality_2048_dual"]
-MODEL_TYPES = ['simple', 'simple', 'simple', 'parallel', 'concat']
-DIFFICULTY = ['easy']
+
 SIZES = [10, 10, 10, 10, 10]
 SIZE = 10
 
-SPEC_TYPES = [101, 102, 2, 3, 4]
-SPEC_ARRAY_LENGTH = [30, 30, 30, 60, 150]
-SPEC_ARRAY_NUM = 3000
-HISTORY = 10
+
 
 model_name = "cardinality"
 
@@ -49,7 +45,7 @@ def main(abcrown_path):
             create_yaml(yaml, vnn_path, onnx_path)
             os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/{MODEL}_1_{size}.txt")
 
-            vnn_path = f'{vnn_dir_path}/{MODEL}_12{size}.vnnlib'
+            vnn_path = f'{vnn_dir_path}/{MODEL}_2_{size}.vnnlib'
             yaml = f'{yaml_path}/{MODEL}_2_{size}.yaml'
             create_yaml(yaml, vnn_path, onnx_path)
             os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/{MODEL}_2_{size}.txt")
