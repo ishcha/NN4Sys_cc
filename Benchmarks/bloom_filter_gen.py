@@ -20,10 +20,10 @@ def write_vnnlib(X, spec_path):
         f.write(f"(declare-const X_0 Real)\n")
         f.write(f"(declare-const X_1 Real)\n")
         f.write(f"(declare-const Y_0 Real)\n")
-        f.write(f"\n(assert (>= X_0 {X[0]})\n")
-        f.write(f"(assert (<= X_0 {X[0] + P_RANGE[0]})\n")
-        f.write(f"(assert (>= X_1 {X[1]})\n")
-        f.write(f"(assert (<= X_1 {X[1] + P_RANGE[0]})\n")
+        f.write(f"\n(assert (>= X_0 {X[0]}))\n")
+        f.write(f"(assert (<= X_0 {X[0] + P_RANGE[0]}))\n")
+        f.write(f"(assert (>= X_1 {X[1]}))\n")
+        f.write(f"(assert (<= X_1 {X[1] + P_RANGE[0]}))\n")
         f.write(f"(assert (>= Y_0 0.5))\n")
 
 
