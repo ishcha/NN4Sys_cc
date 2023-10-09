@@ -125,8 +125,6 @@ def gene_spec():
     for range_ptr in range(len(P_RANGE)):
         p_range = P_RANGE[range_ptr]
         for spec_type_ptr in range(len(SPEC_TYPES)):
-            if spec_type_ptr==2 and range_ptr!=0:
-                continue
             total_num = 0
             spec = SPEC_TYPES[spec_type_ptr]
             indexes = list(np.load(pensieve_src_path + f'/pensieve_index_{spec}.npy'))
