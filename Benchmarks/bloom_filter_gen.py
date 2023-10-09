@@ -37,7 +37,7 @@ def write_txt(X, spec_path):
         f.write(f"x0 >= {X[0]}\n")
         f.write(f"x0 <= {X[0] + P_RANGE[0]}\n")
         f.write(f"x1 >= {X[1]}\n")
-        f.write(f"x2 <= {X[1] + P_RANGE[0]}\n")
+        f.write(f"x1 <= {X[1] + P_RANGE[0]}\n")
         f.write(f"y0 >= 0.5\n")
 
 
