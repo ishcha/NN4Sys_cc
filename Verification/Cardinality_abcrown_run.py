@@ -3,7 +3,8 @@ import sys
 
 os.environ['MKL_THREADING_LAYER'] = 'GNU'
 
-MODELS = ["cardinality_128", "cardinality_128_dual", "cardinality_2048", "cardinality_2048_dual"]
+MODELS1 = ["cardinality_128", "cardinality_2048"]
+MODELS2 = ["cardinality_128_dual",  "cardinality_2048_dual"]
 
 SIZES = [10, 10, 10, 10, 10]
 SIZE = 10
@@ -37,7 +38,7 @@ def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
 
 
 def main(abcrown_path):
-    for MODEL in MODELS:
+    for MODEL in MODELS1:
         for size in range(SIZE):
             vnn_path = f'{vnn_dir_path}/{MODEL}_1_{size}.vnnlib'
             onnx_path = f'{onnx_dir_path}/{MODEL}.onnx'
@@ -49,6 +50,16 @@ def main(abcrown_path):
             yaml = f'{yaml_path}/{MODEL}_2_{size}.yaml'
             create_yaml(yaml, vnn_path, onnx_path)
             os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/{MODEL}_2_{size}.txt")
+
+    for MODEL in MODELS2:
+        for size in range(SIZE):
+            vnn_path = f'{vnn_dir_path}/{MODEL}_{size}.vnnlib'
+            onnx_path = f'{onnx_dir_path}/{MODEL}.onnx'
+            yaml = f'{yaml_path}/{MODEL}_{size}.yaml'
+            create_yaml(yaml, vnn_path, onnx_path)
+            os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/{MODEL}_{size}.txt")
+
+
 
 
 if __name__ == "__main__":
