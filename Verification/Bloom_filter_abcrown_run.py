@@ -40,7 +40,7 @@ def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
 
 
 def main(abcrown_path):
-    for i in range(len(SIZE)):
+    for i in range(SIZE):
         vnn_path = f'{vnn_dir_path}/bloom_filter_{i}.vnnlib'
         onnx_path = onnx_dir_path + '/bloom_filter.onnx'
         yaml = yaml_path + f'/bloom_filter_{i}.yaml'
