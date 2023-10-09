@@ -50,7 +50,7 @@ def main(abcrown_path):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: Decima_abcorwn_run.py abcrown_path")
+        print("Usage: bloom_filter_abcorwn_run.py abcrown_path")
         exit(1)
     abcrown_path = sys.argv[1]
     main(abcrown_path)
