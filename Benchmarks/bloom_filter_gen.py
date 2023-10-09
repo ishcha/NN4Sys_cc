@@ -32,11 +32,7 @@ def write_vnnlib(X, spec_path):
 
 def write_txt(X, spec_path):
     with open(spec_path, "w") as f:
-        for i in range(X.shape[0]):
-            if i % 2 == 0:
-                f.write(f"x{int(i / 2)} >= {X[i]}\n")
-            else:
-                f.write(f"x{int((i - 1) / 2)} <= {X[i]}\n")
+
 
         f.write(f"x0 >= {X[0]}\n")
         f.write(f"x0 <= {X[0] + P_RANGE[0]}\n")
