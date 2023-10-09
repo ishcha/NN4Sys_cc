@@ -13,7 +13,7 @@ SPEC_TYPES = [101, 102, 2, 3, 4]
 SPEC_ARRAY_LENGTH = [30, 30, 30, 60, 150]
 SPEC_ARRAY_NUM = 3000
 HISTORY = 10
-MODEL_NAMES=["lindex_deep","lindex_deep"]
+MODEL_NAMES=["lindex","lindex_deep"]
 
 
 # create yaml
