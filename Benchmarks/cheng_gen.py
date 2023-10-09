@@ -115,23 +115,33 @@ def gen_uspec(uspecs):
         print(f"[DONE] generate {fname}")
 
 def write_vnnlib(X, spec_path):
-    with open(spec_path, "w") as f:
+    with open(spec_path % 1, "w") as f:
         f.write("\n")
         f.write(f"(declare-const X_0 Real)\n")
         f.write(f"(declare-const Y_0 Real)\n")
         f.write(f"\n(assert (>= X_0 {X[0]}))\n")
         f.write(f"(assert (<= X_0 {X[1]}))\n")
         f.write(f"(assert (<= Y_0 {X[2]}))\n")
+    with open(spec_path % 2, "w") as f:
+        f.write("\n")
+        f.write(f"(declare-const X_0 Real)\n")
+        f.write(f"(declare-const Y_0 Real)\n")
+        f.write(f"\n(assert (>= X_0 {X[0]}))\n")
+        f.write(f"(assert (<= X_0 {X[1]}))\n")
         f.write(f"(assert (>= Y_0 {X[3]}))\n")
 
 def write_txt(X, spec_path):
-    with open(spec_path, "w") as f:
-
-
+    with open(spec_path % 1, "w") as f:
         f.write(f"x0 >= {X[0]}\n")
         f.write(f"x0 <= {X[1]}\n")
 
         f.write(f"y0 <= {X[2]}\n")
+
+    with open(spec_path % 2, "w") as f:
+        f.write(f"x0 >= {X[0]}\n")
+        f.write(f"x0 <= {X[1]}\n")
+
+
         f.write(f"y0 >= {X[3]}\n")
 
 def main(seed):
@@ -169,8 +179,8 @@ def main(seed):
 
     for index in indexes:
         x = specs[index]
-        vnn_path = f'{vnn_dir_path}/lindex_{total_num}.vnnlib'
-        txt_path = f'{marabou_txt_dir_path}/lindex_{total_num}.txt'
+        vnn_path = f'{vnn_dir_path}/lindex_%d_{total_num}.vnnlib'
+        txt_path = f'{marabou_txt_dir_path}/lindex_%d_{total_num}.txt'
         write_vnnlib(x,vnn_path)
         write_txt(x,txt_path)
         total_num+=1

@@ -13,13 +13,14 @@ SPEC_TYPES = [101, 102, 2, 3, 4]
 SPEC_ARRAY_LENGTH = [30, 30, 30, 60, 150]
 SPEC_ARRAY_NUM = 3000
 HISTORY = 10
+MODEL_NAMES=["lindex_deep.onnx","lindex_deep.onnx"]
 
 
 # create yaml
 vnn_dir_path = '../Benchmarks/vnnlib'
 onnx_dir_path = '../Benchmarks/onnx'
-yaml_path = './bloom_filter_yaml'
-running_result_path = './bloom_filter_abcrown_running_result'
+yaml_path = './lindex_yaml'
+running_result_path = './lindex_abcrown_running_result'
 timeout = 100
 csv_data = []
 total_num = 0
@@ -40,17 +41,24 @@ def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
 
 
 def main(abcrown_path):
-    for i in range(len(SIZE)):
-        vnn_path = f'{vnn_dir_path}/bloom_filter_{i}.vnnlib'
-        onnx_path = onnx_dir_path + '/bloom_filter.onnx'
-        yaml = yaml_path + f'/bloom_filter_{i}.yaml'
-        create_yaml(yaml, vnn_path, onnx_path)
-        os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/bloom_filter_{i}.txt")
+    model_name = "lindex"
+    for i in range(SIZE):
+        for model in MODEL_NAMES:
+            vnn_path = f'{vnn_dir_path}/{model_name}_1_{i}.vnnlib'
+            onnx_path =  f'{onnx_dir_path}/{model}.onnx'
+            yaml = yaml_path + f'/{model_name}_1_{i}.yaml'
+            create_yaml(yaml, vnn_path, onnx_path)
+            os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/{model}_1_{i}.txt")
+
+            vnn_path = f'{vnn_dir_path}/{model_name}_2_{i}.vnnlib'
+            yaml = yaml_path + f'/{model_name}_2_{i}.yaml'
+            create_yaml(yaml, vnn_path, onnx_path)
+            os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/{model}_2_{i}.txt")
 
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: Decima_abcorwn_run.py abcrown_path")
+        print("Usage: Lindex_abcorwn_run.py abcrown_path")
         exit(1)
     abcrown_path = sys.argv[1]
     main(abcrown_path)
