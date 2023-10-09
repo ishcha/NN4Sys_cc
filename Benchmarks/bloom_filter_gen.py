@@ -5,7 +5,7 @@ import random
 import numpy as np
 import pandas as pd
 
-P_RANGE = [1 / 300]
+P_RANGE = [1 / 3000]
 MODELS = ['mid']
 DIFFICULTY = ['easy']
 SIZES = [10]
