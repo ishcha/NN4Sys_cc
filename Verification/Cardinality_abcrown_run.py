@@ -3,7 +3,7 @@ import sys
 
 os.environ['MKL_THREADING_LAYER'] = 'GNU'
 
-MODELS = ["cardinality_128.onnx", "cardinality_128_dual.onnx", "cardinality_2048.onnx", "cardinality_2048_dual.onnx"]
+MODELS = ["cardinality_128", "cardinality_128_dual", "cardinality_2048", "cardinality_2048_dual"]
 MODEL_TYPES = ['simple', 'simple', 'simple', 'parallel', 'concat']
 DIFFICULTY = ['easy']
 SIZES = [10, 10, 10, 10, 10]
