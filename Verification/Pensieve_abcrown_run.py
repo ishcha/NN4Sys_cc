@@ -43,6 +43,8 @@ def main(abcrown_path):
             continue
         for range_ptr in range(len(P_RANGE)):
             for MODEL in MODEL_SIZES:
+                if MODEL!='big':
+                    continue
 
                 MODEL_TYPE = MODEL_TYPES[i]
                 if MODEL_TYPE != 'simple' and range_ptr > 0:
