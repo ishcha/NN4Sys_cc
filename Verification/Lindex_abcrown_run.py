@@ -18,8 +18,8 @@ HISTORY = 10
 # create yaml
 vnn_dir_path = '../Benchmarks/vnnlib'
 onnx_dir_path = '../Benchmarks/onnx'
-yaml_path = './aurora_yaml'
-running_result_path = './aurora_abcrown_running_result'
+yaml_path = './bloom_filter_yaml'
+running_result_path = './bloom_filter_abcrown_running_result'
 timeout = 100
 csv_data = []
 total_num = 0
@@ -40,14 +40,12 @@ def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
 
 
 def main(abcrown_path):
-    for i in range(len(SPEC_TYPES)):
-        for MODEL in MODELS:
-            for size in range(SIZE):
-                vnn_path = vnn_dir_path + '/aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
-                onnx_path = onnx_dir_path + '/aurora_'+MODEL+'_' + MODEL_TYPES[i] + '.onnx'
-                yaml = yaml_path + '/aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
-                create_yaml(yaml, vnn_path, onnx_path)
-                os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/aurora_{MODEL}_{SPEC_TYPES[i]}_{size}.txt")
+    for i in range(len(SIZE)):
+        vnn_path = f'{vnn_dir_path}/bloom_filter_{i}.vnnlib'
+        onnx_path = onnx_dir_path + '/bloom_filter.onnx'
+        yaml = yaml_path + f'/bloom_filter_{i}.yaml'
+        create_yaml(yaml, vnn_path, onnx_path)
+        os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/bloom_filter_{i}.txt")
 
 
 if __name__ == "__main__":

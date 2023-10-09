@@ -76,7 +76,7 @@ def generate_random_gps():
         return False
 
 
-df_size = crime_df.shape[0] * 1
+df_size = crime_df.shape[0] * 10
 gene_logs = list(range(df_size))
 
 gene_lats = list(range(df_size))
@@ -123,7 +123,7 @@ longs = mydf['Long'].values
 lats = np.array(lats)
 longs = np.array(longs)
 
-plt.scatter(x=lats, y=longs)
+#plt.scatter(x=lats, y=longs)
 plt.show()
 
 

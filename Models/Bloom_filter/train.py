@@ -31,15 +31,15 @@ model = model()
 sampled_crime = resample(crime, n_samples=no_crime.shape[0], random_state=2024)
 train_data = pd.concat([sampled_crime, no_crime])
 train_dataset = TensorDataset(torch.Tensor(train_data[['Lat', 'Long']].values), torch.Tensor(train_data[['label']].values))
-train_data, eval_data = random_split(train_dataset, [0.9,0.1], generator=torch.Generator().manual_seed(2024))
+train_data, eval_data = random_split(train_dataset, [0.99,0.01], generator=torch.Generator().manual_seed(2024))
 
 
-train_dataloader = DataLoader(train_data, shuffle=True, batch_size=128)
+train_dataloader = DataLoader(train_data, shuffle=True, batch_size=1028)
 model.apply(weights_init)
 loss_fn = BCEWithLogitsLoss()
 
-optimizer = torch.optim.AdamW(model.parameters(), lr=0.0001)
-#lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=10 * len(train_dataloader))
+optimizer = torch.optim.AdamW(model.parameters(), lr=0.001)
+lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=10 * len(train_dataloader))
 
 
 model.train()
@@ -60,9 +60,9 @@ for epoch in range(epochs):
         optimizer.zero_grad()
         # with warmup_scheduler.dampening():
 
-    #lr_scheduler.step()
+    lr_scheduler.step()
     print("Epoch {}, loss: {}".format(epoch + 1, loss_total))
-    if epoch%10==0:
+    if epoch%1==0:
         torch.save(model.state_dict(), os.path.join(save_path, f'model-dict-{epoch}.pt'))
 
 
