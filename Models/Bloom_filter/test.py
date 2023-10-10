@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 random.seed(2024)
 save_path = "./result"
 pt_path = 'pre-model-dict.pt'
-pt_path = 'model-dict-50.pt'
+pt_path = 'model-dict-4.pt'
 
 
 def weights_init(m):

@@ -34,7 +34,7 @@ train_dataset = TensorDataset(torch.Tensor(train_data[['Lat', 'Long']].values), 
 train_data, eval_data = random_split(train_dataset, [0.99,0.01], generator=torch.Generator().manual_seed(2024))
 
 
-train_dataloader = DataLoader(train_data, shuffle=True, batch_size=16)
+train_dataloader = DataLoader(train_data, shuffle=True, batch_size=1024)
 model.apply(weights_init)
 loss_fn = BCEWithLogitsLoss()
 

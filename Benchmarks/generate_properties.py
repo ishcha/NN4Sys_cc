@@ -1,21 +1,21 @@
 import os
 import sys
 import csv
-from pensieve_gen import main as pen_main
-from cardinality_gen import main as card_main
-from lindex_gen import main as index_main
+from haoyu_gen import main as card_main
+from cheng_gen import main as index_main
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: generate_properties.py <random seed>")
-        exit(1)
+        #print("Usage: generate_properties.py <random seed>")
+        seed=2024
+    else:
+        seed = sys.argv[1]
 
     if not os.path.exists('vnnlib'):
         os.makedirs('vnnlib')
-    seed = sys.argv[1]
+
     csv_data = []
-    print("Generating Video Stream specifications, this may take around several minutes...")
-    csv_data.extend(pen_main(seed))
+
     print("Generating Index specifications, this may take several minutes...")
     csv_data.extend(index_main(seed))
     print("Generating cardinality specifications, this may take around ten minutes...")

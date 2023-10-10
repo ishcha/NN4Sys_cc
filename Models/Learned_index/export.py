@@ -5,13 +5,10 @@ import os
 import onnx
 from models import LINN, DeepLINN
 
-
 MODEL_LIST = ['small', 'mid', 'big']
 MODEL_TYPES = ['simple', 'parallel', 'concat']
-#NN_MODEL = f'./gym/results/pcc_model_{i}_10_best.pt'
+# NN_MODEL = f'./gym/results/pcc_model_{i}_10_best.pt'
 ONNX_DIR = f'../../Benchmarks/onnx'
-
-
 
 
 def main():
@@ -22,6 +19,7 @@ def main():
     os.system(f'cp lindex_deep.onnx {ONNX_DIR}/lindex_deep.onnx')
 
 
+'''
     actor = LINN(1,1)
     input = torch.zeros(1,1)
     save_path =  f'{ONNX_DIR}/lindex_tmp.onnx'
@@ -51,8 +49,7 @@ def main():
                       output_names=['output'])  # the model's output names
     actor = onnx.load(save_path)
     onnx.checker.check_model(actor)
-
-
+'''
 
 if __name__ == '__main__':
     main()
