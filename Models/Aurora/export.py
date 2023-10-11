@@ -10,6 +10,8 @@ MODEL_TYPES = ['simple', 'parallel', 'concat']
 #NN_MODEL = f'./gym/results/pcc_model_{i}_10_best.pt'
 ONNX_DIR = f'../../Benchmarks/onnx'
 
+import sys
+sys.path.insert(0,os.getcwd())
 
 def load_model(actor,NN_MODEL):
     para = torch.load(NN_MODEL, map_location=torch.device('cpu'))
@@ -30,7 +32,7 @@ def main():
         os.makedirs(ONNX_DIR)
     for model_ptr in range(len(MODEL_TYPES)):
         for MODEL in MODEL_LIST:
-            NN_MODEL = f'./gym/results/pcc_model_{MODEL}_10_best.pt'
+            NN_MODEL = f'./results/pcc_model_{MODEL}_10_best.pt'
             MODEL_TYPE = MODEL_TYPES[model_ptr]
             save_path = ONNX_DIR + '/aurora_' + MODEL + '_' + MODEL_TYPE + ".onnx"
             print(save_path)

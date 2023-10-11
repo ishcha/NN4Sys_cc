@@ -129,7 +129,7 @@ def main(seed):
         difficulties.append(i * 200)  # max: 900
 
     # (b) medium  [1K, 10K] (30 instances)
-    for i in range(5):
+    for i in range(4):
         difficulties.append(1000 + i * 2000)  # max: 9700
 
     # (c) hard [10K, 144K] (50 instances)
