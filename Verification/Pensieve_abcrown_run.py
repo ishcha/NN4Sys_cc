@@ -47,12 +47,9 @@ def main(abcrown_path):
             for d_ptr in range(len(DIMENSION_NUMBERS)):
                 dimension_number = DIMENSION_NUMBERS[d_ptr]
                 for MODEL in MODEL_SIZES:
-                    if MODEL!='big':
-                        continue
 
                     MODEL_TYPE = MODEL_TYPES[i]
-                    if MODEL_TYPE != 'simple' and range_ptr > 0:
-                        continue
+
                     for size in range(SIZE):
                         vnn_path = f'{vnn_dir_path}/pensieve_{SPEC_TYPES[i]}_{dimension_number}_{range_ptr}_{size}.vnnlib'
                         onnx_path = onnx_dir_path + '/pensieve_' + MODEL + '_' + MODEL_TYPE + '.onnx'
