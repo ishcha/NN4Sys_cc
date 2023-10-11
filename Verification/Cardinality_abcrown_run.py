@@ -40,7 +40,7 @@ def create_yaml(yaml, vnn_path, onnx_path):
 def main(abcrown_path):
     for i in range(SIZE):
         for model in MODEL_NAMES:
-            vnn_path = f'{vnn_dir_path}/lindex_{i}.vnnlib'
+            vnn_path = f'{vnn_dir_path}/{model}_{i}.vnnlib'
             onnx_path =  f'{onnx_dir_path}/{model}.onnx'
             yaml = yaml_path + f'/{model}_{i}.yaml'
             create_yaml(yaml, vnn_path, onnx_path)
