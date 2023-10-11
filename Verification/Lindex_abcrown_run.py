@@ -38,12 +38,11 @@ def create_yaml(yaml, vnn_path, onnx_path):
 
 
 def main(abcrown_path):
-    model_name = "lindex"
     for i in range(SIZE):
         for model in MODEL_NAMES:
             vnn_path = f'{vnn_dir_path}/lindex_{i}.vnnlib'
             onnx_path =  f'{onnx_dir_path}/{model}.onnx'
-            yaml = yaml_path + f'/{model_name}_{i}.yaml'
+            yaml = yaml_path + f'/{model}_{i}.yaml'
             create_yaml(yaml, vnn_path, onnx_path)
             os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/{model}_{i}.txt")
 
