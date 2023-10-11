@@ -74,7 +74,9 @@ def gen_spec(specs, difficulties):
     ftemplate = "vnnlib/lindex_%d.vnnlib"
     all_names = []
     csv_data = []
+    index=-1
     for num in difficulties:
+        index+=1
         assert num <= num_specs
         chosen_ids = random.sample(range(num_specs), num)
 
@@ -82,7 +84,7 @@ def gen_spec(specs, difficulties):
         for spec_id in chosen_ids:
             chosen_ones.append(specs[spec_id])
 
-        fname = ftemplate % num
+        fname = ftemplate % index
         write_spec(fname, chosen_ones)
         csv_data.append(['onnx/lindex.onnx', fname, 20 + math.ceil(num * 3 / num_specs) * 10])
         csv_data.append(['onnx/lindex_deep.onnx', fname, 20 + math.ceil(num * 3 / num_specs) * 10])

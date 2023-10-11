@@ -3,15 +3,15 @@ import sys
 
 os.environ['MKL_THREADING_LAYER'] = 'GNU'
 
-MODEL_NAMES=["lindex","lindex_deep"]
+MODEL_NAMES=["mscn_128d","mscn_128d_dual","mscn_2048d","mscn_2048d_dual"]
 SIZE=10
 
 
 # create yaml
 vnn_dir_path = '../Benchmarks/vnnlib'
 onnx_dir_path = '../Benchmarks/onnx'
-yaml_path = './lindex_yaml'
-running_result_path = './lindex_abcrown_running_result'
+yaml_path = './cardinality_yaml'
+running_result_path = './cardinality_abcrown_running_result'
 timeout = 100
 csv_data = []
 total_num = 0
@@ -37,13 +37,10 @@ def create_yaml(yaml, vnn_path, onnx_path):
 
 
 
-
-dif = [1,200,400,600,800,1000,3000,5000,7000,9000,10000]
 def main(abcrown_path):
-    model_name = "lindex"
     for i in range(SIZE):
         for model in MODEL_NAMES:
-            vnn_path = f'{vnn_dir_path}/lindex_{dif[i]}.vnnlib'
+            vnn_path = f'{vnn_dir_path}/lindex_{i}.vnnlib'
             onnx_path =  f'{onnx_dir_path}/{model}.onnx'
             yaml = yaml_path + f'/{model_name}_{i}.yaml'
             create_yaml(yaml, vnn_path, onnx_path)

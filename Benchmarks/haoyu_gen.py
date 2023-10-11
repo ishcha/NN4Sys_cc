@@ -126,11 +126,13 @@ def gene_spec():
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
     single_difficulties = [1]
-    single_difficulties.extend([(i + 1) * 250 for i in range(1, 4)])
-    single_difficulties.extend([(i + 1) * 560 + 1000 for i in range(1, 8)])
+    single_difficulties.extend([(i + 1) * 250 for i in range(1, 11)])
+    single_difficulties.extend([(i + 1) * 560 + 1000 for i in range(1, 11)])
     for model in ['128', '2048']:
         # generate single instances
+        index=-1
         for size in single_difficulties:
+            index+=1
             for sf, indexes in enumerate(np.load(f'src/mscn/mscn_resources/sf_list_{model}.npy', allow_pickle=True)):
                 if sf == 0:
                     continue
@@ -143,19 +145,21 @@ def gene_spec():
                     chosen_index = random.sample(indexes, size)
                 except:
                     continue
-                trans_multi_vnnlib(f'{dir_path}/cardinality_0_{size}_{model}.vnnlib',
+                trans_multi_vnnlib(f'{dir_path}/cardinality_{model}d_{index}.vnnlib',
                                    [queries[i] for i in chosen_index], [dopple_queries[i] for i in chosen_index],
                                    [label_range[i] for i in chosen_index], 'scale',
                                    safe=bool(sf))
                 csv_data.append([f'onnx/mscn_{model}d.onnx',
-                                 f'vnnlib/cardinality_0_{size}_{model}.vnnlib',
+                                 f'vnnlib/cardinality_{model}d_{index}.vnnlib',
                                  max(time_dict_single['single'][size] // 2, 20) if model == '128' else
                                  time_dict_single['single'][size]])
         # generate dual instances
         dual_difficulties = [1]
-        dual_difficulties.extend([(i + 1) * 120 for i in range(1, 8)])
-        dual_difficulties.extend([(i + 1) * 630 + 1000 for i in range(1, 16)])
+        dual_difficulties.extend([(i + 1) * 120 for i in range(1, 11)])
+        dual_difficulties.extend([(i + 1) * 630 + 1000 for i in range(1, 11)])
+        index=-1
         for size in dual_difficulties:
+            index+=1
             for sf, indexes in enumerate(
                     np.load(f'src/mscn/mscn_resources/sf_list_{model}_dual.npy', allow_pickle=True)):
                 if sf == 0:
@@ -164,10 +168,10 @@ def gene_spec():
                     chosen_index = random.sample(indexes, size)
                 except:
                     continue
-                trans_multi_dual_vnnlib(f'{dir_path}/cardinality_1_{size}_{model}_dual.vnnlib',
+                trans_multi_dual_vnnlib(f'{dir_path}/cardinality_{model}d_dual_{index}.vnnlib',
                                         [dual_queries[i] for i in chosen_index], 'scale', bool(sf))
                 csv_data.append([f'onnx/mscn_{model}d_dual.onnx',
-                                 f'vnnlib/cardinality_1_{size}_{model}_dual.vnnlib',
+                                 f'vnnlib/cardinality_{model}d_dual_{index}.vnnlib',
                                  time_dict[int(model)][size]])
     return csv_data
 

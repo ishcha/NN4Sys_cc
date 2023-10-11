@@ -26,11 +26,10 @@ def create_yaml(yaml, vnn_path, onnx_path):
     with open(yaml, mode='w') as f:
 
         f.write(f"general:\n  enable_incomplete_verification: False\n  loss_reduction_func: max\n  conv_mode: matrix\nmodel:\n  onnx_path: {onnx_path}\n")
-        f.write(f"data:\n  num_outputs: 1\n  start: 0\n  end: 24\n")
         f.write(f"specification:\n  vnnlib_path: {vnn_path}\nsolver:\n  "
-                f"batch_size: 50  # Number of parallel domains to compute on GPU.\n  bound_prop_method: forward+backward\n  beta-crown:\n"
+                f"batch_size: 256  # Number of parallel domains to compute on GPU.\n  bound_prop_method: forward+backward\n  beta-crown:\n"
                 f"    iteration: 10  # Iterations for computing intermediate layer bounds.\n")
-        f.write(f"bab:\n  initial_max_domains: 100000\n  branching:\n    method: naive  # Split on input space.\n    input_split:\n"
+        f.write(f"bab:\n  initial_max_domains: 1000\n  branching:\n    method: naive  # Split on input space.\n    input_split:\n"
                 f"      enable: True\n      adv_check: .inf\n")
         #f.write(f"attack:\n  pgd_order: skip")
 
@@ -38,12 +37,11 @@ def create_yaml(yaml, vnn_path, onnx_path):
 
 
 
-dif = [1,200,400,600,800,1000,3000,5000,7000,9000,10000]
 def main(abcrown_path):
     model_name = "lindex"
     for i in range(SIZE):
         for model in MODEL_NAMES:
-            vnn_path = f'{vnn_dir_path}/lindex_{dif[i]}.vnnlib'
+            vnn_path = f'{vnn_dir_path}/lindex_{i}.vnnlib'
             onnx_path =  f'{onnx_dir_path}/{model}.onnx'
             yaml = yaml_path + f'/{model_name}_{i}.yaml'
             create_yaml(yaml, vnn_path, onnx_path)
