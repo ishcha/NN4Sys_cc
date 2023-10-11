@@ -27,7 +27,7 @@ def create_yaml(yaml, vnn_path, onnx_path):
 
         f.write(f"general:\n  enable_incomplete_verification: False\n  loss_reduction_func: max\n  conv_mode: matrix\nmodel:\n  onnx_path: {onnx_path}\n")
         f.write(f"specification:\n  vnnlib_path: {vnn_path}\nsolver:\n  "
-                f"batch_size: 128  # Number of parallel domains to compute on GPU.\n  bound_prop_method: forward+backward\n  beta-crown:\n"
+                f"batch_size: 1  # Number of parallel domains to compute on GPU.\n  bound_prop_method: forward+backward\n  beta-crown:\n"
                 f"    iteration: 10  # Iterations for computing intermediate layer bounds.\n")
         f.write(f"bab:\n  initial_max_domains: 1000\n  branching:\n    method: naive  # Split on input space.\n    input_split:\n"
                 f"      enable: True\n      adv_check: .inf\n")
