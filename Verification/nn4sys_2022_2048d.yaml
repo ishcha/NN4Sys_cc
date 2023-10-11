@@ -1,14 +1,14 @@
 # Configuration file for running the nn2sys_2022 benchmark (mscn_2048d model).
 general:
-  root_path: ../../vnncomp2022_benchmarks/benchmarks/nn4sys
-  csv_name: instances.csv
   enable_incomplete_verification: False
   loss_reduction_func: max
   conv_mode: matrix
 data:
-  dataset: NN4SYS_2022
+  onnx_path: ../Benchmarks/onnx/cardinality_2048.onnx
   num_outputs: 1
   start: 85
+specification:
+  vnnlib_path: ../Benchmarks/vnnlib/cardinality_1_600_2048_dual.vnnlib
 solver:
   batch_size: 256  # Number of parallel domains to compute on GPU.
   bound_prop_method: forward+backward
