@@ -1,7 +1,5 @@
 # Configuration file for running the nn2sys_2022 benchmark (mscn_128d and mscn_128d_dual models).
 general:
-  root_path: ../../vnncomp2022_benchmarks/benchmarks/nn4sys
-  csv_name: instances.csv
   enable_incomplete_verification: False
   loss_reduction_func: max
   conv_mode: matrix
