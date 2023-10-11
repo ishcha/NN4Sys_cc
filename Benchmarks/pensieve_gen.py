@@ -5,7 +5,7 @@ import random
 import numpy as np
 
 
-P_RANGE = [0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21]
+P_RANGE = [0.04, 0.08, 0.12, 0.16, 0.2, 0.24, 0.28, 0.32]
 MODELS = ['empty', 'small', 'mid', 'big']
 DIFFICULTY = ['easy']
 SIZES = [10, 10, 10]
