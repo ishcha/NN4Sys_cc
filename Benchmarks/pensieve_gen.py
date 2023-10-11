@@ -10,6 +10,7 @@ MODELS = ['empty', 'small', 'mid', 'big']
 DIFFICULTY = ['easy']
 SIZES = [10, 10, 10]
 SPEC_TYPES = [1, 2, 3]
+DIMENSION_NUMBERS=[1,2,3]
 
 
 # responsible for writing the file
@@ -66,17 +67,35 @@ def write_txt(X, spec_type, spec_path, Y_shape=6):
             f.write(f"y0 <= 0\n\n")
 
 
-def add_range(X, spec_type, p_range):
+def add_range(X, spec_type, p_range,dimension_number):
     ret = np.empty(X.shape[0] * 2)
     if spec_type == SPEC_TYPES[0] or spec_type == SPEC_TYPES[1]:
+        if dimension_number==1:
+            for i in range(X.shape[0]):
+                if 15 < i < 32:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i] + p_range
+                else:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i]
+        if dimension_number==2:
+            for i in range(X.shape[0]):
+                if 15 < i < 40:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i] + p_range
+                else:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i]
+        if dimension_number==3:
+            for i in range(X.shape[0]):
+                if 7 < i < 40:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i] + p_range
+                else:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i]
 
-        for i in range(X.shape[0]):
-            if 15 < i < 32:
-                ret[i * 2] = X[i]
-                ret[i * 2 + 1] = X[i] + p_range
-            else:
-                ret[i * 2] = X[i]
-                ret[i * 2 + 1] = X[i]
+
     if spec_type == SPEC_TYPES[2]:
         for i in range(X.shape[0]):
             if 15 < i < 32:
@@ -123,33 +142,35 @@ def gene_spec():
 
 
     for range_ptr in range(len(P_RANGE)):
-        p_range = P_RANGE[range_ptr]
-        for spec_type_ptr in range(len(SPEC_TYPES)):
-            total_num = 0
-            spec = SPEC_TYPES[spec_type_ptr]
-            indexes = list(np.load(pensieve_src_path + f'/pensieve_index_{spec}.npy'))
-            # dic = np.load(pensieve_src_path+f'/pen_{difficulty}.npy')
+        for d_ptr in range(len(DIMENSION_NUMBERS)):
+            dimension_number = DIMENSION_NUMBERS[d_ptr]
+            p_range = P_RANGE[range_ptr]
+            for spec_type_ptr in range(len(SPEC_TYPES)):
+                total_num = 0
+                spec = SPEC_TYPES[spec_type_ptr]
+                indexes = list(np.load(pensieve_src_path + f'/pensieve_index_{spec}.npy'))
+                # dic = np.load(pensieve_src_path+f'/pen_{difficulty}.npy')
 
-            chosen_index = random.sample(indexes, SIZES[spec_type_ptr])
+                chosen_index = random.sample(indexes, SIZES[spec_type_ptr])
 
 
-            for i in chosen_index:
-                if i == 0:
-                    continue
-                index, _, model = parser(i)
-                vnn_path = f'{vnn_dir_path}/pensieve_{spec}_{range_ptr}_{total_num}.vnnlib'
-                # onnx_path = onnx_dir_path + '/pensieve_' + model + '_' + spec + '.onnx'
-                input_array = np.load(pensieve_src_path + f'/pensieve_fixedInput_{spec}.npy')[index]
-                input_array_perturbed = add_range(input_array, spec, p_range)
+                for i in chosen_index:
+                    if i == 0:
+                        continue
+                    index, _, model = parser(i)
+                    vnn_path = f'{vnn_dir_path}/pensieve_{spec}_{dimension_number}_{range_ptr}_{total_num}.vnnlib'
+                    # onnx_path = onnx_dir_path + '/pensieve_' + model + '_' + spec + '.onnx'
+                    input_array = np.load(pensieve_src_path + f'/pensieve_fixedInput_{spec}.npy')[index]
+                    input_array_perturbed = add_range(input_array, spec, p_range,dimension_number)
 
-                write_vnnlib(input_array_perturbed, spec, vnn_path)
-                txt_path = f'{marabou_txt_dir_path}/pensieve_{spec}_{range_ptr}_{total_num}.txt'
-                write_txt(input_array_perturbed, spec, txt_path)
-                total_num += 1
-                # ground_truth, timeout = get_time(dic, i)
-                # if timeout == -1:
-                #    continue
-                # csv_data.append([onnx_path, vnn_path, int(timeout)])
+                    write_vnnlib(input_array_perturbed, spec, vnn_path)
+                    txt_path = f'{marabou_txt_dir_path}/pensieve_{spec}_{dimension_number}_{range_ptr}_{total_num}.txt'
+                    write_txt(input_array_perturbed, spec, txt_path)
+                    total_num += 1
+                    # ground_truth, timeout = get_time(dic, i)
+                    # if timeout == -1:
+                    #    continue
+                    # csv_data.append([onnx_path, vnn_path, int(timeout)])
     return csv_data
 
 
