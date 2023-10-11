@@ -66,12 +66,27 @@ def write_uspec(path, spec_set):
     with open(path, "w") as f:
         f.write("\n".join(contents))
 
+def write_txt(path, spec_set):
+    contents = []
+
+
+    for spec in spec_set:
+        x_lb, x_ub, y_lb, y_ub = spec
+        contents.append(f"x0 >= {x_lb}")
+        contents.append(f"x0 <= {x_ub}")
+        contents.append(f"y0 <= {y_lb}")
+        contents.append(f"y0 >= {y_ub}")
+
+
+    with open(path, "w") as f:
+        f.write("\n".join(contents))
 
 def gen_spec(specs, difficulties, dif):
     assert len(difficulties) > 0
     num_specs = len(specs)
 
     ftemplate = "vnnlib/lindex_%d_%d.vnnlib"
+    ftemplate2 = "marabou_txt/lindex_%d_%d.vnnlib"
     all_names = []
     csv_data = []
     index=-1
@@ -86,6 +101,8 @@ def gen_spec(specs, difficulties, dif):
 
         fname = ftemplate % (dif, index)
         write_spec(fname, chosen_ones)
+        if dif==0:
+            write_txt(ftemplate2 % (dif, index), chosen_ones)
         csv_data.append(['onnx/lindex.onnx', fname, 20 + math.ceil(num * 3 / num_specs) * 10])
         csv_data.append(['onnx/lindex_deep.onnx', fname, 20 + math.ceil(num * 3 / num_specs) * 10])
         print(f"[DONE] generate {fname}")
