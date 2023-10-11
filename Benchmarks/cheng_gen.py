@@ -86,7 +86,7 @@ def gen_spec(specs, difficulties, dif):
     num_specs = len(specs)
 
     ftemplate = "vnnlib/lindex_%d_%d.vnnlib"
-    ftemplate2 = "marabou_txt/lindex_%d_%d.vnnlib"
+    ftemplate2 = "marabou_txt/lindex_%d_%d.txt"
     all_names = []
     csv_data = []
     index=-1
