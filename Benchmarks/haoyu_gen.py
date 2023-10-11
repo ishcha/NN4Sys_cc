@@ -145,12 +145,12 @@ def gene_spec():
                     chosen_index = random.sample(indexes, size)
                 except:
                     continue
-                trans_multi_vnnlib(f'{dir_path}/cardinality_{model}d_{index}.vnnlib',
+                trans_multi_vnnlib(f'{dir_path}/mscn_{model}d_{index}.vnnlib',
                                    [queries[i] for i in chosen_index], [dopple_queries[i] for i in chosen_index],
                                    [label_range[i] for i in chosen_index], 'scale',
                                    safe=bool(sf))
                 csv_data.append([f'onnx/mscn_{model}d.onnx',
-                                 f'vnnlib/cardinality_{model}d_{index}.vnnlib',
+                                 f'vnnlib/mscn_{model}d_{index}.vnnlib',
                                  max(time_dict_single['single'][size] // 2, 20) if model == '128' else
                                  time_dict_single['single'][size]])
         # generate dual instances
@@ -168,10 +168,10 @@ def gene_spec():
                     chosen_index = random.sample(indexes, size)
                 except:
                     continue
-                trans_multi_dual_vnnlib(f'{dir_path}/cardinality_{model}d_dual_{index}.vnnlib',
+                trans_multi_dual_vnnlib(f'{dir_path}/mscn_{model}d_dual_{index}.vnnlib',
                                         [dual_queries[i] for i in chosen_index], 'scale', bool(sf))
                 csv_data.append([f'onnx/mscn_{model}d_dual.onnx',
-                                 f'vnnlib/cardinality_{model}d_dual_{index}.vnnlib',
+                                 f'vnnlib/mscn_{model}d_dual_{index}.vnnlib',
                                  time_dict[int(model)][size]])
     return csv_data
 
