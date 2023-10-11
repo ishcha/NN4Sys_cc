@@ -23,5 +23,4 @@ bab:
     input_split:
       enable: True
       adv_check: .inf
-attack:
-  pgd_order: skip
+
