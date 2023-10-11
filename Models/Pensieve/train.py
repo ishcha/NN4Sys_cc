@@ -6,7 +6,7 @@ from torch.distributions import Categorical
 import torch
 import torch.optim as optim
 
-from test import test
+import test
 import env
 import model
 import load_trace
@@ -187,7 +187,7 @@ def central_agent(exp_queues, net_params_queues):
                 save_path = SUMMARY_DIR + "/nn_model_ep_" + "_" + MODEL + "_" + REWARD + "_" + str(epoch) + ".pth"
                 torch.save(actor.state_dict(), save_path)
                 print("Model saved in file: " + save_path)
-                cur_perf = test(save_path, MODEL)
+                cur_perf = test.test(save_path, MODEL)
                 if cur_perf > best_perf:
                     best_perf = cur_perf
                     save_path = SUMMARY_DIR + "/nn_model_ep_BEST" + "_" + MODEL + "_" + REWARD + "_" + str(

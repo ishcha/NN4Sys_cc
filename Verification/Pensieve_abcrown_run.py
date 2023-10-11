@@ -19,6 +19,7 @@ timeout = 100
 csv_data = []
 total_num = 0
 current_gpu = 0
+DIMENSION_NUMBERS=[1,2,3]
 
 if not os.path.exists(running_result_path):
     os.makedirs(running_result_path)
@@ -42,25 +43,27 @@ def main(abcrown_path):
         if i ==0 or i==1:
             continue
         for range_ptr in range(len(P_RANGE)):
-            for MODEL in MODEL_SIZES:
-                if MODEL!='big':
-                    continue
 
-                MODEL_TYPE = MODEL_TYPES[i]
-                if MODEL_TYPE != 'simple' and range_ptr > 0:
-                    continue
-                for size in range(SIZE):
-                    vnn_path = f'{vnn_dir_path}/pensieve_{SPEC_TYPES[i]}_{range_ptr}_{size}.vnnlib'
-                    onnx_path = onnx_dir_path + '/pensieve_' + MODEL + '_' + MODEL_TYPE + '.onnx'
-                    yaml = yaml_path + '/pensieve_' + MODEL_TYPE + '-' + MODEL + str(SPEC_TYPES[i]) + '_' + str(
-                        size) + '.yaml'
-                    if MODEL_TYPE == 'simple':
-                        create_yaml(yaml, vnn_path, onnx_path, 6)
+            for d_ptr in range(len(DIMENSION_NUMBERS)):
+                dimension_number = DIMENSION_NUMBERS[d_ptr]
+                for MODEL in MODEL_SIZES:
+                    if MODEL!='big':
+                        continue
 
-                    if MODEL_TYPE == 'parallel':
-                        create_yaml(yaml, vnn_path, onnx_path, 12)
-                    os.system(
-                        f"python {abcrown_path} --config {yaml} | tee {running_result_path}/pensieve_{MODEL}_{SPEC_TYPES[i]}_{range_ptr}_{size}.txt")
+                    MODEL_TYPE = MODEL_TYPES[i]
+                    if MODEL_TYPE != 'simple' and range_ptr > 0:
+                        continue
+                    for size in range(SIZE):
+                        vnn_path = f'{vnn_dir_path}/pensieve_{SPEC_TYPES[i]}_{dimension_number}_{range_ptr}_{size}.vnnlib'
+                        onnx_path = onnx_dir_path + '/pensieve_' + MODEL + '_' + MODEL_TYPE + '.onnx'
+                        yaml = yaml_path + f'/pensieve_{MODEL_TYPE}_{MODEL}_{SPEC_TYPES[i]}_{dimension_number}_{range_ptr}_{size}.yaml'
+                        if MODEL_TYPE == 'simple':
+                            create_yaml(yaml, vnn_path, onnx_path, 6)
+
+                        if MODEL_TYPE == 'parallel':
+                            create_yaml(yaml, vnn_path, onnx_path, 12)
+                        os.system(
+                            f"python {abcrown_path} --config {yaml} | tee {running_result_path}/pensieve_{MODEL}_{SPEC_TYPES[i]}_{dimension_number}_{range_ptr}_{size}.txt")
 
 
 if __name__ == "__main__":
