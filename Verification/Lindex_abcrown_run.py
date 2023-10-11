@@ -26,13 +26,11 @@ def create_yaml(yaml, vnn_path, onnx_path):
     with open(yaml, mode='w') as f:
 
         f.write(f"general:\n  enable_incomplete_verification: False\n  loss_reduction_func: max\n  conv_mode: matrix\nmodel:\n  onnx_path: {onnx_path}\n")
-        f.write(f"data:\n  dataset: NN4SYS_2022\n  num_outputs: 1\n  start: 0\n  end: 24\n")
+        f.write(f"data:\n  num_outputs: 1\n  start: 0\n  end: 24\n")
         f.write(f"specification:\n  vnnlib_path: {vnn_path}\nsolver:\n  "
                 f"batch_size: 50  # Number of parallel domains to compute on GPU.\n  bound_prop_method: forward+backward\n  beta-crown:\n"
                 f"    iteration: 10  # Iterations for computing intermediate layer bounds.\n")
-        f.write(f"specification:\n  vnnlib_path: ../Benchmarks/vnnlib/lindex_1.vnnlib\nsolver:\n  batch_size: 500000  # Number of parallel domains to compute on GPU.\n"
-                f"  bound_prop_method: forward+backward\n  beta-crown:\n    iteration: 10  # Iterations for computing intermediate layer bounds.\n"
-                f"bab:\n  initial_max_domains: 100000\n  branching:\n    method: naive  # Split on input space.\n    input_split:\n"
+        f.write(f"bab:\n  initial_max_domains: 100000\n  branching:\n    method: naive  # Split on input space.\n    input_split:\n"
                 f"      enable: True\n      adv_check: .inf\n")
         #f.write(f"attack:\n  pgd_order: skip")
 

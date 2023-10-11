@@ -6,7 +6,6 @@ general:
 model:
   onnx_path: ../Benchmarks/onnx/lindex.onnx
 data:
-  dataset: NN4SYS_2022
   num_outputs: 1
   start: 0
   end: 24
