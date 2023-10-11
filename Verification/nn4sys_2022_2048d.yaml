@@ -3,8 +3,9 @@ general:
   enable_incomplete_verification: False
   loss_reduction_func: max
   conv_mode: matrix
-data:
+model:
   onnx_path: ../Benchmarks/onnx/cardinality_2048.onnx
+data:
   num_outputs: 1
   start: 85
 specification:
