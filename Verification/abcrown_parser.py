@@ -17,7 +17,12 @@ def calculate_avg_time(dic1, dic2, times1, times2):
         else:
             dic1[key] = dic2[key]
     for key in dic1:
-        ret[key] = times1[key] / dic1[key]
+        if dic1[key]==10:
+            ret[key] = times1[key] / dic1[key]
+        else:
+            timeout = 10-dic1[key]
+            total_time = timeout*180+times1[key]
+            ret[key] = total_time / timeout
     return ret
 
 
