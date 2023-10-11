@@ -67,11 +67,11 @@ def write_uspec(path, spec_set):
         f.write("\n".join(contents))
 
 
-def gen_spec(specs, difficulties):
+def gen_spec(specs, difficulties, dif):
     assert len(difficulties) > 0
     num_specs = len(specs)
 
-    ftemplate = "vnnlib/lindex_%d.vnnlib"
+    ftemplate = "vnnlib/lindex_%d_%d.vnnlib"
     all_names = []
     csv_data = []
     index=-1
@@ -84,7 +84,7 @@ def gen_spec(specs, difficulties):
         for spec_id in chosen_ids:
             chosen_ones.append(specs[spec_id])
 
-        fname = ftemplate % index
+        fname = ftemplate % (dif, index)
         write_spec(fname, chosen_ones)
         csv_data.append(['onnx/lindex.onnx', fname, 20 + math.ceil(num * 3 / num_specs) * 10])
         csv_data.append(['onnx/lindex_deep.onnx', fname, 20 + math.ceil(num * 3 / num_specs) * 10])
@@ -115,6 +115,7 @@ def gen_uspec(uspecs):
         print(f"[DONE] generate {fname}")
 
 
+
 def main(seed):
     random.seed(seed)
     # load specs
@@ -122,21 +123,25 @@ def main(seed):
     # print(len(specs))
 
     # three difficulties
-    difficulties = [1]
+    difficulties1 = [1 for i in range(10)]
     # 100 instances: 20-30-50
     # (a) easy [1, 1k] (20 instances)
-    for i in range(1, 4):
-        difficulties.append(i * 200)  # max: 900
+    #for i in range(1, 4):
+    #    difficulties.append(i * 200)  # max: 900
 
     # (b) medium  [1K, 10K] (30 instances)
-    for i in range(4):
-        difficulties.append(1000 + i * 2000)  # max: 9700
+    difficulties2=[]
+    for i in range(10):
+        difficulties2.append(1000 + i * 1000)  # max: 9700
 
     # (c) hard [10K, 144K] (50 instances)
-    for i in range(2):
-        difficulties.append(10000 + i * 50000)  # max: 147200
-
-    return gen_spec(specs, difficulties)
+    difficulties3=[]
+    for i in range(10):
+        difficulties3.append(10000 + i * 13000)  # max: 147200
+    gen_spec(specs, difficulties1,0)
+    gen_spec(specs, difficulties2,1)
+    gen_spec(specs, difficulties3,2)
+    #return gen_spec(specs, difficulties1)
 
     # uspecs = specs_shift(specs, 500)
     # gen_uspec(uspecs)
