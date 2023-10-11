@@ -9,7 +9,7 @@ data:
   num_outputs: 1
   start: 85
 specification:
-  vnnlib_path: ../Benchmarks/vnnlib/cardinality_1_600_2048_dual.vnnlib
+  vnnlib_path: ../Benchmarks/vnnlib/cardinality_0_750_2048.vnnlib
 solver:
   batch_size: 256  # Number of parallel domains to compute on GPU.
   bound_prop_method: forward+backward
