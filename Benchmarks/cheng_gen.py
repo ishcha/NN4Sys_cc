@@ -125,7 +125,7 @@ def main(seed):
     difficulties = [1]
     # 100 instances: 20-30-50
     # (a) easy [1, 1k] (20 instances)
-    for i in range(1, 5):
+    for i in range(1, 4):
         difficulties.append(i * 200)  # max: 900
 
     # (b) medium  [1K, 10K] (30 instances)
