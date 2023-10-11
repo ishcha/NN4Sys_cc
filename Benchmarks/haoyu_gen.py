@@ -126,8 +126,8 @@ def gene_spec():
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
     single_difficulties = [1]
-    single_difficulties.extend([(i + 1) * 250 for i in range(1, 11)])
-    single_difficulties.extend([(i + 1) * 560 + 1000 for i in range(1, 11)])
+    single_difficulties.extend([(i + 1) * 250 for i in range(1, 6)])
+    single_difficulties.extend([(i + 1) * 560 + 1000 for i in range(1, 6)])
     for model in ['128', '2048']:
         # generate single instances
         index=-1
@@ -155,8 +155,8 @@ def gene_spec():
                                  time_dict_single['single'][size]])
         # generate dual instances
         dual_difficulties = [1]
-        dual_difficulties.extend([(i + 1) * 120 for i in range(1, 11)])
-        dual_difficulties.extend([(i + 1) * 630 + 1000 for i in range(1, 11)])
+        dual_difficulties.extend([(i + 1) * 120 for i in range(1, 6)])
+        dual_difficulties.extend([(i + 1) * 630 + 1000 for i in range(1, 6)])
         index=-1
         for size in dual_difficulties:
             index+=1
