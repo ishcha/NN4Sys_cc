@@ -59,7 +59,7 @@ class ActorNetwork_mid(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -105,7 +105,7 @@ class ActorNetwork_mid_parallel(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x1[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x1[:, 4:5, -1])
+        split_5 = self.linear2(x1[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -189,7 +189,7 @@ class ActorNetwork_mid_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -228,7 +228,7 @@ class ActorNetwork_mid_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -267,7 +267,7 @@ class ActorNetwork_mid_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -306,7 +306,7 @@ class ActorNetwork_mid_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -345,7 +345,7 @@ class ActorNetwork_mid_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -384,7 +384,7 @@ class ActorNetwork_mid_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -423,7 +423,7 @@ class ActorNetwork_mid_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -462,7 +462,7 @@ class ActorNetwork_mid_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -500,7 +500,7 @@ class ActorNetwork_mid_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -547,7 +547,7 @@ class ActorNetwork_small(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.linear4(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear5(x[:, 4:5, -1])
+        split_5 = self.linear5(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -594,7 +594,7 @@ class ActorNetwork_small_parallel(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.linear4(x1[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear5(x1[:, 4:5, -1])
+        split_5 = self.linear5(x1[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -618,7 +618,7 @@ class ActorNetwork_small_parallel(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.linear4(x2[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear5(x2[:, 4:5, -1])
+        split_5 = self.linear5(x2[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -684,7 +684,7 @@ class ActorNetwork_small_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.linear4(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear5(x[:, 4:5, -1])
+        split_5 = self.linear5(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -723,7 +723,7 @@ class ActorNetwork_small_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.linear4(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear5(x[:, 4:5, -1])
+        split_5 = self.linear5(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -762,7 +762,7 @@ class ActorNetwork_small_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.linear4(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear5(x[:, 4:5, -1])
+        split_5 = self.linear5(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -801,7 +801,7 @@ class ActorNetwork_small_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.linear4(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear5(x[:, 4:5, -1])
+        split_5 = self.linear5(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -840,7 +840,7 @@ class ActorNetwork_small_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.linear4(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear5(x[:, 4:5, -1])
+        split_5 = self.linear5(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -879,7 +879,7 @@ class ActorNetwork_small_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.linear4(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear5(x[:, 4:5, -1])
+        split_5 = self.linear5(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -918,7 +918,7 @@ class ActorNetwork_small_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.linear4(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear5(x[:, 4:5, -1])
+        split_5 = self.linear5(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -957,7 +957,7 @@ class ActorNetwork_small_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.linear4(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear5(x[:, 4:5, -1])
+        split_5 = self.linear5(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -995,7 +995,7 @@ class ActorNetwork_small_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.linear4(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear5(x[:, 4:5, -1])
+        split_5 = self.linear5(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -1040,7 +1040,7 @@ class ActorNetwork_big(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -1087,7 +1087,7 @@ class ActorNetwork_big_parallel(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x1[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x1[:, 4:5, -1])
+        split_5 = self.linear2(x1[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -1112,7 +1112,7 @@ class ActorNetwork_big_parallel(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x2[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x2[:, 4:5, -1])
+        split_5 = self.linear2(x2[:, 5:65, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -1178,7 +1178,7 @@ class ActorNetwork_big_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -1222,7 +1222,7 @@ class ActorNetwork_big_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -1262,7 +1262,7 @@ class ActorNetwork_big_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -1303,7 +1303,7 @@ class ActorNetwork_big_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -1343,7 +1343,7 @@ class ActorNetwork_big_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -1383,7 +1383,7 @@ class ActorNetwork_big_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -1423,7 +1423,7 @@ class ActorNetwork_big_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -1463,7 +1463,7 @@ class ActorNetwork_big_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
@@ -1502,7 +1502,7 @@ class ActorNetwork_big_concat(nn.Module):
         split_3 = self.relu(split_3)
         split_4 = self.conv1(x[:, 4:5, :A_DIM])
         split_4 = self.relu(split_4)
-        split_5 = self.linear2(x[:, 4:5, -1])
+        split_5 = self.linear2(x[:, 5:6, -1])
 
         split_2 = split_2.view(split_2.shape[0], -1)
         split_3 = split_3.view(split_3.shape[0], -1)
