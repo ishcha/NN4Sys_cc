@@ -4,7 +4,7 @@ import os
 import random
 import numpy as np
 
-STATISTIC_RANGE = [0.005, 0.005, 0, 1]
+STATISTIC_RANGE = [0.005, 0.01, 0.05, 1]
 P_RANGE = [1, 2, 3, 4, 5]
 MODELS = ['empty', 'small', 'mid', 'big']
 DIFFICULTY = ['easy']
