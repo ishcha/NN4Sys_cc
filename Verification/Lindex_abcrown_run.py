@@ -3,17 +3,8 @@ import sys
 
 os.environ['MKL_THREADING_LAYER'] = 'GNU'
 
-MODELS = ['small', 'mid', 'big']
-MODEL_TYPES = ['simple', 'simple', 'simple', 'parallel', 'concat']
-DIFFICULTY = ['easy']
-SIZES = [10, 10, 10, 10, 10]
-SIZE = 10
-
-SPEC_TYPES = [101, 102, 2, 3, 4]
-SPEC_ARRAY_LENGTH = [30, 30, 30, 60, 150]
-SPEC_ARRAY_NUM = 3000
-HISTORY = 10
 MODEL_NAMES=["lindex","lindex_deep"]
+SIZE=10
 
 
 # create yaml
@@ -31,29 +22,35 @@ if not os.path.exists(running_result_path):
 if not os.path.exists(yaml_path):
     os.makedirs(yaml_path)
 
-def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
+def create_yaml(yaml, vnn_path, onnx_path):
     with open(yaml, mode='w') as f:
-        f.write("general:\n  enable_incomplete_verification: False\n  conv_mode: matrix\n")
-        f.write(f'model:\n  onnx_path: {onnx_path}\n')
-        f.write(f'specification:\n  vnnlib_path: {vnn_path}\n')
-        f.write(
-            "solver:\n  batch_size: 2048\nbab:\n  branching:\n    method: sb\n    sb_coeff_thresh: 0.1\n    input_split:\n      enable: True")
+
+        f.write(f"general:\n  enable_incomplete_verification: False\n  loss_reduction_func: max\n  conv_mode: matrix\nmodel:\n  onnx_path: {onnx_path}\n")
+        f.write(f"data:\n  dataset: NN4SYS_2022\n  num_outputs: 1\n  start: 0\n  end: 24\n")
+        f.write(f"specification:\n  vnnlib_path: {vnn_path}\nsolver:\n  "
+                f"batch_size: 500000  # Number of parallel domains to compute on GPU.\n  bound_prop_method: forward+backward\n  beta-crown:\n"
+                f"    iteration: 10  # Iterations for computing intermediate layer bounds.\n")
+        f.write(f"specification:\n  vnnlib_path: ../Benchmarks/vnnlib/lindex_1.vnnlib\nsolver:\n  batch_size: 500000  # Number of parallel domains to compute on GPU.\n"
+                f"  bound_prop_method: forward+backward\n  beta-crown:\n    iteration: 10  # Iterations for computing intermediate layer bounds.\n"
+                f"bab:\n  initial_max_domains: 100000\n  branching:\n    method: naive  # Split on input space.\n    input_split:\n"
+                f"      enable: True\n      adv_check: .inf\n")
+        f.write(f"attack:\n  pgd_order: skip")
 
 
+
+
+
+dif = [1,200,400,600,800,1000,3000,5000,7000,9000,10000]
 def main(abcrown_path):
     model_name = "lindex"
     for i in range(SIZE):
         for model in MODEL_NAMES:
-            vnn_path = f'{vnn_dir_path}/{model_name}_1_{i}.vnnlib'
+            vnn_path = f'{vnn_dir_path}/lindex_{dif[i]}.vnnlib'
             onnx_path =  f'{onnx_dir_path}/{model}.onnx'
-            yaml = yaml_path + f'/{model_name}_1_{i}.yaml'
+            yaml = yaml_path + f'/{model_name}_{i}.yaml'
             create_yaml(yaml, vnn_path, onnx_path)
-            os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/{model}_1_{i}.txt")
+            os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/{model}_{i}.txt")
 
-            vnn_path = f'{vnn_dir_path}/{model_name}_2_{i}.vnnlib'
-            yaml = yaml_path + f'/{model_name}_2_{i}.yaml'
-            create_yaml(yaml, vnn_path, onnx_path)
-            os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/{model}_2_{i}.txt")
 
 
 if __name__ == "__main__":
