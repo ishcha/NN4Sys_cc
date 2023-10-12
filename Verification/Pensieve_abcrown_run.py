@@ -5,7 +5,7 @@ os.environ['MKL_THREADING_LAYER'] = 'GNU'
 
 MODEL_TYPES = ['simple', 'simple', 'parallel']
 MODEL_SIZES = ['small', 'mid', 'big']
-P_RANGE = [0.04, 0.08, 0.12, 0.16, 0.2, 0.24, 0.28, 0.32]
+P_RANGE = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5]
 SIZES = [5, 5, 5]
 SIZE=10
 SPEC_TYPES = [1, 2, 3]
