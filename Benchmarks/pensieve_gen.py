@@ -6,12 +6,12 @@ import numpy as np
 
 
 
-P_RANGE = [0.05, 0.3,0.6]
+P_RANGE = [0.05, 0.1,0.15,0.2]
 MODELS = ['empty', 'small', 'mid', 'big']
 DIFFICULTY = ['easy']
 SIZES = [10, 10, 10]
 SPEC_TYPES = [1, 2, 3]
-DIMENSION_NUMBERS=[1,2,3]
+DIMENSION_NUMBERS=[1,2,3, 4]
 
 
 # responsible for writing the file
@@ -73,7 +73,7 @@ def add_range(X, spec_type, p_range,dimension_number):
     if spec_type == SPEC_TYPES[0] or spec_type == SPEC_TYPES[1]:
         if dimension_number==1:
             for i in range(X.shape[0]):
-                if 15 < i < 32:
+                if 15 < i < 24:
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i] + p_range
                 else:
@@ -81,33 +81,66 @@ def add_range(X, spec_type, p_range,dimension_number):
                     ret[i * 2 + 1] = X[i]
         if dimension_number==2:
             for i in range(X.shape[0]):
-                if 15 < i < 40:
+                if 15 < i < 24:
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i] + p_range
+                if 23 < i < 32:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i] - p_range
                 else:
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i]
         if dimension_number==3:
             for i in range(X.shape[0]):
-                if 7 < i < 40:
+                if 15 < i < 24:
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i] + p_range
+                if -1 < i < 8:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i] + p_range
+                if 23 < i < 32:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i] - p_range
                 else:
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i]
 
 
+
     if spec_type == SPEC_TYPES[2]:
-        for i in range(X.shape[0]):
-            if 15 < i < 32:
-                ret[i * 2] = X[i]
-                ret[i * 2 + 1] = X[i] + p_range
-            elif 63 < i < 80:
-                ret[i * 2] = X[i]
-                ret[i * 2 + 1] = X[i] + p_range
-            else:
-                ret[i * 2] = X[i]
-                ret[i * 2 + 1] = X[i]
+        if dimension_number==1:
+            for i in range(X.shape[0]):
+                if 15 < i < 24 or 63 < i < 72:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i] + p_range
+                else:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i]
+        if dimension_number==2:
+            for i in range(X.shape[0]):
+                if 15 < i < 24 or 63 < i < 72:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i] + p_range
+                if 23 < i < 32 or 71 < i < 80:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i] - p_range
+                else:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i]
+        if dimension_number==3:
+            for i in range(X.shape[0]):
+                if 15 < i < 24 or 63 < i < 72:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i] + p_range
+                if -1 < i < 8 or 47 < i < 56:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i] + p_range
+                if 23 < i < 32 or 71 < i < 80:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i] - p_range
+                else:
+                    ret[i * 2] = X[i]
+                    ret[i * 2 + 1] = X[i]
     return ret
 
 
