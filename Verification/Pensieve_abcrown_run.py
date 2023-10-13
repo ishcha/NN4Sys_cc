@@ -5,7 +5,7 @@ os.environ['MKL_THREADING_LAYER'] = 'GNU'
 
 MODEL_TYPES = ['simple', 'simple', 'parallel']
 MODEL_SIZES = ['small', 'mid', 'big']
-P_RANGE = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5]
+P_RANGE = [0.05, 0.3,0.6]
 SIZES = [5, 5, 5]
 SIZE=10
 SPEC_TYPES = [1, 2, 3]
@@ -40,15 +40,13 @@ def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
 
 def main(abcrown_path):
     for i in range(len(SPEC_TYPES)):
-        if i != 2:
-            continue
+
         MODEL_TYPE = MODEL_TYPES[i]
         for range_ptr in range(len(P_RANGE)):
             for d_ptr in range(len(DIMENSION_NUMBERS)):
                 dimension_number = DIMENSION_NUMBERS[d_ptr]
                 for MODEL in MODEL_SIZES:
-                    if MODEL!='big':
-                        continue
+
 
 
                     for size in range(SIZE):

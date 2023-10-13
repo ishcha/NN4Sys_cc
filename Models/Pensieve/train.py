@@ -44,7 +44,7 @@ max_epoch = 50000
 REWARD_LIST = ['linear', 'log', 'hd']
 REWARD = REWARD_LIST[0]  # We only need linear reward trained model
 MODEL_LIST = ['small', 'mid', 'big']
-MODEL = MODEL_LIST[1]
+MODEL = MODEL_LIST[2]
 
 
 def central_agent(exp_queues, net_params_queues):
