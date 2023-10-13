@@ -85,8 +85,8 @@ def add_range(X, spec_type, p_range,dimension_number):
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i] + p_range
                 if 23 < i < 32:
-                    ret[i * 2] = X[i]
-                    ret[i * 2 + 1] = X[i] - p_range
+                    ret[i * 2] = X[i] - p_range
+                    ret[i * 2 + 1] = X[i]
                 else:
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i]
@@ -99,8 +99,8 @@ def add_range(X, spec_type, p_range,dimension_number):
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i] + p_range
                 if 23 < i < 32:
-                    ret[i * 2] = X[i]
-                    ret[i * 2 + 1] = X[i] - p_range
+                    ret[i * 2] = X[i] - p_range
+                    ret[i * 2 + 1] = X[i]
                 else:
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i]
@@ -122,8 +122,8 @@ def add_range(X, spec_type, p_range,dimension_number):
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i] + p_range
                 if 23 < i < 32 or 71 < i < 80:
-                    ret[i * 2] = X[i]
-                    ret[i * 2 + 1] = X[i] - p_range
+                    ret[i * 2] = X[i] - p_range
+                    ret[i * 2 + 1] = X[i]
                 else:
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i]
@@ -136,8 +136,8 @@ def add_range(X, spec_type, p_range,dimension_number):
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i] + p_range
                 if 23 < i < 32 or 71 < i < 80:
-                    ret[i * 2] = X[i]
-                    ret[i * 2 + 1] = X[i] - p_range
+                    ret[i * 2] = X[i] - p_range
+                    ret[i * 2 + 1] = X[i]
                 else:
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i]
