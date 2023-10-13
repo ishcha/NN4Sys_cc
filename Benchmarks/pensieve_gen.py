@@ -6,7 +6,7 @@ import numpy as np
 
 
 
-P_RANGE = [0.05, 0.1,0.15,0.2]
+P_RANGE = [0.21,0.22,0.23,0.24,0.25,0.7,1]
 MODELS = ['empty', 'small', 'mid', 'big']
 DIFFICULTY = ['easy']
 SIZES = [10, 10, 10]

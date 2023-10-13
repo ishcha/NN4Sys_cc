@@ -17,12 +17,6 @@ class LINN(nn.Module):
         self.fc4 = nn.Linear(width, output_dim)
 
 
-    def update(self, model):
-        self.fc1 = model.fc1
-        self.fc2 = model.fc2
-        self.fc3 = model.fc3
-        self.fc4 = model.fc4
-
 
     def forward(self, x):
         x = x.view(x.size(0), -1)
