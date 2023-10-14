@@ -47,9 +47,10 @@ def main(abcrown_path):
             for size in range(SIZE):
                 for range_ptr in range(len(P_RANGE)):
                     for d_ptr in range(len(DIMENSION_NUMBERS)):
+                        dimension_number = DIMENSION_NUMBERS[d_ptr]
                         if i != 1 and dimension_number != 3 and range_ptr != 1:
                             continue
-                        dimension_number = DIMENSION_NUMBERS[d_ptr]
+
                         vnn_path = vnn_dir_path + '/aurora_' + str(SPEC_TYPES[i]) + f'_{dimension_number}_{range_ptr}_' + str(size) + '.vnnlib'
                         onnx_path = onnx_dir_path + '/aurora_'+MODEL+'_' + MODEL_TYPES[i] + '.onnx'
                         yaml = yaml_path + '/aurora_' + str(SPEC_TYPES[i]) + f'_{dimension_number}_{range_ptr}_' + str(size) + '.yaml'
