@@ -5,10 +5,11 @@ os.environ['MKL_THREADING_LAYER'] = 'GNU'
 
 MODEL_TYPES = ['simple', 'simple', 'parallel']
 MODEL_SIZES = ['small', 'mid', 'big']
-P_RANGE = [0.21,0.22,0.23,0.24,0.25,0.7,1]
-SIZES = [5, 5, 5]
+P_RANGE = [0.1, 0.5, 0.7, 0.8, 0.9, 1, 1.5]
+SIZES = [10, 10, 10]
 SIZE=10
 SPEC_TYPES = [1, 2, 3]
+SPEC_TYPES = [1]
 
 # create yaml
 vnn_dir_path = '../Benchmarks/vnnlib'

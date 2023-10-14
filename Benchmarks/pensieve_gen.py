@@ -6,12 +6,17 @@ import numpy as np
 
 
 
-P_RANGE = [0.21,0.22,0.23,0.24,0.25,0.7,1]
+
+P_RANGE = [0.1, 0.5, 0.7, 0.8, 0.9, 1, 1.5]
+
 MODELS = ['empty', 'small', 'mid', 'big']
 DIFFICULTY = ['easy']
 SIZES = [10, 10, 10]
 SPEC_TYPES = [1, 2, 3]
+
+
 DIMENSION_NUMBERS=[1,2,3, 4]
+
 
 
 # responsible for writing the file
@@ -85,7 +90,7 @@ def add_range(X, spec_type, p_range,dimension_number):
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i] + p_range
                 if 23 < i < 32:
-                    ret[i * 2] = X[i] - p_range
+                    ret[i * 2] = max(0, X[i] - p_range)
                     ret[i * 2 + 1] = X[i]
                 else:
                     ret[i * 2] = X[i]
@@ -99,7 +104,7 @@ def add_range(X, spec_type, p_range,dimension_number):
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i] + p_range
                 if 23 < i < 32:
-                    ret[i * 2] = X[i] - p_range
+                    ret[i * 2] = max(0, X[i] - p_range)
                     ret[i * 2 + 1] = X[i]
                 else:
                     ret[i * 2] = X[i]
@@ -122,7 +127,7 @@ def add_range(X, spec_type, p_range,dimension_number):
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i] + p_range
                 if 23 < i < 32 or 71 < i < 80:
-                    ret[i * 2] = X[i] - p_range
+                    ret[i * 2] = max(0, X[i] - p_range)
                     ret[i * 2 + 1] = X[i]
                 else:
                     ret[i * 2] = X[i]
@@ -136,7 +141,7 @@ def add_range(X, spec_type, p_range,dimension_number):
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i] + p_range
                 if 23 < i < 32 or 71 < i < 80:
-                    ret[i * 2] = X[i] - p_range
+                    ret[i * 2] = max(0, X[i] - p_range)
                     ret[i * 2 + 1] = X[i]
                 else:
                     ret[i * 2] = X[i]

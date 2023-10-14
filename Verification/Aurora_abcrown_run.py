@@ -24,6 +24,8 @@ timeout = 100
 csv_data = []
 total_num = 0
 current_gpu = 0
+DIMENSION_NUMBERS=[1,2,3]
+P_RANGE = [0.9,1, 1.1,1.2,1.3,1.4]
 
 if not os.path.exists(running_result_path):
     os.makedirs(running_result_path)
@@ -43,11 +45,16 @@ def main(abcrown_path):
     for i in range(len(SPEC_TYPES)):
         for MODEL in MODELS:
             for size in range(SIZE):
-                vnn_path = vnn_dir_path + '/aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
-                onnx_path = onnx_dir_path + '/aurora_'+MODEL+'_' + MODEL_TYPES[i] + '.onnx'
-                yaml = yaml_path + '/aurora_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
-                create_yaml(yaml, vnn_path, onnx_path)
-                os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/aurora_{MODEL}_{SPEC_TYPES[i]}_{size}.txt")
+                for range_ptr in range(len(P_RANGE)):
+                    for d_ptr in range(len(DIMENSION_NUMBERS)):
+                        if i != 1 and dimension_number != 3 and range_ptr != 1:
+                            continue
+                        dimension_number = DIMENSION_NUMBERS[d_ptr]
+                        vnn_path = vnn_dir_path + '/aurora_' + str(SPEC_TYPES[i]) + f'_{dimension_number}_{range_ptr}_' + str(size) + '.vnnlib'
+                        onnx_path = onnx_dir_path + '/aurora_'+MODEL+'_' + MODEL_TYPES[i] + '.onnx'
+                        yaml = yaml_path + '/aurora_' + str(SPEC_TYPES[i]) + f'_{dimension_number}_{range_ptr}_' + str(size) + '.yaml'
+                        create_yaml(yaml, vnn_path, onnx_path)
+                        os.system(f"python {abcrown_path} --config {yaml} | tee {running_result_path}/aurora_{MODEL}_{SPEC_TYPES[i]}_{dimension_number}_{range_ptr}_{size}.txt")
 
 
 if __name__ == "__main__":
