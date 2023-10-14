@@ -25,10 +25,9 @@ def main(marabou_path):
         for range_ptr in range(len(P_RANGE)):
             for d_ptr in range(len(DIMENSION_NUMBERS)):
                 dimension_number = DIMENSION_NUMBERS[d_ptr]
-
                 for num in range(SIZES[spec_type]):
 
-                    command = f'python {marabou_path} {onnx_dir_path}/pensieve_small_{MODEL_TYPES[spec_type]}_marabou.onnx {txt_dir_path}/pensieve_{SPEC_TYPES[spec_type]}_{range_ptr}_{num}.txt | tee {running_result_path}/small_{MODEL_TYPES[spec_type]}_{SPEC_TYPES[spec_type]}_{range_ptr}_{num}.txt'
+                    command = f'python {marabou_path} {onnx_dir_path}/pensieve_small_{MODEL_TYPES[spec_type]}_marabou.onnx {txt_dir_path}/pensieve_{SPEC_TYPES[spec_type]}_{dimension_number}_{range_ptr}_{num}.txt | tee {running_result_path}/small_{MODEL_TYPES[spec_type]}_{SPEC_TYPES[spec_type]}_{dimension_number}_{range_ptr}_{num}.txt'
 
                     print("------------------------------------->")
                     print(command)
