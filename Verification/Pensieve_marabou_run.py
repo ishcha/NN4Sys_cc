@@ -6,7 +6,7 @@ MODEL_TYPES = ['simple', 'simple']
 
 running_result_path = './pensieve_marabou_running_result'
 SIZES = [10, 10, 10, 10, 10]
-P_RANGE = [0.1, 0.5, 0.7, 0.8, 0.9, 1, 1.5]
+P_RANGE = [0.05, 0.1, 0.5, 0.7, 1]
 
 SPEC_TYPES = [1, 2]
 SPEC_TYPES = [1]

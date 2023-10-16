@@ -15,6 +15,7 @@ SPEC_ARRAY_NUM = 3000
 HISTORY = 10
 
 
+
 # create yaml
 vnn_dir_path = '../Benchmarks/vnnlib'
 onnx_dir_path = '../Benchmarks/onnx'
@@ -25,7 +26,7 @@ csv_data = []
 total_num = 0
 current_gpu = 0
 DIMENSION_NUMBERS=[1,2,3]
-P_RANGE = [0.9,1, 1.1,1.2,1.3,1.4]
+P_RANGE = [0.8,1, 1.2,1.4,1.6]
 
 if not os.path.exists(running_result_path):
     os.makedirs(running_result_path)
