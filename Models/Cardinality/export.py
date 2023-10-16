@@ -1,6 +1,4 @@
 import os
-from mscn.data import get_train_datasets
-from mscn.model import SetConv
 import torch
 import onnx
 
