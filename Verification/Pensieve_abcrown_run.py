@@ -9,7 +9,7 @@ P_RANGE = [0.05, 0.1, 0.5, 0.7, 1]
 SIZES = [10, 10, 10]
 SIZE=10
 SPEC_TYPES = [1, 2, 3]
-SPEC_TYPES = [1]
+SPEC_TYPES = [2, 3]
 
 # create yaml
 vnn_dir_path = '../Benchmarks/vnnlib'
@@ -47,9 +47,6 @@ def main(abcrown_path):
             for d_ptr in range(len(DIMENSION_NUMBERS)):
                 dimension_number = DIMENSION_NUMBERS[d_ptr]
                 for MODEL in MODEL_SIZES:
-
-
-
                     for size in range(SIZE):
                         vnn_path = f'{vnn_dir_path}/pensieve_{SPEC_TYPES[i]}_{dimension_number}_{range_ptr}_{size}.vnnlib'
                         onnx_path = onnx_dir_path + '/pensieve_' + MODEL + '_' + MODEL_TYPE + '.onnx'

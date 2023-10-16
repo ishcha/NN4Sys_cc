@@ -1,4 +1,5 @@
 import os
+import model
 
 ONNX_DIR = f'../../Benchmarks/onnx'
 
@@ -10,6 +11,11 @@ def main():
     copy_name = ["cardinality_128.onnx", "cardinality_128_dual.onnx", "cardinality_2048.onnx", "cardinality_2048_dual.onnx"]
     for i in range(len(models)):
         os.system(f'cp {models[i]} {ONNX_DIR}/{models[i]}')
+
+    actor = LINN(1,1)
+    input = torch.zeros(1,1)
+
+
 
 
 if __name__ == '__main__':
