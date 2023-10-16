@@ -43,8 +43,7 @@ def main(abcrown_path):
     for i in range(len(SPEC_TYPES)):
 
         MODEL_TYPE = MODEL_TYPES[i]
-        if i==0:
-            continue
+
         for range_ptr in range(len(P_RANGE)):
             for d_ptr in range(len(DIMENSION_NUMBERS)):
                 dimension_number = DIMENSION_NUMBERS[d_ptr]
