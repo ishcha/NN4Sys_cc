@@ -5,7 +5,6 @@ class model_benchmark(nn.Module):
         super().__init__()
         hidden_size = 256
         self.model = nn.Sequential(
-
             nn.Linear(2, hidden_size),
             nn.ReLU(),
             nn.Linear(hidden_size, hidden_size),

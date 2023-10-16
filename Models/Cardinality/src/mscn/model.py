@@ -28,6 +28,7 @@ class SetConv(nn.Module):
         # predicates has shape [batch_size x num_predicates x predicate_feats]
         # joins has shape [batch_size x num_joins x join_feats]
 
+
         samples_aggr = inputs.index_select(1, torch.arange(self.max_num_sample)).index_select(-1, torch.arange(self.sample_feats+1))
         samples, sample_mask = torch.split(samples_aggr, self.sample_feats, dim=-1)
         predicates_aggr = inputs.index_select(1, torch.arange(self.max_num_sample, self.max_num_sample+self.max_num_predicate)).index_select(-1, torch.arange(
