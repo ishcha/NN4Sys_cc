@@ -11,6 +11,8 @@ SPEC_TYPES = [101, 102, 2, 3]
 SPEC_ARRAY_LENGTH = [30, 30, 30, 60, 150]
 SPEC_ARRAY_NUM = 3000
 HISTORY = 10
+P_RANGE = [0.8,1, 1.2,1.4,1.6]
+DIMENSION_NUMBERS=[1,2,3]
 
 txt_dir_path = '../Benchmarks/marabou_txt'
 onnx_dir_path = '../Benchmarks/onnx'
@@ -22,9 +24,14 @@ def main(marabou_path):
     for spec_type in range(len(SPEC_TYPES)):
         for MODEL in MODEL_SIZES:
             for num in range(SIZES[spec_type]):
-                command = f'python {marabou_path} {onnx_dir_path}/aurora_{MODEL}_{MODEL_TYPES[spec_type]}.onnx {txt_dir_path}/aurora_{SPEC_TYPES[spec_type]}_{num}.txt | tee {running_result_path}/{MODEL}_{MODEL_TYPES[spec_type]}_{SPEC_TYPES[spec_type]}_{num}.txt'
-                print(command)
-                os.system(command)
+                for range_ptr in range(len(P_RANGE)):
+                    for d_ptr in range(len(DIMENSION_NUMBERS)):
+                        dimension_number = DIMENSION_NUMBERS[d_ptr]
+                        if num != 1 and dimension_number != 3 and range_ptr != 1:
+                            continue
+                        command = f'python {marabou_path} {onnx_dir_path}/aurora_{MODEL}_{MODEL_TYPES[spec_type]}.onnx {txt_dir_path}/aurora_{SPEC_TYPES[spec_type]}_{num}.txt | tee {running_result_path}/{MODEL}_{MODEL_TYPES[spec_type]}_{SPEC_TYPES[spec_type]}_{num}.txt'
+                        print(command)
+                        os.system(command)
 
 
 if __name__ == "__main__":
