@@ -44,6 +44,8 @@ def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
 
 def main(abcrown_path):
     for i in range(len(SPEC_TYPES)):
+        if i ==0:
+            continue
         for MODEL in MODELS:
             for size in range(SIZE):
                 for range_ptr in range(len(P_RANGE)):
