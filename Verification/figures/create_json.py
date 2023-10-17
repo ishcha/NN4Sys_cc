@@ -63,7 +63,7 @@ def main():
                     continue
                 index = '_'.join(f[:-4].split('_')[:-1])
                 if 'pensieve' in index or 'aurora' in index:
-                    index = '_'.join(f[:-4].split('_')[:-2])
+                    index = '_'.join(f.split('_')[:-3])
 
                 timeout = -1
 
@@ -116,7 +116,7 @@ def main():
             unsat_dic_copy = copy.deepcopy(unsat_dic)
             avg_time = calculate_avg_time(sat_dic_copy, unsat_dic_copy, sat_time, unsat_time)
 
-            print(verifier)
+
 
             for key in avg_time:
                 print(index)
