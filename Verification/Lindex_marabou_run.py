@@ -21,7 +21,7 @@ def main(marabou_path):
 
     for model in MODEL_NAMES:
         for num in range(SIZE):
-            command = f'python {marabou_path} {onnx_dir_path}/{model}.onnx {txt_dir_path}/{model_name}_0_{num}.txt | tee {running_result_path}/{model}_0_{num}.txt'
+            command = f'python {marabou_path} {onnx_dir_path}/{model}.onnx {txt_dir_path}/{model_name}_0_{num}.txt | tee {running_result_path}/lindex_{model}_0_{num}.txt'
             print(command)
             os.system(command)
 
