@@ -22,6 +22,8 @@ def main(marabou_path):
     if not os.path.exists(running_result_path):
         os.makedirs(running_result_path)
     for spec_type in range(len(SPEC_TYPES)):
+        if spec_type>1:
+            continue
         for MODEL in MODEL_SIZES:
             for num in range(SIZES[spec_type]):
                 for range_ptr in range(len(P_RANGE)):
