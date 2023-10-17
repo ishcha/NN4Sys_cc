@@ -9,7 +9,6 @@ SIZES = [10, 10, 10, 10, 10]
 P_RANGE = [0.05, 0.1, 0.5, 0.7, 1]
 
 SPEC_TYPES = [1, 2]
-SPEC_TYPES = [1]
 DIMENSION_NUMBERS=[1,2,3]
 
 txt_dir_path = '../Benchmarks/marabou_txt'

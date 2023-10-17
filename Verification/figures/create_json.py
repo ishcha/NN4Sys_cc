@@ -62,6 +62,8 @@ def main():
                 if file[-3:] != 'txt':
                     continue
                 index = '_'.join(f[:-4].split('_')[:-1])
+                if 'pensieve' in index or 'aurora' in index:
+                    index = '_'.join(f[:-4].split('_')[:-2])
 
                 timeout = -1
 
@@ -83,9 +85,6 @@ def main():
                                 result = "unsat"
                             if line[:4] == "Time":
                                 timeout = float(line[5:15])
-
-
-
 
 
 

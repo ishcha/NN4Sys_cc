@@ -56,22 +56,25 @@ def main():
     width = 0.3  # the width of the bars
     multiplier = 1.1
 
+    colors=['#45a776','#3682be','#f05326','#eed777']
+
     color_ptr=0
 
     for attribute, weight_count in weight_counts_abcrown.items():
-        p = ax.bar(species, weight_count, width, label=attribute, bottom=bottom)
+        p = ax.bar(species, weight_count, width, label=attribute, bottom=bottom, color=colors[color_ptr])
         color_ptr+=1
         bottom += weight_count
+    ax.legend(loc="upper right")
 
 
     color_ptr = 0
     bottom = np.zeros(number)
     for attribute, weight_count in weight_counts_marabou.items():
         offset = width * multiplier
-        p = ax.bar(x+offset, weight_count, width, label=attribute, bottom=bottom)
+        p = ax.bar(x+offset, weight_count, width, label=attribute, bottom=bottom, color=colors[color_ptr])
         color_ptr += 1
         bottom += weight_count
-    ax.legend(loc="upper right")
+
 
 
 
