@@ -17,11 +17,12 @@ if not os.path.exists(running_result_path):
 
 def main(marabou_path):
     for spec_type_ptr in range(len(SPEC_TYPES)):
-        command = f'python {marabou_path} {onnx_dir_path}/decima_mid_marabou_{SPEC_TYPES[spec_type_ptr]}.onnx {txt_dir_path}/decima_{SPEC_TYPES[spec_type_ptr]}_0.txt | tee {running_result_path}/decima_mid_{SPEC_TYPES[spec_type_ptr]}_0.txt'
-        print("------------------------------------->")
-        print(command)
-        print("<------------------------------------->")
-        os.system(command)
+        for i in range(10):
+            command = f'python {marabou_path} {onnx_dir_path}/decima_mid_marabou_{SPEC_TYPES[spec_type_ptr]}.onnx {txt_dir_path}/decima_{SPEC_TYPES[spec_type_ptr]}_0.txt | tee {running_result_path}/decima_mid_{SPEC_TYPES[spec_type_ptr]}_{i}.txt'
+            print("------------------------------------->")
+            print(command)
+            print("<------------------------------------->")
+            os.system(command)
 
 
 

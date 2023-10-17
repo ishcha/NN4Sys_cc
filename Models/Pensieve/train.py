@@ -21,7 +21,7 @@ S_LEN = 8  # take how many frames in the past
 A_DIM = 6
 ACTOR_LR_RATE = 0.0001
 CRITIC_LR_RATE = 0.001
-NUM_AGENTS = 10
+NUM_AGENTS = 5
 TRAIN_SEQ_LEN = 100  # take as a train batch
 MODEL_SAVE_INTERVAL = 100
 VIDEO_BIT_RATE = [300, 750, 1200, 1850, 2850, 4300]  # Kbps
@@ -39,7 +39,7 @@ LOG_FILE = './results/log'
 TEST_LOG_FOLDER = './test_results/'
 TRAIN_TRACES = './cooked_traces/'
 NN_MODEL = None
-#NN_MODEL = './results/nn_model_ep__small_linear_8200.pth'
+NN_MODEL = './results/nn_model_ep__big_linear_9700.pth'
 max_epoch = 50000
 REWARD_LIST = ['linear', 'log', 'hd']
 REWARD = REWARD_LIST[0]  # We only need linear reward trained model
@@ -87,7 +87,7 @@ def central_agent(exp_queues, net_params_queues):
     if cuda:
         critic.cuda()
     with open(LOG_FILE + '_test', 'w') as test_log_file:
-        epoch = 0
+        epoch = 9800
         epoch_set = []
         qoe_set = []
         optimizer_actor = optim.RMSprop(actor.parameters(), lr=ACTOR_LR_RATE)
