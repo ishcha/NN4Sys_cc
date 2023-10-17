@@ -3,6 +3,8 @@ import math
 import numpy as np
 import sys
 
+Models = ['pensieve','lindex','aurora','decima','bloom_filter','cardinality']
+
 
 def calculate_avg_time(dic1, dic2, times1, times2):
     ret = {}
