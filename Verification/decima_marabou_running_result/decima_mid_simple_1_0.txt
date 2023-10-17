@@ -1,8 +1,8 @@
-InputQuery: /tmp/tmpzwxvkw_d
+InputQuery: /tmp/tmpjxs_3mps
 Engine::processInputQuery: Input query (before preprocessing): 16367 equations, 33928 variables
 unsat
 Running Marabou with the following arguments:  []
-Time 11.573021650314331
+Time 11.58468747138977
 Property: ../Benchmarks/marabou_txt/decima_1_0.txt
 Number of variables: 33928
 Number of lower bounds: 17580
