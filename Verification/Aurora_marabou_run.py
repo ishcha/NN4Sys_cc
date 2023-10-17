@@ -22,8 +22,7 @@ def main(marabou_path):
     if not os.path.exists(running_result_path):
         os.makedirs(running_result_path)
     for spec_type in range(len(SPEC_TYPES)):
-        if spec_type>1:
-            continue
+
         for MODEL in MODEL_SIZES:
             for num in range(SIZES[spec_type]):
                 for range_ptr in range(len(P_RANGE)):
@@ -31,7 +30,7 @@ def main(marabou_path):
                         dimension_number = DIMENSION_NUMBERS[d_ptr]
                         if dimension_number != 3 or range_ptr != 1:
                             continue
-                        command = f'python {marabou_path} {onnx_dir_path}/aurora_{MODEL}_{MODEL_TYPES[spec_type]}.onnx {txt_dir_path}/aurora_{SPEC_TYPES[spec_type]}_{dimension_number}_{range_ptr}_{num}.txt | tee {running_result_path}/aurora_{MODEL}_{MODEL_TYPES[spec_type]}_{dimension_number}_{range_ptr}_{num}.txt'
+                        command = f'python {marabou_path} {onnx_dir_path}/aurora_{MODEL}_{MODEL_TYPES[spec_type]}.onnx {txt_dir_path}/aurora_{SPEC_TYPES[spec_type]}_{dimension_number}_{range_ptr}_{num}.txt | tee {running_result_path}/aurora_{MODEL}_{SPEC_TYPES[spec_type]}_{dimension_number}_{range_ptr}_{num}.txt'
                         print(command)
                         os.system(command)
 
