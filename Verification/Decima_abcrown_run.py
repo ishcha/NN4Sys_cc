@@ -17,6 +17,7 @@ timeout = 100
 csv_data = []
 total_num = 0
 current_gpu = 0
+P_RANGE = [1, 2, 3, 4, 5]
 
 if not os.path.exists(running_result_path):
     os.makedirs(running_result_path)
@@ -37,12 +38,13 @@ def main(abcrown_path):
     for i in range(len(SPEC_TYPES)):
         for size in range(SIZES[i]):
             for MODEL in MODEL_SIZES:
-                vnn_path = vnn_dir_path + '/decima_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.vnnlib'
-                onnx_path = onnx_dir_path + '/decima_mid_' + MODEL_TYPES[i] + '.onnx'
-                yaml = yaml_path + '/decima_' + str(SPEC_TYPES[i]) + '_' + str(size) + '.yaml'
-                create_yaml(yaml, vnn_path, onnx_path)
-                os.system(
-                    f"python {abcrown_path} --config {yaml} | tee {running_result_path}/decima_{MODEL}_{SPEC_TYPES[i]}_{size}.txt")
+                for range_ptr in range(len(P_RANGE)):
+                    vnn_path = vnn_dir_path + '/decima_' + str(SPEC_TYPES[i]) + f'_{range_ptr}_' + str(size) + '.vnnlib'
+                    onnx_path = onnx_dir_path + '/decima_mid_' + MODEL_TYPES[i] + '.onnx'
+                    yaml = yaml_path + '/decima_' + str(SPEC_TYPES[i]) + f'_{range_ptr}_' + str(size) + '.yaml'
+                    create_yaml(yaml, vnn_path, onnx_path)
+                    os.system(
+                        f"python {abcrown_path} --config {yaml} | tee {running_result_path}/decima_{MODEL}_{SPEC_TYPES[i]}_{range_ptr}_{size}.txt")
 
 
 if __name__ == "__main__":
