@@ -246,13 +246,13 @@ debug:
   test_optimized_bounds: false
   test_optimized_bounds_after_n_iterations: 0
 
-Experiments at Mon Oct 16 14:50:24 2023 on srg07
+Experiments at Tue Oct 17 04:04:16 2023 on srg07
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Using onnx ../Benchmarks/onnx/mscn_2048d.onnx
 Using vnnlib ../Benchmarks/vnnlib/mscn_2048d_9.vnnlib
-154 inputs and 1 outputs in vnnlib
+Precompiled vnnlib file found at ../Benchmarks/vnnlib/mscn_2048d_9.vnnlib.compiled
 Loading onnx ../Benchmarks/onnx/mscn_2048d.onnx wih quirks {}
 Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.11996161192655563, initialization=uniform, GAMA=False
 Model output of first 5 examples:

@@ -246,13 +246,13 @@ debug:
   test_optimized_bounds: false
   test_optimized_bounds_after_n_iterations: 0
 
-Experiments at Mon Oct 16 14:41:09 2023 on srg07
+Experiments at Tue Oct 17 03:38:27 2023 on srg07
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Using onnx ../Benchmarks/onnx/mscn_2048d.onnx
 Using vnnlib ../Benchmarks/vnnlib/mscn_2048d_0.vnnlib
-154 inputs and 1 outputs in vnnlib
+Precompiled vnnlib file found at ../Benchmarks/vnnlib/mscn_2048d_0.vnnlib.compiled
 Loading onnx ../Benchmarks/onnx/mscn_2048d.onnx wih quirks {}
 Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.02997991442680359, initialization=uniform, GAMA=False
 Model output of first 5 examples:
@@ -263,12 +263,12 @@ Adv example prediction (first 2 examples and 2 restarts):
 PGD attack margin (first 2 examles and 10 specs):
  tensor([[[6.31504059e-02, 7.88569450e-05]]], device='cuda:0')
 number of violation:  0
-Attack finished in 1.8088 seconds.
+Attack finished in 1.8569 seconds.
 PGD attack failed
 Total VNNLIB file length: 2, max property batch size: 100000, total number of batches: 1
 
 Properties batch 0, size 2
-Remaining timeout: 356.109637260437
+Remaining timeout: 355.7226173877716
 ##### Instance 0 first 10 spec matrices: 
 tensor([[[ 1.]],
 
@@ -449,45 +449,45 @@ Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 1.
 Avg perturbation: 0.11991965770721436
 Worst bound: tensor([-0.00511545], device='cuda:0')
-Total time: 1.0116  pickout: 0.0002 decision: 0.0008  bounding: 1.0101 add_domain: 0.0005
+Total time: 1.0314  pickout: 0.0002 decision: 0.0009  bounding: 1.0298 add_domain: 0.0005
 length of domains: 2
 4 branch and bound domains visited
 Current (lb-rhs): -0.00511544942855835
-Cumulative time: 3.2084884643554688
+Cumulative time: 3.2637476921081543
 
 Iteration 2
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 1.
 Avg perturbation: 0.05995982885360718
 Worst bound: tensor([-0.00100315], device='cuda:0')
-Total time: 0.0385  pickout: 0.0002 decision: 0.0007  bounding: 0.0371 add_domain: 0.0005
+Total time: 0.0398  pickout: 0.0003 decision: 0.0008  bounding: 0.0382 add_domain: 0.0005
 length of domains: 2
 8 branch and bound domains visited
 Current (lb-rhs): -0.0010031461715698242
-Cumulative time: 3.247171640396118
+Cumulative time: 3.303797721862793
 
 Iteration 3
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 1.
 Avg perturbation: 0.02997991256415844
 Worst bound: tensor([-0.00043374], device='cuda:0')
-Total time: 0.0378  pickout: 0.0002 decision: 0.0007  bounding: 0.0364 add_domain: 0.0005
+Total time: 0.0379  pickout: 0.0002 decision: 0.0007  bounding: 0.0366 add_domain: 0.0005
 length of domains: 2
 12 branch and bound domains visited
 Current (lb-rhs): -0.0004337430000305176
-Cumulative time: 3.2851226329803467
+Cumulative time: 3.3419275283813477
 
 Iteration 4
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 1.
 Avg perturbation: 0.014989955350756645
 Worst bound: tensor([1.59740448e-05], device='cuda:0')
-Total time: 0.0374  pickout: 0.0001 decision: 0.0007  bounding: 0.0363 add_domain: 0.0002
+Total time: 0.0375  pickout: 0.0001 decision: 0.0007  bounding: 0.0364 add_domain: 0.0002
 length of domains: 0
 16 branch and bound domains visited
 No domains left, verification finished!
 The lower bound of last batch is -0.7064148783683777
-Cumulative time: 3.3225717544555664
+Cumulative time: 3.3795435428619385
 
 Result: unsat
-Time: 7.666430711746216
+Time: 8.190230369567871

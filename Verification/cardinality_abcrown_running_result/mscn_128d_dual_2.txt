@@ -246,13 +246,13 @@ debug:
   test_optimized_bounds: false
   test_optimized_bounds_after_n_iterations: 0
 
-Experiments at Mon Oct 16 14:30:50 2023 on srg07
+Experiments at Tue Oct 17 03:42:03 2023 on srg07
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Using onnx ../Benchmarks/onnx/mscn_128d_dual.onnx
 Using vnnlib ../Benchmarks/vnnlib/mscn_128d_dual_2.vnnlib
-308 inputs and 1 outputs in vnnlib
+Precompiled vnnlib file found at ../Benchmarks/vnnlib/mscn_128d_dual_2.vnnlib.compiled
 Loading onnx ../Benchmarks/onnx/mscn_128d_dual.onnx wih quirks {}
 Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.12498749792575836, initialization=uniform, GAMA=False
 Model output of first 5 examples:
@@ -265,12 +265,12 @@ PGD attack margin (first 2 examles and 10 specs):
           0.47394189, 0.35890764, 0.42078125, 0.39109871, 0.40502623]]],
        device='cuda:0')
 number of violation:  0
-Attack finished in 2.6941 seconds.
+Attack finished in 2.8979 seconds.
 PGD attack failed
 Total VNNLIB file length: 360, max property batch size: 100000, total number of batches: 1
 
 Properties batch 0, size 360
-Remaining timeout: 354.936815738678
+Remaining timeout: 355.51211285591125
 ##### Instance 0 first 10 spec matrices: 
 tensor([[[ 1.]],
 
@@ -1080,231 +1080,231 @@ Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.31996801495552063
 Worst bound: tensor([-0.35596141], device='cuda:0')
-Total time: 0.0805  pickout: 0.0002 decision: 0.0009  bounding: 0.0789 add_domain: 0.0005
+Total time: 0.0839  pickout: 0.0002 decision: 0.0010  bounding: 0.0822 add_domain: 0.0006
 length of domains: 370
 100 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 2.3203275203704834
+Cumulative time: 2.3445093631744385
 
 Iteration 2
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.20747923851013184
 Worst bound: tensor([-0.16286038], device='cuda:0')
-Total time: 0.0795  pickout: 0.0002 decision: 0.0008  bounding: 0.0780 add_domain: 0.0005
+Total time: 0.0797  pickout: 0.0002 decision: 0.0008  bounding: 0.0782 add_domain: 0.0006
 length of domains: 373
 200 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 2.4000327587127686
+Cumulative time: 2.424407720565796
 
 Iteration 3
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.15623436868190765
 Worst bound: tensor([-0.14689751], device='cuda:0')
-Total time: 0.0796  pickout: 0.0002 decision: 0.0008  bounding: 0.0781 add_domain: 0.0005
+Total time: 0.0795  pickout: 0.0002 decision: 0.0007  bounding: 0.0781 add_domain: 0.0006
 length of domains: 376
 300 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 2.4798409938812256
+Cumulative time: 2.5041205883026123
 
 Iteration 4
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.11873811483383179
 Worst bound: tensor([-0.10625041], device='cuda:0')
-Total time: 0.0799  pickout: 0.0002 decision: 0.0008  bounding: 0.0784 add_domain: 0.0005
+Total time: 0.0800  pickout: 0.0002 decision: 0.0007  bounding: 0.0785 add_domain: 0.0006
 length of domains: 370
 400 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 2.5599260330200195
+Cumulative time: 2.5843112468719482
 
 Iteration 5
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.07780470699071884
 Worst bound: tensor([-0.10552395], device='cuda:0')
-Total time: 0.0821  pickout: 0.0002 decision: 0.0008  bounding: 0.0806 add_domain: 0.0005
+Total time: 0.0796  pickout: 0.0002 decision: 0.0007  bounding: 0.0781 add_domain: 0.0006
 length of domains: 368
 500 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 2.642289638519287
+Cumulative time: 2.664052963256836
 
 Iteration 6
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.0818668082356453
 Worst bound: tensor([-0.07454832], device='cuda:0')
-Total time: 0.0796  pickout: 0.0002 decision: 0.0008  bounding: 0.0781 add_domain: 0.0005
+Total time: 0.0838  pickout: 0.0002 decision: 0.0008  bounding: 0.0824 add_domain: 0.0005
 length of domains: 351
 600 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 2.7220983505249023
+Cumulative time: 2.748061180114746
 
 Iteration 7
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.12326891720294952
 Worst bound: tensor([-0.13330078], device='cuda:0')
-Total time: 0.0796  pickout: 0.0002 decision: 0.0008  bounding: 0.0781 add_domain: 0.0005
+Total time: 0.0795  pickout: 0.0002 decision: 0.0007  bounding: 0.0781 add_domain: 0.0005
 length of domains: 355
 700 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 2.801884174346924
+Cumulative time: 2.8276984691619873
 
 Iteration 8
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.07651577889919281
 Worst bound: tensor([-0.10156059], device='cuda:0')
-Total time: 0.0794  pickout: 0.0002 decision: 0.0008  bounding: 0.0779 add_domain: 0.0005
+Total time: 0.0793  pickout: 0.0002 decision: 0.0007  bounding: 0.0779 add_domain: 0.0005
 length of domains: 348
 800 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 2.8814499378204346
+Cumulative time: 2.9072163105010986
 
 Iteration 9
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.0800701156258583
 Worst bound: tensor([-0.08210362], device='cuda:0')
-Total time: 0.0795  pickout: 0.0002 decision: 0.0008  bounding: 0.0780 add_domain: 0.0005
+Total time: 0.0793  pickout: 0.0002 decision: 0.0007  bounding: 0.0778 add_domain: 0.0006
 length of domains: 368
 900 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 2.9611504077911377
+Cumulative time: 2.9866724014282227
 
 Iteration 10
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.03749624639749527
 Worst bound: tensor([-0.00943614], device='cuda:0')
-Total time: 0.0794  pickout: 0.0002 decision: 0.0008  bounding: 0.0779 add_domain: 0.0005
+Total time: 0.0792  pickout: 0.0002 decision: 0.0007  bounding: 0.0778 add_domain: 0.0005
 length of domains: 339
 1000 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 3.0407040119171143
+Cumulative time: 3.066058874130249
 
 Iteration 11
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.09565448760986328
 Worst bound: tensor([-0.41338032], device='cuda:0')
-Total time: 0.0793  pickout: 0.0002 decision: 0.0008  bounding: 0.0778 add_domain: 0.0005
+Total time: 0.0792  pickout: 0.0002 decision: 0.0007  bounding: 0.0778 add_domain: 0.0005
 length of domains: 339
 1100 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 3.1202006340026855
+Cumulative time: 3.145470142364502
 
 Iteration 12
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.06639961153268814
 Worst bound: tensor([-0.25143921], device='cuda:0')
-Total time: 0.0794  pickout: 0.0002 decision: 0.0008  bounding: 0.0780 add_domain: 0.0005
+Total time: 0.0794  pickout: 0.0002 decision: 0.0007  bounding: 0.0780 add_domain: 0.0005
 length of domains: 321
 1200 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 3.1998343467712402
+Cumulative time: 3.225050687789917
 
 Iteration 13
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.15849977731704712
 Worst bound: tensor([-0.43569791], device='cuda:0')
-Total time: 0.0796  pickout: 0.0002 decision: 0.0008  bounding: 0.0781 add_domain: 0.0005
+Total time: 0.0793  pickout: 0.0002 decision: 0.0007  bounding: 0.0779 add_domain: 0.0005
 length of domains: 323
 1300 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 3.279600143432617
+Cumulative time: 3.304569721221924
 
 Iteration 14
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.11772259324789047
 Worst bound: tensor([-0.25626296], device='cuda:0')
-Total time: 0.0797  pickout: 0.0002 decision: 0.0008  bounding: 0.0782 add_domain: 0.0005
+Total time: 0.0796  pickout: 0.0002 decision: 0.0007  bounding: 0.0781 add_domain: 0.0005
 length of domains: 305
 1400 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 3.3601841926574707
+Cumulative time: 3.3842952251434326
 
 Iteration 15
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.20247973501682281
 Worst bound: tensor([-0.35802999], device='cuda:0')
-Total time: 0.0795  pickout: 0.0002 decision: 0.0008  bounding: 0.0780 add_domain: 0.0005
+Total time: 0.0794  pickout: 0.0002 decision: 0.0007  bounding: 0.0779 add_domain: 0.0005
 length of domains: 307
 1500 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 3.4398484230041504
+Cumulative time: 3.4638381004333496
 
 Iteration 16
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.16349925100803375
 Worst bound: tensor([-0.09379411], device='cuda:0')
-Total time: 0.0795  pickout: 0.0002 decision: 0.0008  bounding: 0.0779 add_domain: 0.0005
+Total time: 0.0794  pickout: 0.0002 decision: 0.0007  bounding: 0.0780 add_domain: 0.0005
 length of domains: 299
 1600 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 3.519498586654663
+Cumulative time: 3.5434069633483887
 
 Iteration 17
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.14295443892478943
 Worst bound: tensor([-0.12646256], device='cuda:0')
-Total time: 0.0794  pickout: 0.0002 decision: 0.0008  bounding: 0.0779 add_domain: 0.0005
+Total time: 0.0794  pickout: 0.0001 decision: 0.0008  bounding: 0.0779 add_domain: 0.0005
 length of domains: 300
 1700 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 3.599116563796997
+Cumulative time: 3.6229326725006104
 
 Iteration 18
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.1070205494761467
 Worst bound: tensor([-0.03736230], device='cuda:0')
-Total time: 0.0795  pickout: 0.0002 decision: 0.0008  bounding: 0.0781 add_domain: 0.0005
+Total time: 0.0795  pickout: 0.0002 decision: 0.0007  bounding: 0.0781 add_domain: 0.0005
 length of domains: 288
 1800 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 3.6788489818573
+Cumulative time: 3.7026185989379883
 
 Iteration 19
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.13201804459095
 Worst bound: tensor([-0.37899575], device='cuda:0')
-Total time: 0.0795  pickout: 0.0002 decision: 0.0008  bounding: 0.0780 add_domain: 0.0005
+Total time: 0.0795  pickout: 0.0002 decision: 0.0007  bounding: 0.0780 add_domain: 0.0005
 length of domains: 290
 1900 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 3.758573532104492
+Cumulative time: 3.7822654247283936
 
 Iteration 20
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.09842764586210251
 Worst bound: tensor([-0.17646258], device='cuda:0')
-Total time: 0.0794  pickout: 0.0002 decision: 0.0008  bounding: 0.0780 add_domain: 0.0005
+Total time: 0.0835  pickout: 0.0002 decision: 0.0007  bounding: 0.0821 add_domain: 0.0005
 length of domains: 274
 2000 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 3.838198661804199
+Cumulative time: 3.865924596786499
 
 Iteration 21
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.09803707152605057
 Worst bound: tensor([-0.41223851], device='cuda:0')
-Total time: 0.0815  pickout: 0.0002 decision: 0.0008  bounding: 0.0800 add_domain: 0.0005
+Total time: 0.0815  pickout: 0.0001 decision: 0.0008  bounding: 0.0801 add_domain: 0.0005
 length of domains: 281
 2100 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 3.919886827468872
+Cumulative time: 3.9475860595703125
 
 Iteration 22
 Batch size: 50
@@ -1315,525 +1315,525 @@ Total time: 0.0795  pickout: 0.0002 decision: 0.0008  bounding: 0.0780 add_domai
 length of domains: 268
 2200 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 3.999601364135742
+Cumulative time: 4.027229309082031
 
 Iteration 23
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.08655384182929993
 Worst bound: tensor([-0.27113828], device='cuda:0')
-Total time: 0.0795  pickout: 0.0002 decision: 0.0008  bounding: 0.0780 add_domain: 0.0005
+Total time: 0.0795  pickout: 0.0001 decision: 0.0008  bounding: 0.0780 add_domain: 0.0005
 length of domains: 275
 2300 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 4.079336404800415
+Cumulative time: 4.106870889663696
 
 Iteration 24
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.044370561838150024
 Worst bound: tensor([-0.05656588], device='cuda:0')
-Total time: 0.0794  pickout: 0.0002 decision: 0.0008  bounding: 0.0779 add_domain: 0.0005
+Total time: 0.0794  pickout: 0.0001 decision: 0.0007  bounding: 0.0780 add_domain: 0.0005
 length of domains: 252
 2400 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 4.158937454223633
+Cumulative time: 4.1864423751831055
 
 Iteration 25
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.14508965611457825
 Worst bound: tensor([-0.29738012], device='cuda:0')
-Total time: 0.0795  pickout: 0.0002 decision: 0.0008  bounding: 0.0780 add_domain: 0.0005
+Total time: 0.0795  pickout: 0.0001 decision: 0.0007  bounding: 0.0780 add_domain: 0.0005
 length of domains: 256
 2500 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 4.2386109828948975
+Cumulative time: 4.266088247299194
 
 Iteration 26
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.13717378675937653
 Worst bound: tensor([-0.04644724], device='cuda:0')
-Total time: 0.0794  pickout: 0.0002 decision: 0.0008  bounding: 0.0780 add_domain: 0.0005
+Total time: 0.0796  pickout: 0.0001 decision: 0.0007  bounding: 0.0782 add_domain: 0.0005
 length of domains: 250
 2600 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 4.318228006362915
+Cumulative time: 4.345910549163818
 
 Iteration 27
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.1604527086019516
 Worst bound: tensor([-0.20808622], device='cuda:0')
-Total time: 0.0796  pickout: 0.0002 decision: 0.0008  bounding: 0.0781 add_domain: 0.0005
+Total time: 0.0797  pickout: 0.0001 decision: 0.0007  bounding: 0.0783 add_domain: 0.0005
 length of domains: 249
 2700 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 4.398036956787109
+Cumulative time: 4.4257707595825195
 
 Iteration 28
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.12582074105739594
 Worst bound: tensor([-0.14035441], device='cuda:0')
-Total time: 0.0795  pickout: 0.0002 decision: 0.0008  bounding: 0.0780 add_domain: 0.0005
+Total time: 0.0796  pickout: 0.0002 decision: 0.0007  bounding: 0.0782 add_domain: 0.0005
 length of domains: 243
 2800 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 4.477718353271484
+Cumulative time: 4.505589723587036
 
 Iteration 29
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.11717578023672104
 Worst bound: tensor([-0.33543918], device='cuda:0')
-Total time: 0.0795  pickout: 0.0002 decision: 0.0008  bounding: 0.0780 add_domain: 0.0005
+Total time: 0.0796  pickout: 0.0001 decision: 0.0007  bounding: 0.0781 add_domain: 0.0005
 length of domains: 247
 2900 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 4.557381868362427
+Cumulative time: 4.585331201553345
 
 Iteration 30
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.08889735490083694
 Worst bound: tensor([-0.01861401], device='cuda:0')
-Total time: 0.0793  pickout: 0.0002 decision: 0.0008  bounding: 0.0779 add_domain: 0.0005
+Total time: 0.0795  pickout: 0.0001 decision: 0.0007  bounding: 0.0781 add_domain: 0.0005
 length of domains: 224
 3000 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 4.636863470077515
+Cumulative time: 4.665011644363403
 
 Iteration 31
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.12303456664085388
 Worst bound: tensor([-0.38109124], device='cuda:0')
-Total time: 0.0795  pickout: 0.0002 decision: 0.0008  bounding: 0.0780 add_domain: 0.0005
+Total time: 0.0826  pickout: 0.0002 decision: 0.0008  bounding: 0.0810 add_domain: 0.0005
 length of domains: 227
 3100 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 4.716524600982666
+Cumulative time: 4.747758150100708
 
 Iteration 32
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.08254382014274597
 Worst bound: tensor([-0.06320025], device='cuda:0')
-Total time: 0.0794  pickout: 0.0002 decision: 0.0008  bounding: 0.0779 add_domain: 0.0005
+Total time: 0.0825  pickout: 0.0002 decision: 0.0008  bounding: 0.0809 add_domain: 0.0005
 length of domains: 214
 3200 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 4.796137809753418
+Cumulative time: 4.830406904220581
 
 Iteration 33
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.11608213186264038
 Worst bound: tensor([-0.42342490], device='cuda:0')
-Total time: 0.0794  pickout: 0.0002 decision: 0.0008  bounding: 0.0779 add_domain: 0.0005
+Total time: 0.0825  pickout: 0.0002 decision: 0.0008  bounding: 0.0810 add_domain: 0.0005
 length of domains: 214
 3300 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 4.875683546066284
+Cumulative time: 4.91310977935791
 
 Iteration 34
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.10196897387504578
 Worst bound: tensor([-0.30194950], device='cuda:0')
-Total time: 0.0795  pickout: 0.0002 decision: 0.0008  bounding: 0.0780 add_domain: 0.0005
+Total time: 0.0825  pickout: 0.0002 decision: 0.0008  bounding: 0.0810 add_domain: 0.0005
 length of domains: 204
 3400 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 4.955410957336426
+Cumulative time: 4.9958343505859375
 
 Iteration 35
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.12082124501466751
 Worst bound: tensor([-0.49961114], device='cuda:0')
-Total time: 0.0797  pickout: 0.0002 decision: 0.0008  bounding: 0.0782 add_domain: 0.0005
+Total time: 0.0826  pickout: 0.0002 decision: 0.0008  bounding: 0.0810 add_domain: 0.0005
 length of domains: 203
 3500 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 5.0352678298950195
+Cumulative time: 5.07863974571228
 
 Iteration 36
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.10196896642446518
 Worst bound: tensor([-0.28592324], device='cuda:0')
-Total time: 0.0796  pickout: 0.0002 decision: 0.0008  bounding: 0.0780 add_domain: 0.0005
+Total time: 0.0825  pickout: 0.0002 decision: 0.0008  bounding: 0.0810 add_domain: 0.0005
 length of domains: 190
 3600 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 5.1150102615356445
+Cumulative time: 5.161351203918457
 
 Iteration 37
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.13373662531375885
 Worst bound: tensor([-0.57307345], device='cuda:0')
-Total time: 0.0813  pickout: 0.0002 decision: 0.0008  bounding: 0.0797 add_domain: 0.0005
+Total time: 0.0824  pickout: 0.0002 decision: 0.0008  bounding: 0.0808 add_domain: 0.0005
 length of domains: 192
 3700 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 5.196485996246338
+Cumulative time: 5.243960857391357
 
 Iteration 38
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.10847872495651245
 Worst bound: tensor([-0.57360256], device='cuda:0')
-Total time: 0.0804  pickout: 0.0002 decision: 0.0008  bounding: 0.0789 add_domain: 0.0005
+Total time: 0.0823  pickout: 0.0002 decision: 0.0008  bounding: 0.0808 add_domain: 0.0005
 length of domains: 187
 3800 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 5.277062892913818
+Cumulative time: 5.326470851898193
 
 Iteration 39
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.11842566728591919
 Worst bound: tensor([-0.32269835], device='cuda:0')
-Total time: 0.0805  pickout: 0.0002 decision: 0.0008  bounding: 0.0790 add_domain: 0.0005
+Total time: 0.0824  pickout: 0.0002 decision: 0.0008  bounding: 0.0809 add_domain: 0.0005
 length of domains: 186
 3900 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 5.357749700546265
+Cumulative time: 5.409108400344849
 
 Iteration 40
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.10321884602308273
 Worst bound: tensor([-0.13707966], device='cuda:0')
-Total time: 0.0806  pickout: 0.0002 decision: 0.0008  bounding: 0.0791 add_domain: 0.0005
+Total time: 0.0826  pickout: 0.0002 decision: 0.0008  bounding: 0.0811 add_domain: 0.0005
 length of domains: 168
 4000 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 5.438543319702148
+Cumulative time: 5.491913557052612
 
 Iteration 41
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.16191089153289795
 Worst bound: tensor([-0.39284927], device='cuda:0')
-Total time: 0.0805  pickout: 0.0002 decision: 0.0008  bounding: 0.0790 add_domain: 0.0005
+Total time: 0.0824  pickout: 0.0002 decision: 0.0008  bounding: 0.0809 add_domain: 0.0005
 length of domains: 181
 4100 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 5.525025129318237
+Cumulative time: 5.574619770050049
 
 Iteration 42
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.126810222864151
 Worst bound: tensor([-0.09918658], device='cuda:0')
-Total time: 0.0804  pickout: 0.0002 decision: 0.0008  bounding: 0.0789 add_domain: 0.0005
+Total time: 0.0825  pickout: 0.0002 decision: 0.0008  bounding: 0.0810 add_domain: 0.0005
 length of domains: 161
 4200 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 5.605637311935425
+Cumulative time: 5.657332181930542
 
 Iteration 43
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.13756437599658966
 Worst bound: tensor([-0.28284258], device='cuda:0')
-Total time: 0.0804  pickout: 0.0002 decision: 0.0008  bounding: 0.0789 add_domain: 0.0005
+Total time: 0.0824  pickout: 0.0002 decision: 0.0008  bounding: 0.0808 add_domain: 0.0005
 length of domains: 164
 4300 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 5.68625283241272
+Cumulative time: 5.739930629730225
 
 Iteration 44
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.10125289112329483
 Worst bound: tensor([-0.21054678], device='cuda:0')
-Total time: 0.0803  pickout: 0.0002 decision: 0.0008  bounding: 0.0788 add_domain: 0.0005
+Total time: 0.0823  pickout: 0.0002 decision: 0.0008  bounding: 0.0807 add_domain: 0.0006
 length of domains: 169
 4400 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 5.766769170761108
+Cumulative time: 5.8224451541900635
 
 Iteration 45
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.08858489245176315
 Worst bound: tensor([-0.14645290], device='cuda:0')
-Total time: 0.0818  pickout: 0.0002 decision: 0.0008  bounding: 0.0803 add_domain: 0.0005
+Total time: 0.0824  pickout: 0.0002 decision: 0.0008  bounding: 0.0808 add_domain: 0.0005
 length of domains: 154
 4500 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 5.848762512207031
+Cumulative time: 5.905022382736206
 
 Iteration 46
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.07415924221277237
 Worst bound: tensor([-0.17828099], device='cuda:0')
-Total time: 0.0805  pickout: 0.0002 decision: 0.0008  bounding: 0.0790 add_domain: 0.0005
+Total time: 0.0859  pickout: 0.0002 decision: 0.0008  bounding: 0.0844 add_domain: 0.0005
 length of domains: 143
 4600 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 5.929513692855835
+Cumulative time: 5.9911274909973145
 
 Iteration 47
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.09407913684844971
 Worst bound: tensor([-0.17275421], device='cuda:0')
-Total time: 0.0804  pickout: 0.0002 decision: 0.0008  bounding: 0.0789 add_domain: 0.0005
+Total time: 0.0826  pickout: 0.0002 decision: 0.0009  bounding: 0.0810 add_domain: 0.0005
 length of domains: 142
 4700 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 6.010087013244629
+Cumulative time: 6.073867559432983
 
 Iteration 48
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.07197196781635284
 Worst bound: tensor([-0.05004983], device='cuda:0')
-Total time: 0.0805  pickout: 0.0002 decision: 0.0008  bounding: 0.0790 add_domain: 0.0005
+Total time: 0.0825  pickout: 0.0002 decision: 0.0008  bounding: 0.0810 add_domain: 0.0005
 length of domains: 133
 4800 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 6.090765953063965
+Cumulative time: 6.156529426574707
 
 Iteration 49
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.09155334532260895
 Worst bound: tensor([-0.24948949], device='cuda:0')
-Total time: 0.0804  pickout: 0.0002 decision: 0.0008  bounding: 0.0790 add_domain: 0.0005
+Total time: 0.0823  pickout: 0.0002 decision: 0.0008  bounding: 0.0808 add_domain: 0.0005
 length of domains: 129
 4900 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 6.171395540237427
+Cumulative time: 6.239061117172241
 
 Iteration 50
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.08488734066486359
 Worst bound: tensor([-0.17432913], device='cuda:0')
-Total time: 0.0803  pickout: 0.0002 decision: 0.0008  bounding: 0.0788 add_domain: 0.0005
+Total time: 0.0824  pickout: 0.0002 decision: 0.0008  bounding: 0.0808 add_domain: 0.0005
 length of domains: 121
 5000 branch and bound domains visited
 Current (lb-rhs): -0.8802323341369629
-Cumulative time: 6.251901388168335
+Cumulative time: 6.321622133255005
 
 Iteration 51
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 3.
 Avg perturbation: 0.07801302522420883
 Worst bound: tensor([-0.26002082], device='cuda:0')
-Total time: 0.0805  pickout: 0.0002 decision: 0.0008  bounding: 0.0789 add_domain: 0.0005
+Total time: 0.0825  pickout: 0.0002 decision: 0.0008  bounding: 0.0809 add_domain: 0.0006
 length of domains: 114
 5100 branch and bound domains visited
 Current (lb-rhs): -0.8462436199188232
-Cumulative time: 6.332588195800781
+Cumulative time: 6.404268980026245
 
 Iteration 52
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.1324867457151413
 Worst bound: tensor([-0.26873076], device='cuda:0')
-Total time: 0.0804  pickout: 0.0002 decision: 0.0008  bounding: 0.0788 add_domain: 0.0005
+Total time: 0.0822  pickout: 0.0002 decision: 0.0008  bounding: 0.0807 add_domain: 0.0005
 length of domains: 103
 5200 branch and bound domains visited
 Current (lb-rhs): -0.8462436199188232
-Cumulative time: 6.413129091262817
+Cumulative time: 6.486699342727661
 
 Iteration 53
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.13666601479053497
 Worst bound: tensor([-0.19424351], device='cuda:0')
-Total time: 0.0804  pickout: 0.0002 decision: 0.0008  bounding: 0.0789 add_domain: 0.0005
+Total time: 0.0823  pickout: 0.0002 decision: 0.0008  bounding: 0.0807 add_domain: 0.0005
 length of domains: 104
 5300 branch and bound domains visited
 Current (lb-rhs): -0.7999946475028992
-Cumulative time: 6.493734836578369
+Cumulative time: 6.56917142868042
 
 Iteration 54
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.09952129423618317
 Worst bound: tensor([-0.08672985], device='cuda:0')
-Total time: 0.0834  pickout: 0.0002 decision: 0.0008  bounding: 0.0818 add_domain: 0.0005
+Total time: 0.0822  pickout: 0.0002 decision: 0.0008  bounding: 0.0807 add_domain: 0.0005
 length of domains: 96
 5400 branch and bound domains visited
 Current (lb-rhs): -0.7999946475028992
-Cumulative time: 6.57732892036438
+Cumulative time: 6.651607513427734
 
 Iteration 55
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.11405108124017715
 Worst bound: tensor([-0.63547772], device='cuda:0')
-Total time: 0.0805  pickout: 0.0002 decision: 0.0008  bounding: 0.0790 add_domain: 0.0005
+Total time: 0.0822  pickout: 0.0002 decision: 0.0009  bounding: 0.0807 add_domain: 0.0005
 length of domains: 101
 5500 branch and bound domains visited
 Current (lb-rhs): -0.7999946475028992
-Cumulative time: 6.658025503158569
+Cumulative time: 6.734042406082153
 
 Iteration 56
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.07163345813751221
 Worst bound: tensor([-0.07599132], device='cuda:0')
-Total time: 0.0803  pickout: 0.0002 decision: 0.0008  bounding: 0.0788 add_domain: 0.0005
+Total time: 0.0824  pickout: 0.0002 decision: 0.0008  bounding: 0.0808 add_domain: 0.0005
 length of domains: 82
 5600 branch and bound domains visited
 Current (lb-rhs): -0.7999946475028992
-Cumulative time: 6.738471746444702
+Cumulative time: 6.816598653793335
 
 Iteration 57
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.13982975482940674
 Worst bound: tensor([-0.35281003], device='cuda:0')
-Total time: 0.0804  pickout: 0.0002 decision: 0.0008  bounding: 0.0789 add_domain: 0.0005
+Total time: 0.0823  pickout: 0.0002 decision: 0.0008  bounding: 0.0808 add_domain: 0.0005
 length of domains: 73
 5700 branch and bound domains visited
 Current (lb-rhs): -0.7977233529090881
-Cumulative time: 6.819055557250977
+Cumulative time: 6.899106502532959
 
 Iteration 58
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.13756436109542847
 Worst bound: tensor([-0.18647641], device='cuda:0')
-Total time: 0.0802  pickout: 0.0002 decision: 0.0008  bounding: 0.0787 add_domain: 0.0005
+Total time: 0.0822  pickout: 0.0002 decision: 0.0009  bounding: 0.0806 add_domain: 0.0005
 length of domains: 67
 5800 branch and bound domains visited
 Current (lb-rhs): -0.7977233529090881
-Cumulative time: 6.899464130401611
+Cumulative time: 6.981495141983032
 
 Iteration 59
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.11260591447353363
 Worst bound: tensor([-0.18444037], device='cuda:0')
-Total time: 0.0804  pickout: 0.0002 decision: 0.0008  bounding: 0.0788 add_domain: 0.0005
+Total time: 0.0860  pickout: 0.0002 decision: 0.0008  bounding: 0.0845 add_domain: 0.0005
 length of domains: 59
 5900 branch and bound domains visited
 Current (lb-rhs): -0.7977233529090881
-Cumulative time: 6.980011224746704
+Cumulative time: 7.067723512649536
 
 Iteration 60
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.14998500049114227
 Worst bound: tensor([-0.12743302], device='cuda:0')
-Total time: 0.0804  pickout: 0.0002 decision: 0.0008  bounding: 0.0788 add_domain: 0.0005
+Total time: 0.0824  pickout: 0.0002 decision: 0.0008  bounding: 0.0808 add_domain: 0.0005
 length of domains: 56
 6000 branch and bound domains visited
 Current (lb-rhs): -0.7977233529090881
-Cumulative time: 7.0605573654174805
+Cumulative time: 7.150315284729004
 
 Iteration 61
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.1111607551574707
 Worst bound: tensor([-0.17457224], device='cuda:0')
-Total time: 0.0805  pickout: 0.0002 decision: 0.0008  bounding: 0.0790 add_domain: 0.0005
+Total time: 0.0827  pickout: 0.0002 decision: 0.0008  bounding: 0.0811 add_domain: 0.0005
 length of domains: 45
 6100 branch and bound domains visited
 Current (lb-rhs): -0.6758610010147095
-Cumulative time: 7.141215801239014
+Cumulative time: 7.233158349990845
 
 Iteration 62
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.12351195514202118
 Worst bound: tensor([-0.05805668], device='cuda:0')
-Total time: 0.0806  pickout: 0.0002 decision: 0.0008  bounding: 0.0791 add_domain: 0.0005
+Total time: 0.0828  pickout: 0.0002 decision: 0.0008  bounding: 0.0812 add_domain: 0.0005
 length of domains: 37
 6190 branch and bound domains visited
 Current (lb-rhs): -0.058056678622961044
-Cumulative time: 7.221993446350098
+Cumulative time: 7.3161234855651855
 
 Iteration 63
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.09722422808408737
 Worst bound: tensor([-0.01120408], device='cuda:0')
-Total time: 0.0804  pickout: 0.0002 decision: 0.0008  bounding: 0.0789 add_domain: 0.0005
+Total time: 0.0825  pickout: 0.0002 decision: 0.0008  bounding: 0.0809 add_domain: 0.0005
 length of domains: 26
 6264 branch and bound domains visited
 Current (lb-rhs): -0.01120407972484827
-Cumulative time: 7.302619457244873
+Cumulative time: 7.3987908363342285
 
 Iteration 64
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.0685027614235878
 Worst bound: tensor([-0.00087390], device='cuda:0')
-Total time: 0.0804  pickout: 0.0002 decision: 0.0008  bounding: 0.0789 add_domain: 0.0005
+Total time: 0.0808  pickout: 0.0002 decision: 0.0008  bounding: 0.0793 add_domain: 0.0005
 length of domains: 15
 6316 branch and bound domains visited
 Current (lb-rhs): -0.0008739012409932911
-Cumulative time: 7.38320255279541
+Cumulative time: 7.479757070541382
 
 Iteration 65
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.049474213272333145
 Worst bound: tensor([-0.00078723], device='cuda:0')
-Total time: 0.0782  pickout: 0.0002 decision: 0.0008  bounding: 0.0767 add_domain: 0.0005
+Total time: 0.0804  pickout: 0.0002 decision: 0.0008  bounding: 0.0788 add_domain: 0.0005
 length of domains: 9
 6346 branch and bound domains visited
 Current (lb-rhs): -0.0007872253772802651
-Cumulative time: 7.461614370346069
+Cumulative time: 7.560333013534546
 
 Iteration 66
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.042964447289705276
 Worst bound: tensor([-0.00036663], device='cuda:0')
-Total time: 0.0775  pickout: 0.0002 decision: 0.0008  bounding: 0.0761 add_domain: 0.0005
+Total time: 0.0797  pickout: 0.0002 decision: 0.0008  bounding: 0.0782 add_domain: 0.0005
 length of domains: 7
 6364 branch and bound domains visited
 Current (lb-rhs): -0.0003666341945063323
-Cumulative time: 7.539312839508057
+Cumulative time: 7.640244245529175
 
 Iteration 67
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.03375778719782829
 Worst bound: tensor([-0.00033920], device='cuda:0')
-Total time: 0.0778  pickout: 0.0002 decision: 0.0008  bounding: 0.0763 add_domain: 0.0005
+Total time: 0.0799  pickout: 0.0002 decision: 0.0008  bounding: 0.0784 add_domain: 0.0005
 length of domains: 3
 6378 branch and bound domains visited
 Current (lb-rhs): -0.0003391984791960567
-Cumulative time: 7.617244482040405
+Cumulative time: 7.720360994338989
 
 Iteration 68
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.04687030613422394
 Worst bound: tensor([-0.00019489], device='cuda:0')
-Total time: 0.0769  pickout: 0.0002 decision: 0.0008  bounding: 0.0754 add_domain: 0.0005
+Total time: 0.0790  pickout: 0.0002 decision: 0.0008  bounding: 0.0775 add_domain: 0.0005
 length of domains: 3
 6384 branch and bound domains visited
 Current (lb-rhs): -0.0001948865392478183
-Cumulative time: 7.694326639175415
+Cumulative time: 7.799580335617065
 
 Iteration 69
 Batch size: 50
 Using Linf sparse perturbation. Perturbed dimensions: 2.
 Avg perturbation: 0.031246885657310486
 Worst bound: tensor([6.43396561e-06], device='cuda:0')
-Total time: 0.0766  pickout: 0.0002 decision: 0.0008  bounding: 0.0754 add_domain: 0.0002
+Total time: 0.0786  pickout: 0.0002 decision: 0.0009  bounding: 0.0774 add_domain: 0.0002
 length of domains: 0
 6390 branch and bound domains visited
 No domains left, verification finished!
 The lower bound of last batch is -3.5660341382026672e-06
-Cumulative time: 7.7710349559783936
+Cumulative time: 7.878328561782837
 
 Result: unsat
-Time: 13.3209810256958
+Time: 12.882774353027344
