@@ -51,7 +51,7 @@ def main(abcrown_path):
                 for range_ptr in range(len(P_RANGE)):
                     for d_ptr in range(len(DIMENSION_NUMBERS)):
                         dimension_number = DIMENSION_NUMBERS[d_ptr]
-                        if i != 1 and dimension_number != 3 and range_ptr != 1:
+                        if dimension_number != 3 or range_ptr != 1:
                             continue
 
                         vnn_path = vnn_dir_path + '/aurora_' + str(SPEC_TYPES[i]) + f'_{dimension_number}_{range_ptr}_' + str(size) + '.vnnlib'
