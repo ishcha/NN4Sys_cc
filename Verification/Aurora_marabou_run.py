@@ -27,7 +27,7 @@ def main(marabou_path):
                 for range_ptr in range(len(P_RANGE)):
                     for d_ptr in range(len(DIMENSION_NUMBERS)):
                         dimension_number = DIMENSION_NUMBERS[d_ptr]
-                        if dimension_number != 3 and range_ptr != 1:
+                        if dimension_number != 3 or range_ptr != 1:
                             continue
                         command = f'python {marabou_path} {onnx_dir_path}/aurora_{MODEL}_{MODEL_TYPES[spec_type]}.onnx {txt_dir_path}/aurora_{SPEC_TYPES[spec_type]}_{dimension_number}_{range_ptr}_{num}.txt | tee {running_result_path}/{MODEL}_{MODEL_TYPES[spec_type]}_{dimension_number}_{range_ptr}_{num}.txt'
                         print(command)
