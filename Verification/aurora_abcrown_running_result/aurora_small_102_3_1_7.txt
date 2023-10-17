@@ -246,13 +246,13 @@ debug:
   test_optimized_bounds: false
   test_optimized_bounds_after_n_iterations: 0
 
-Experiments at Mon Oct 16 15:33:43 2023 on srg07
+Experiments at Mon Oct 16 22:12:33 2023 on srg07
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Using onnx ../Benchmarks/onnx/aurora_small_simple.onnx
 Using vnnlib ../Benchmarks/vnnlib/aurora_102_3_1_7.vnnlib
-30 inputs and 1 outputs in vnnlib
+Precompiled vnnlib file found at ../Benchmarks/vnnlib/aurora_102_3_1_7.vnnlib.compiled
 Loading onnx ../Benchmarks/onnx/aurora_small_simple.onnx wih quirks {}
 Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.125, initialization=uniform, GAMA=False
 Model output of first 5 examples:
@@ -264,4 +264,4 @@ PGD attack margin (first 2 examles and 10 specs):
  tensor([[[-0.99576640]]], device='cuda:0')
 number of violation:  1
 Result: sat
-Time: 2.050142526626587
+Time: 2.1875336170196533

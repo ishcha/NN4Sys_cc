@@ -246,7 +246,7 @@ debug:
   test_optimized_bounds: false
   test_optimized_bounds_after_n_iterations: 0
 
-Experiments at Mon Oct 16 16:07:40 2023 on srg07
+Experiments at Mon Oct 16 22:15:27 2023 on srg07
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -264,4 +264,4 @@ PGD attack margin (first 2 examles and 10 specs):
  tensor([[[-0.99997586]]], device='cuda:0')
 number of violation:  1
 Result: sat
-Time: 2.0499374866485596
+Time: 2.188004970550537
