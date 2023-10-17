@@ -246,7 +246,7 @@ debug:
   test_optimized_bounds: false
   test_optimized_bounds_after_n_iterations: 0
 
-Experiments at Mon Oct 16 22:17:09 2023 on srg07
+Experiments at Tue Oct 17 03:03:15 2023 on srg07
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -262,7 +262,7 @@ Adv example prediction (first 2 examples and 2 restarts):
 PGD attack margin (first 2 examles and 10 specs):
  tensor([[[-0.02435195]]], device='cuda:0')
 number of violation:  1
-Attack finished in 1.3753 seconds.
+Attack finished in 1.3869 seconds.
 PGD attack succeeded!
 Result: sat
-Time: 2.748399019241333
+Time: 2.7746474742889404
