@@ -4,7 +4,6 @@ import sys
 os.environ['MKL_THREADING_LAYER'] = 'GNU'
 
 MODEL_NAMES=["mscn_128d","mscn_128d_dual","mscn_2048d","mscn_2048d_dual"]
-MODEL_NAMES=["mscn_2048d","mscn_2048d_dual"]
 SIZE=10
 
 

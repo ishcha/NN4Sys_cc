@@ -56,31 +56,27 @@ def main():
     width = 0.3  # the width of the bars
     multiplier = 1.1
 
-    colors=['#45a776','#3682be','#f05326','#eed777']
+    colors = ['#45a776','#3682be','#f05326','#eed777']
 
     color_ptr=0
 
     for attribute, weight_count in weight_counts_abcrown.items():
-        p = ax.bar(species, weight_count, width, label=attribute, bottom=bottom, color=colors[color_ptr])
+        p = ax.barh(species, weight_count, width, label='alpha-beta-crown:'+attribute, left=bottom)
         color_ptr+=1
         bottom += weight_count
-    ax.legend(loc="upper right")
+
 
 
     color_ptr = 0
     bottom = np.zeros(number)
     for attribute, weight_count in weight_counts_marabou.items():
         offset = width * multiplier
-        p = ax.bar(x+offset, weight_count, width, label=attribute, bottom=bottom, color=colors[color_ptr])
+        p = ax.barh(x+offset, weight_count, width, label='marabou:'+attribute, left=bottom)
         color_ptr += 1
         bottom += weight_count
-
-
-
-
-    ax.set_title("Number of penguins with above average body mass")
-
-
+    ax.legend(ncol=6, bbox_to_anchor=(0, 1), loc="upper left", fontsize='small' )
+    ax.set_title("Number of Solved Cases")
+    plt.xticks(rotation=-15)
     plt.show()
 
 
