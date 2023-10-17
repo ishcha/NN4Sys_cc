@@ -1,4 +1,4 @@
-InputQuery: /tmp/tmpkyj73u0d
+InputQuery: /tmp/tmpiblm_nr8
 Engine::processInputQuery: Input query (before preprocessing): 27 equations, 58 variables
 Engine::processInputQuery: Input query (after preprocessing): 27 equations, 58 variables
 
@@ -38,7 +38,7 @@ Branching heuristics set to PseudoImpact
 
 Engine::solve: Initial statistics
 
-23:51:39 Statistics update:
+02:21:02 Statistics update:
 	--- Time Statistics ---
 	Total time elapsed: 4 milli (00:00:00)
 		Main loop: 0 milli (00:00:00)
@@ -117,15 +117,15 @@ Engine::solve: Initial statistics
 
 Engine::solve: sat assignment found
 
-23:51:39 Statistics update:
+02:21:02 Statistics update:
 	--- Time Statistics ---
 	Total time elapsed: 5 milli (00:00:00)
 		Main loop: 0 milli (00:00:00)
 		Preprocessing time: 2 milli (00:00:00)
-		Unknown: 3 milli (00:00:00)
+		Unknown: 2 milli (00:00:00)
 	Breakdown for main loop:
 		[0.00%] Simplex steps: 0 milli
-		[13.19%] Explicit-basis bound tightening: 0 milli
+		[17.12%] Explicit-basis bound tightening: 0 milli
 		[0.00%] Constraint-matrix bound tightening: 0 milli
 		[0.00%] Degradation checking: 0 milli
 		[0.00%] Precision restoration: 0 milli
@@ -134,10 +134,10 @@ Engine::solve: sat assignment found
 		[0.00%] Valid case splits: 0 milli. Average per split: 0.00 milli
 		[0.00%] Applying stored bound-tightening: 0 milli
 		[0.00%] SMT core: 0 milli
-		[162.67%] Symbolic Bound Tightening: 1 milli
+		[183.85%] Symbolic Bound Tightening: 0 milli
 		[0.00%] SoI-based local search: 0 milli
 		[0.00%] SoI-based local search: 0 milli
-		[2765628796658103808.00%] Unaccounted for: 0 milli
+		[3588860714729484800.00%] Unaccounted for: 0 milli
 	--- Preprocessor Statistics ---
 	Number of preprocessor bound-tightening loop iterations: 3
 	Number of eliminated variables: 20
@@ -228,7 +228,7 @@ Output:
 	y0 = 0.718033
 
 Running Marabou with the following arguments:  []
-Time 0.03731179237365723
+Time 0.03375434875488281
 Property: ../Benchmarks/marabou_txt/aurora_2_3_1_6.txt
 Number of variables: 58
 Number of lower bounds: 31

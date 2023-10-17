@@ -1,4 +1,4 @@
-InputQuery: /tmp/tmpahy2z3hw
+InputQuery: /tmp/tmp0bw6zyda
 Engine::processInputQuery: Input query (before preprocessing): 116 equations, 178 variables
 Engine::processInputQuery: Input query (after preprocessing): 96 equations, 158 variables
 
@@ -68,12 +68,12 @@ Branching heuristics set to PseudoImpact
 
 Engine::solve: Initial statistics
 
-23:53:07 Statistics update:
+02:22:30 Statistics update:
 	--- Time Statistics ---
 	Total time elapsed: 14 milli (00:00:00)
 		Main loop: 0 milli (00:00:00)
 		Preprocessing time: 7 milli (00:00:00)
-		Unknown: 7 milli (00:00:00)
+		Unknown: 6 milli (00:00:00)
 	Breakdown for main loop:
 		[0.00%] Simplex steps: 0 milli
 		[0.00%] Explicit-basis bound tightening: 0 milli
@@ -148,15 +148,15 @@ Before declaring sat, recomputing...
 
 Engine::solve: sat assignment found
 
-23:53:07 Statistics update:
+02:22:30 Statistics update:
 	--- Time Statistics ---
-	Total time elapsed: 19 milli (00:00:00)
+	Total time elapsed: 18 milli (00:00:00)
 		Main loop: 3 milli (00:00:00)
 		Preprocessing time: 7 milli (00:00:00)
 		Unknown: 7 milli (00:00:00)
 	Breakdown for main loop:
 		[0.00%] Simplex steps: 0 milli
-		[40.97%] Explicit-basis bound tightening: 1 milli
+		[41.46%] Explicit-basis bound tightening: 1 milli
 		[0.00%] Constraint-matrix bound tightening: 0 milli
 		[0.00%] Degradation checking: 0 milli
 		[0.00%] Precision restoration: 0 milli
@@ -165,10 +165,10 @@ Engine::solve: sat assignment found
 		[0.00%] Valid case splits: 0 milli. Average per split: 0.00 milli
 		[0.00%] Applying stored bound-tightening: 0 milli
 		[0.00%] SMT core: 0 milli
-		[121.92%] Symbolic Bound Tightening: 4 milli
+		[122.61%] Symbolic Bound Tightening: 4 milli
 		[0.00%] SoI-based local search: 0 milli
 		[0.00%] SoI-based local search: 0 milli
-		[505528749622075904.00%] Unaccounted for: 0 milli
+		[504837002564574400.00%] Unaccounted for: 0 milli
 	--- Preprocessor Statistics ---
 	Number of preprocessor bound-tightening loop iterations: 6
 	Number of eliminated variables: 40
@@ -289,7 +289,7 @@ Output:
 	y0 = 0.012318
 
 Running Marabou with the following arguments:  []
-Time 0.06565475463867188
+Time 0.07497739791870117
 Property: ../Benchmarks/marabou_txt/aurora_3_3_1_6.txt
 Number of variables: 178
 Number of lower bounds: 62

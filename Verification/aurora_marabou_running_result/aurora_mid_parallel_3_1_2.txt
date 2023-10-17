@@ -1,4 +1,4 @@
-InputQuery: /tmp/tmptdmqih85
+InputQuery: /tmp/tmpiifnclpy
 Engine::processInputQuery: Input query (before preprocessing): 164 equations, 226 variables
 Engine::processInputQuery: Input query (after preprocessing): 144 equations, 206 variables
 
@@ -68,7 +68,7 @@ Branching heuristics set to PseudoImpact
 
 Engine::solve: Initial statistics
 
-23:53:25 Statistics update:
+02:22:47 Statistics update:
 	--- Time Statistics ---
 	Total time elapsed: 27 milli (00:00:00)
 		Main loop: 0 milli (00:00:00)
@@ -147,15 +147,15 @@ Engine::solve: Initial statistics
 
 Engine::solve: sat assignment found
 
-23:53:25 Statistics update:
+02:22:47 Statistics update:
 	--- Time Statistics ---
-	Total time elapsed: 33 milli (00:00:00)
+	Total time elapsed: 34 milli (00:00:00)
 		Main loop: 4 milli (00:00:00)
 		Preprocessing time: 14 milli (00:00:00)
-		Unknown: 14 milli (00:00:00)
+		Unknown: 16 milli (00:00:00)
 	Breakdown for main loop:
 		[0.00%] Simplex steps: 0 milli
-		[39.30%] Explicit-basis bound tightening: 1 milli
+		[42.42%] Explicit-basis bound tightening: 2 milli
 		[0.00%] Constraint-matrix bound tightening: 0 milli
 		[0.00%] Degradation checking: 0 milli
 		[0.00%] Precision restoration: 0 milli
@@ -164,10 +164,10 @@ Engine::solve: sat assignment found
 		[0.00%] Valid case splits: 0 milli. Average per split: 0.00 milli
 		[0.00%] Applying stored bound-tightening: 0 milli
 		[0.00%] SMT core: 0 milli
-		[127.05%] Symbolic Bound Tightening: 6 milli
+		[121.80%] Symbolic Bound Tightening: 5 milli
 		[0.00%] SoI-based local search: 0 milli
 		[0.00%] SoI-based local search: 0 milli
-		[389171815901045312.00%] Unaccounted for: 0 milli
+		[385511892867493120.00%] Unaccounted for: 0 milli
 	--- Preprocessor Statistics ---
 	Number of preprocessor bound-tightening loop iterations: 6
 	Number of eliminated variables: 40
@@ -288,7 +288,7 @@ Output:
 	y0 = 0.002469
 
 Running Marabou with the following arguments:  []
-Time 0.13466310501098633
+Time 0.11234521865844727
 Property: ../Benchmarks/marabou_txt/aurora_3_3_1_2.txt
 Number of variables: 226
 Number of lower bounds: 62
