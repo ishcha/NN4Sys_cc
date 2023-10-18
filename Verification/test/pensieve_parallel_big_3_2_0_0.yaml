@@ -6,7 +6,7 @@ model:
   onnx_quirks: "{'Reshape': {'fix_batch_size': True}}"
   input_shape: [-1, 12, 8]
 specification:
-  vnnlib_path: ../Benchmarks/vnnlib/pensieve_3_2_0_0.vnnlib
+  vnnlib_path: pensieve_3_2_0_0.vnnlib
 solver:
   batch_size: 1
 bab:
