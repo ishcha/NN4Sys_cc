@@ -246,7 +246,7 @@ debug:
   test_optimized_bounds: false
   test_optimized_bounds_after_n_iterations: 0
 
-Experiments at Tue Oct 17 19:54:40 2023 on srg07
+Experiments at Wed Oct 18 01:08:33 2023 on srg07
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -262,21 +262,21 @@ Enabling quirks for Reshape operation: fix the first dimension shape to be -1 to
 input shape torch.Size([1, 128, 3]), new shape is tensor([ -1, 384]).
 Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.006250005215406418, initialization=uniform, GAMA=False
 Model output of first 5 examples:
- tensor([[112.55550385, 105.70226288, 103.11347961,  93.23347473, 101.05992889,
-          99.45208740]], device='cuda:0')
+ tensor([[379.60861206, 369.67623901, 363.63641357, 350.93652344, 349.45260620,
+         358.25402832]], device='cuda:0')
 Adv example prediction (first 2 examples and 2 restarts):
- tensor([[[112.55556488, 105.72081757, 103.13414001,  93.26694489, 101.07340240,
-           99.46358490]]], device='cuda:0')
+ tensor([[[379.88153076, 369.98687744, 363.90982056, 351.22186279, 349.77926636,
+          358.58544922]]], device='cuda:0')
 PGD attack margin (first 2 examles and 10 specs):
- tensor([[[13.09197998,  6.25723267,  3.67055511, -6.19664001,  1.60981750]]],
+ tensor([[[21.29608154, 11.40142822,  5.32437134, -7.36358643, -8.80618286]]],
        device='cuda:0')
-number of violation:  1
-Attack finished in 3.3822 seconds.
+number of violation:  2
+Attack finished in 2.9605 seconds.
 PGD attack failed
 Total VNNLIB file length: 1, max property batch size: 1, total number of batches: 1
 
 Properties batch 0, size 1
-Remaining timeout: 355.1517732143402
+Remaining timeout: 355.75851702690125
 ##### Instance 0 first 10 spec matrices: 
 tensor([[[ 1.,  0.,  0.,  0.,  0., -1.],
          [ 0.,  1.,  0.,  0.,  0., -1.],
@@ -453,8 +453,8 @@ Model: BoundedModule(
   (/206): BoundRelu(name=/206, inputs=[/input.31], perturbed=False)
   (/207): BoundLinear(name=/207, inputs=[/206, /60, /61], perturbed=False)
 )
-Model prediction is: tensor([112.55550385, 105.70226288, 103.11347961,  93.23348236, 101.05992889,
-         99.45208740], device='cuda:0')
+Model prediction is: tensor([379.60861206, 369.67623901, 363.63641357, 350.93652344, 349.45260620,
+        358.25402832], device='cuda:0')
 Split layers:
   BoundLinear(name=/input, inputs=[/92, /19, /20], perturbed=True): [(BoundRelu(name=/94, inputs=[/input], perturbed=True), 0)]
   BoundLinear(name=/input.3, inputs=[/114, /25, /26], perturbed=True): [(BoundRelu(name=/116, inputs=[/input.3], perturbed=True), 0)]
@@ -470,21 +470,26 @@ Nonlinear functions:
    BoundRelu(name=/158, inputs=[/input.27], perturbed=True)
    BoundRelu(name=/206, inputs=[/input.31], perturbed=True)
 layer /94 using sparse-features alpha with shape [0]; unstable size 0; total size 128 ([1, 128])
+layer /94 start_node /input.31 using sparse-spec alpha [2, 3, 1, 0] with unstable size 2 total_size 256 output_shape torch.Size([256])
 layer /94 start_node /207 using full alpha [2, 5, 1, 0] with unstable size None total_size 5 output_shape 5
 layer /116 using sparse-features alpha with shape [0]; unstable size 0; total size 128 ([1, 128])
+layer /116 start_node /input.31 using sparse-spec alpha [2, 3, 1, 0] with unstable size 2 total_size 256 output_shape torch.Size([256])
 layer /116 start_node /207 using full alpha [2, 5, 1, 0] with unstable size None total_size 5 output_shape 5
 layer /127 using sparse-features alpha with shape [0]; unstable size 0; total size 640 ([1, 128, 5])
+layer /127 start_node /input.31 using sparse-spec alpha [2, 3, 1, 0] with unstable size 2 total_size 256 output_shape torch.Size([256])
 layer /127 start_node /207 using full alpha [2, 5, 1, 0] with unstable size None total_size 5 output_shape 5
-layer /138 using sparse-features alpha with shape [8]; unstable size 8; total size 640 ([1, 128, 5])
-layer /138 start_node /207 using full alpha [2, 5, 1, 8] with unstable size None total_size 5 output_shape 5
+layer /138 using sparse-features alpha with shape [20]; unstable size 20; total size 640 ([1, 128, 5])
+layer /138 start_node /input.31 using sparse-spec alpha [2, 3, 1, 20] with unstable size 2 total_size 256 output_shape torch.Size([256])
+layer /138 start_node /207 using full alpha [2, 5, 1, 20] with unstable size None total_size 5 output_shape 5
 layer /158 using sparse-features alpha with shape [0]; unstable size 0; total size 384 ([1, 128, 3])
+layer /158 start_node /input.31 using sparse-spec alpha [2, 3, 1, 0] with unstable size 2 total_size 256 output_shape torch.Size([256])
 layer /158 start_node /207 using full alpha [2, 5, 1, 0] with unstable size None total_size 5 output_shape 5
-layer /206 using sparse-features alpha with shape [0]; unstable size 0; total size 256 ([1, 256])
-layer /206 start_node /207 using full alpha [2, 5, 1, 0] with unstable size None total_size 5 output_shape 5
+layer /206 using sparse-features alpha with shape [2]; unstable size 2; total size 256 ([1, 256])
+layer /206 start_node /207 using full alpha [2, 5, 1, 2] with unstable size None total_size 5 output_shape 5
 Optimizable variables initialized.
-initial CROWN bounds: tensor([[13.07709789,  6.23618317,  3.64305782, -6.26628113,  1.60189462]],
+initial CROWN bounds: tensor([[21.26319885, 11.38203526,  5.29012775, -7.44118643, -8.91760254]],
        device='cuda:0') None
 Verified with initial CROWN!
 Verified by initial bound!
 Result: unsat
-Time: 6.230323314666748
+Time: 5.925429344177246
