@@ -246,7 +246,7 @@ debug:
   test_optimized_bounds: false
   test_optimized_bounds_after_n_iterations: 0
 
-Experiments at Wed Oct 18 01:04:27 2023 on srg07
+Experiments at Wed Oct 18 01:19:27 2023 on srg07
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -271,12 +271,12 @@ PGD attack margin (first 2 examles and 10 specs):
  tensor([[[53.67639160, 80.26190186, 85.19482422, 79.75225830, 66.36083984]]],
        device='cuda:0')
 number of violation:  0
-Attack finished in 2.9802 seconds.
+Attack finished in 3.0423 seconds.
 PGD attack failed
 Total VNNLIB file length: 1, max property batch size: 1, total number of batches: 1
 
 Properties batch 0, size 1
-Remaining timeout: 355.7440712451935
+Remaining timeout: 355.68304347991943
 ##### Instance 0 first 10 spec matrices: 
 tensor([[[-1.,  1.,  0.,  0.,  0.,  0.],
          [-1.,  0.,  1.,  0.,  0.,  0.],
@@ -487,4 +487,4 @@ initial CROWN bounds: tensor([[53.67581177, 80.26119232, 85.19396210, 79.7514953
 Verified with initial CROWN!
 Verified by initial bound!
 Result: unsat
-Time: 5.632113695144653
+Time: 5.683804988861084

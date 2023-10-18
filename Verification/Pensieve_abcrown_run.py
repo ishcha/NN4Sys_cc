@@ -41,13 +41,14 @@ def create_yaml(yaml, vnn_path, onnx_path, inputshape=6):
 
 def main(abcrown_path):
     for i in range(len(SPEC_TYPES)):
-
         MODEL_TYPE = MODEL_TYPES[i]
 
         for range_ptr in range(len(P_RANGE)):
             for d_ptr in range(len(DIMENSION_NUMBERS)):
                 dimension_number = DIMENSION_NUMBERS[d_ptr]
                 for MODEL in MODEL_SIZES:
+                    if MODEL!='big':
+                        continue
                     for size in range(SIZE):
                         if dimension_number != 2 or range_ptr != 0:
                             continue
