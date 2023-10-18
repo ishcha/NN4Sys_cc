@@ -61,8 +61,12 @@ def main(abcrown_path):
 
                         if MODEL_TYPE == 'parallel':
                             create_yaml(yaml, vnn_path, onnx_path, 12)
-                        os.system(
-                            f"python {abcrown_path} --config {yaml} | tee {running_result_path}/pensieve_{MODEL}_{SPEC_TYPES[i]}_{dimension_number}_{range_ptr}_{size}.txt")
+                        command = f"python {abcrown_path} --config {yaml} | tee {running_result_path}/pensieve_{MODEL}_{SPEC_TYPES[i]}_{dimension_number}_{range_ptr}_{size}.txt"
+                        print("--------------------->")
+                        print(command)
+                        print("<---------------------")
+                        os.system(command)
+
 
 
 if __name__ == "__main__":
