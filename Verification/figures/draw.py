@@ -87,14 +87,14 @@ def main():
     np_index =0
     for key in datas:
         if 'abcrown' in datas[key]:
-            time_sets['abcrown'][np_index] = datas[key]['abcrown']['time']
+            time_sets['abcrown'][np_index] = int(datas[key]['abcrown']['time']*100)/100.0
         if 'marabou' in datas[key]:
-            time_sets['marabou'][np_index] = datas[key]['marabou']['time']
+            time_sets['marabou'][np_index] = int(datas[key]['marabou']['time']*100)/100.0
 
         np_index += 1
 
     x = np.arange(len(species))  # the label locations
-    width = 0.25  # the width of the bars
+    width = 0.4  # the width of the bars
     multiplier = 0
 
     fig, ax = plt.subplots(layout='constrained')
@@ -102,8 +102,12 @@ def main():
     for attribute, measurement in time_sets.items():
         offset = width * multiplier
         rects = ax.bar(x + offset, measurement, width, label=attribute)
-        #ax.bar_label(rects, padding=3)
+        ax.bar_label(rects, padding=3,fontsize=8)
         multiplier += 1
+
+
+
+
 
     # Add some text for labels, title and custom x-axis tick labels, etc.
     ax.set_title('Verification Runtime')
