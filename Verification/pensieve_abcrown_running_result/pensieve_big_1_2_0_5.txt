@@ -246,7 +246,7 @@ debug:
   test_optimized_bounds: false
   test_optimized_bounds_after_n_iterations: 0
 
-Experiments at Wed Oct 18 01:19:19 2023 on srg07
+Experiments at Wed Oct 18 17:54:06 2023 on srg07
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -262,21 +262,21 @@ Enabling quirks for Reshape operation: fix the first dimension shape to be -1 to
 input shape torch.Size([1, 128, 3]), new shape is tensor([ -1, 384]).
 Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.006250001490116119, initialization=uniform, GAMA=False
 Model output of first 5 examples:
- tensor([[422.11456299, 476.67391968, 503.60266113, 508.79074097, 503.30261230,
-         489.66329956]], device='cuda:0')
+ tensor([[403.32003784, 498.22540283, 525.55364990, 528.53393555, 544.80059814,
+         522.16503906]], device='cuda:0')
 Adv example prediction (first 2 examples and 2 restarts):
- tensor([[[423.25134277, 477.44198608, 504.26312256, 509.33160400, 503.88052368,
-          490.33438110]]], device='cuda:0')
+ tensor([[[403.77160645, 498.27770996, 525.49249268, 528.35150146, 544.61370850,
+          522.10015869]]], device='cuda:0')
 PGD attack margin (first 2 examles and 10 specs):
- tensor([[[54.19064331, 81.01177979, 86.08026123, 80.62918091, 67.08303833]]],
+ tensor([[[ 94.50610352, 121.72088623, 124.57989502, 140.84210205, 118.32855225]]],
        device='cuda:0')
 number of violation:  0
-Attack finished in 3.0567 seconds.
+Attack finished in 3.0654 seconds.
 PGD attack failed
 Total VNNLIB file length: 1, max property batch size: 1, total number of batches: 1
 
 Properties batch 0, size 1
-Remaining timeout: 355.6690890789032
+Remaining timeout: 355.623051404953
 ##### Instance 0 first 10 spec matrices: 
 tensor([[[-1.,  1.,  0.,  0.,  0.,  0.],
          [-1.,  0.,  1.,  0.,  0.,  0.],
@@ -453,8 +453,8 @@ Model: BoundedModule(
   (/206): BoundRelu(name=/206, inputs=[/input.31], perturbed=False)
   (/207): BoundLinear(name=/207, inputs=[/206, /60, /61], perturbed=False)
 )
-Model prediction is: tensor([422.11456299, 476.67391968, 503.60266113, 508.79074097, 503.30261230,
-        489.66329956], device='cuda:0')
+Model prediction is: tensor([403.32003784, 498.22540283, 525.55364990, 528.53399658, 544.80059814,
+        522.16503906], device='cuda:0')
 Split layers:
   BoundLinear(name=/input, inputs=[/92, /19, /20], perturbed=True): [(BoundRelu(name=/94, inputs=[/input], perturbed=True), 0)]
   BoundLinear(name=/input.3, inputs=[/114, /25, /26], perturbed=True): [(BoundRelu(name=/116, inputs=[/input.3], perturbed=True), 0)]
@@ -475,16 +475,16 @@ layer /116 using sparse-features alpha with shape [0]; unstable size 0; total si
 layer /116 start_node /207 using full alpha [2, 5, 1, 0] with unstable size None total_size 5 output_shape 5
 layer /127 using sparse-features alpha with shape [0]; unstable size 0; total size 640 ([1, 128, 5])
 layer /127 start_node /207 using full alpha [2, 5, 1, 0] with unstable size None total_size 5 output_shape 5
-layer /138 using sparse-features alpha with shape [15]; unstable size 15; total size 640 ([1, 128, 5])
-layer /138 start_node /207 using full alpha [2, 5, 1, 15] with unstable size None total_size 5 output_shape 5
+layer /138 using sparse-features alpha with shape [20]; unstable size 20; total size 640 ([1, 128, 5])
+layer /138 start_node /207 using full alpha [2, 5, 1, 20] with unstable size None total_size 5 output_shape 5
 layer /158 using sparse-features alpha with shape [0]; unstable size 0; total size 384 ([1, 128, 3])
 layer /158 start_node /207 using full alpha [2, 5, 1, 0] with unstable size None total_size 5 output_shape 5
 layer /206 using sparse-features alpha with shape [0]; unstable size 0; total size 256 ([1, 256])
 layer /206 start_node /207 using full alpha [2, 5, 1, 0] with unstable size None total_size 5 output_shape 5
 Optimizable variables initialized.
-initial CROWN bounds: tensor([[54.19005585, 81.01101685, 86.07935333, 80.62832642, 67.08229065]],
+initial CROWN bounds: tensor([[ 94.50094604, 121.71374512, 124.57119751, 140.83360291, 118.32151794]],
        device='cuda:0') None
 Verified with initial CROWN!
 Verified by initial bound!
 Result: unsat
-Time: 5.7027809619903564
+Time: 5.743589639663696
