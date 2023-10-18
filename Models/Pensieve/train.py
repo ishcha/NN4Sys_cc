@@ -39,7 +39,7 @@ LOG_FILE = './results/log'
 TEST_LOG_FOLDER = './test_results/'
 TRAIN_TRACES = './cooked_traces/'
 NN_MODEL = None
-NN_MODEL = './results/nn_model_ep_BEST_big_linear_10800.pth'
+#NN_MODEL = './results/nn_model_ep_BEST_big_linear_10800.pth'
 max_epoch = 50000
 REWARD_LIST = ['linear', 'log', 'hd']
 REWARD = REWARD_LIST[0]  # We only need linear reward trained model
@@ -87,7 +87,7 @@ def central_agent(exp_queues, net_params_queues):
     if cuda:
         critic.cuda()
     with open(LOG_FILE + '_test', 'w') as test_log_file:
-        epoch = 10800
+        epoch = 0
         epoch_set = []
         qoe_set = []
         optimizer_actor = optim.RMSprop(actor.parameters(), lr=ACTOR_LR_RATE)
