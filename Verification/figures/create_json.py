@@ -191,8 +191,8 @@ def main():
                     datas[key]["size"]=size
                 except:
                     continue
-    print(datas["decima_mid_1"])
-    print(datas["decima_mid_2"])
+    print(datas)
+    print(datas)
 
 
     datas = dict(sorted(datas.items()))

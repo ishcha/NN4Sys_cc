@@ -86,10 +86,11 @@ def main():
     time_sets['marabou'] = np.zeros(number)
     np_index =0
     for key in datas:
-        if 'marabou' in datas[key]:
-            time_sets['marabou'][np_index] = datas[key]['marabou']['time']
         if 'abcrown' in datas[key]:
             time_sets['abcrown'][np_index] = datas[key]['abcrown']['time']
+        if 'marabou' in datas[key]:
+            time_sets['marabou'][np_index] = datas[key]['marabou']['time']
+
         np_index += 1
 
     x = np.arange(len(species))  # the label locations
@@ -140,7 +141,7 @@ def main():
     ax.bar(size_dic.keys(),size_dic.values())
     plt.xticks(rotation=-25)
     ax2 = ax.twinx()
-    ax2.plot(size_dic.keys(), runtime)
+    ax2.plot(size_dic.keys(), runtime,color='r')
 
     plt.show()
 

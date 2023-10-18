@@ -4,7 +4,7 @@ import os
 import random
 import numpy as np
 
-P_RANGE = [1, 2, 3, 4, 5]
+P_RANGE = [0.5, 1, 1.5, 2, 2.5]
 MODELS = ['empty', 'small', 'mid', 'big']
 DIFFICULTY = ['easy']
 SIZES = [10, 10, 10]
@@ -74,7 +74,7 @@ def add_range(input, spec_type, p_range):
         for i in range(X.shape[0]):
             if i == cannot_be_highest * 5 + 3 or i == cannot_be_highest * 5 + 4:
                 ret[i * 2] = X[i]
-                ret[i * 2 + 1] = X[i] * 20 if X[i] > 0 else X[i] * 0.05
+                ret[i * 2 + 1] = X[i] * 20*p_range if X[i] > 0 else X[i] * 0.05
             else:
                 ret[i * 2] = X[i]
                 ret[i * 2 + 1] = X[i]
@@ -91,9 +91,9 @@ def add_range(input, spec_type, p_range):
             ret[i * 2 + 1] = X[i]
         for i in child:
             index = int(5 * i + 3)
-            ret[index * 2 + 1] = 10 * ret[index * 2 + 1] if ret[index * 2 + 1] > 0 else ret[index * 2 + 1] * 0.05
+            ret[index * 2 + 1] = 10 * ret[index * 2 + 1]*p_range if ret[index * 2 + 1] > 0 else ret[index * 2 + 1] * 0.05
             index = int(5 * i + 4)
-            ret[index * 2 + 1] = 10 * ret[index * 2 + 1] if ret[index * 2 + 1] > 0 else ret[index * 2 + 1] * 0.05
+            ret[index * 2 + 1] = 10 * ret[index * 2 + 1]*p_range if ret[index * 2 + 1] > 0 else ret[index * 2 + 1] * 0.05
 
     return ret, cannot_be_highest
 
