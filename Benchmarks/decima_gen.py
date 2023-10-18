@@ -4,7 +4,7 @@ import os
 import random
 import numpy as np
 
-P_RANGE = [0.5, 1, 1.5, 2, 2.5]
+P_RANGE = [1, 1.5, 2, 2.5]
 MODELS = ['empty', 'small', 'mid', 'big']
 DIFFICULTY = ['easy']
 SIZES = [10, 10, 10]
@@ -119,34 +119,34 @@ def gene_spec():
     marabou_txt_dir_path = 'marabou_txt'
 
     for spec_type_ptr in range(len(SPEC_TYPES)):
-        for range_ptr in range(len(P_RANGE)):
 
-            total_num = 0
-            indexes = list(np.load(f'./src/decima/decima_resources/decima_index_{SPEC_TYPES[spec_type_ptr]}.npy'))
-            input_arrays = np.load(f'./src/decima/decima_resources/decima_fixedInput_{SPEC_TYPES[spec_type_ptr]}.npy')
-            chosen_index = random.sample(indexes, SIZES[spec_type_ptr])
 
-            for i in chosen_index:
-                if i == 0:
-                    continue
-                index, _, model = parser(i)
-                spec = SPEC_TYPES[spec_type_ptr]
+        total_num = 0
+        indexes = list(np.load(f'./src/decima/decima_resources/decima_index_{SPEC_TYPES[spec_type_ptr]}.npy'))
+        input_arrays = np.load(f'./src/decima/decima_resources/decima_fixedInput_{SPEC_TYPES[spec_type_ptr]}.npy')
+        chosen_index = random.sample(indexes, SIZES[spec_type_ptr])
 
-                input_array = input_arrays[index]
-
-                input_array_perturbed, cannot_be_highest = add_range(input_array, spec, P_RANGE[range_ptr])
-
-                vnn_path = f'{vnn_dir_path}/decima_{spec}_{range_ptr}_{total_num}.vnnlib'
-                write_vnnlib(input_array_perturbed, int(cannot_be_highest), spec, vnn_path)
-
-                total_num += 1
-            total_num = 0
-            input_array = \
-            np.load(f'./src/decima/decima_resources/decima_fixedInput_{SPEC_TYPES[spec_type_ptr]}_marabou.npy')[0]
+        for i in chosen_index:
+            if i == 0:
+                continue
+            index, _, model = parser(i)
             spec = SPEC_TYPES[spec_type_ptr]
-            input_array_perturbed, cannot_be_highest = add_range(input_array, spec, P_RANGE[0])
-            txt_path = f'{marabou_txt_dir_path}/decima_{spec}_{total_num}.txt'
-            write_txt(input_array_perturbed, int(cannot_be_highest), spec, txt_path)
+
+            input_array = input_arrays[index]
+
+            input_array_perturbed, cannot_be_highest = add_range(input_array, spec)
+
+            vnn_path = f'{vnn_dir_path}/decima_{spec}_{total_num}.vnnlib'
+            write_vnnlib(input_array_perturbed, int(cannot_be_highest), spec, vnn_path)
+
+            total_num += 1
+        total_num = 0
+        input_array = \
+        np.load(f'./src/decima/decima_resources/decima_fixedInput_{SPEC_TYPES[spec_type_ptr]}_marabou.npy')[0]
+        spec = SPEC_TYPES[spec_type_ptr]
+        input_array_perturbed, cannot_be_highest = add_range(input_array, spec, P_RANGE[0])
+        txt_path = f'{marabou_txt_dir_path}/decima_{spec}_{total_num}.txt'
+        write_txt(input_array_perturbed, int(cannot_be_highest), spec, txt_path)
 
 
 def main(random_seed):
