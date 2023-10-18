@@ -43,19 +43,30 @@ spec_to_model_map = {"aurora_big_101": "aurora_big_simple.onnx",
                      }
 
 
-def calculate_avg_time(dic1, dic2, times1, times2):
-
+def calculate_avg_time(dic1, dic2, dic3, times1, times2 , time3):
+    print(times1)
     ret = {}
     for key in times2:
         if key in times1:
             times1[key] += times2[key]
         else:
             times1[key] = times2[key]
+    for key in time3:
+        if key in times1:
+            times1[key] += time3[key]
+        else:
+            times1[key] = time3[key]
     for key in dic2:
         if key in dic1:
             dic1[key] += dic2[key]
         else:
             dic1[key] = dic2[key]
+    for key in dic3:
+        if key in dic1:
+            dic1[key] += dic3[key]
+        else:
+            dic1[key] = dic3[key]
+    print(times1)
     for key in dic1:
         if dic1[key] == 10:
             ret[key] = times1[key] / dic1[key]
@@ -73,7 +84,6 @@ def init_dic():
     ret['unsafe'] = 0
     ret['time'] = 0
     ret['timeout'] = 0
-    ret['timeset'] = []
 
     return ret
 
@@ -93,6 +103,8 @@ def main():
             unsat_dic = {}
             sat_time = {}
             unsat_time = {}
+            timeout_dic={}
+            timeout_time={}
 
             for f in files:
                 file = f'{dir}/' + f
@@ -132,8 +144,9 @@ def main():
                         timeout=180
                     #datas[index][verifier]['timeset'].append(timeout)
 
-                    if timeout == -1:
-                        continue
+                    #if timeout == -1:
+                    #    continue
+
                     timeout = float(timeout)
                     if result == 'unsat':
                         unsat += 1
@@ -147,18 +160,25 @@ def main():
                         sat += 1
                         if index in sat_dic.keys():
                             sat_dic[index] = sat_dic[index] + 1
-                            sat_time[index] = sat_dic[index] + timeout
+                            sat_time[index] = sat_time[index] + timeout
                         else:
                             sat_dic[index] = 1
                             sat_time[index] = timeout
                     else:
-                        print("no result")
+                        if index in timeout_dic.keys():
+                            timeout_dic[index] = timeout_dic[index] + 1
+                            timeout_time[index] = timeout_time[index] + 180
+                        else:
+                            timeout_dic[index] = 1
+                            timeout_time[index] = 180
+
 
             sat_dic = dict(sorted(sat_dic.items()))
             sat_dic_copy = copy.deepcopy(sat_dic)
             unsat_dic = dict(sorted(unsat_dic.items()))
             unsat_dic_copy = copy.deepcopy(unsat_dic)
-            avg_time = calculate_avg_time(sat_dic_copy, unsat_dic_copy, sat_time, unsat_time)
+            timeout_dic_copy = copy.deepcopy(timeout_dic)
+            avg_time = calculate_avg_time(sat_dic_copy, unsat_dic_copy, timeout_dic_copy, sat_time, unsat_time, timeout_time)
 
             for key in avg_time:
                 if not key in datas:
@@ -171,7 +191,10 @@ def main():
                     datas[key][verifier]['unsafe'] = sat_dic[key]
                 if key in unsat_dic:
                     datas[key][verifier]['safe'] = unsat_dic[key]
-                datas[key][verifier]['timeout'] = 10 - datas[key][verifier]['unsafe'] - datas[key][verifier]['safe']
+                if key in timeout_dic:
+                    datas[key][verifier]['timeout'] = timeout_dic[key]
+                else:
+                    datas[key][verifier]['timeout'] = 10-datas[key][verifier]['unsafe'] -datas[key][verifier]['safe']
                 #for i in range(10 - datas[key][verifier]['unsafe'] - datas[key][verifier]['safe']):
                 #    datas[key][verifier]['timeset'].append(180)
             '''

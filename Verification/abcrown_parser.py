@@ -71,7 +71,7 @@ def main(model):
                 sat += 1
                 if index in sat_dic.keys():
                     sat_dic[index] = sat_dic[index] + 1
-                    sat_time[index] = sat_dic[index] + timeout
+                    sat_time[index] = sat_time[index] + timeout
                 else:
                     sat_dic[index] = 1
                     sat_time[index] = timeout
