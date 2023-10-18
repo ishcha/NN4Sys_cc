@@ -49,8 +49,8 @@ def main(abcrown_path):
                 dimension_number = DIMENSION_NUMBERS[d_ptr]
                 for MODEL in MODEL_SIZES:
                     for size in range(SIZE):
-                        #if dimension_number != 2 or range_ptr != 0:
-                        #    continue
+                        if dimension_number != 2 or range_ptr != 0:
+                            continue
 
                         vnn_path = f'{vnn_dir_path}/pensieve_{SPEC_TYPES[i]}_{dimension_number}_{range_ptr}_{size}.vnnlib'
                         onnx_path = onnx_dir_path + '/pensieve_' + MODEL + '_' + MODEL_TYPE + '.onnx'
