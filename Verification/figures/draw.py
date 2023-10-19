@@ -182,7 +182,7 @@ def main():
         ax2 = ax.twinx()
         size_list = list(size_dic.values())
         print(size_list)
-        ax2.plot(size_dic.keys(), size_dic.values(),label='Model Size',color='r')
+        #ax2.plot(size_dic.keys(), size_dic.values(),label='Model Size',color='r')
         for i in range(len(size_dic.keys())):
             plt.text(name[i], size_list[i], str(int(size_list[i])), ha='center', va='bottom')
 
