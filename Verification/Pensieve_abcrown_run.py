@@ -47,7 +47,7 @@ def main(abcrown_path):
             for d_ptr in range(len(DIMENSION_NUMBERS)):
                 dimension_number = DIMENSION_NUMBERS[d_ptr]
                 for MODEL in MODEL_SIZES:
-                    if MODEL=='big':
+                    if MODEL!='big':
                         continue
 
                     for size in range(SIZE):
