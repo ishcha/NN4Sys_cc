@@ -246,7 +246,7 @@ debug:
   test_optimized_bounds: false
   test_optimized_bounds_after_n_iterations: 0
 
-Experiments at Wed Oct 18 17:56:42 2023 on srg07
+Experiments at Wed Oct 18 20:38:19 2023 on srg07
 Internal results will be saved to out.txt.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% idx: 0, vnnlib ID: 0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -256,18 +256,18 @@ Precompiled vnnlib file found at ../Benchmarks/vnnlib/pensieve_3_2_0_3.vnnlib.co
 Loading onnx ../Benchmarks/onnx/pensieve_big_parallel.onnx wih quirks {'Reshape': {'fix_batch_size': True}}
 Attack parameters: initialization=uniform, steps=100, restarts=30, alpha=0.006250001490116119, initialization=uniform, GAMA=False
 Model output of first 5 examples:
- tensor([[12.14004517]], device='cuda:0')
+ tensor([[169.92768860]], device='cuda:0')
 Adv example prediction (first 2 examples and 2 restarts):
- tensor([[[11.99540710]]], device='cuda:0')
+ tensor([[[169.58477783]]], device='cuda:0')
 PGD attack margin (first 2 examles and 10 specs):
- tensor([[[11.99540710]]], device='cuda:0')
+ tensor([[[169.58477783]]], device='cuda:0')
 number of violation:  0
-Attack finished in 3.6798 seconds.
+Attack finished in 3.6741 seconds.
 PGD attack failed
 Total VNNLIB file length: 1, max property batch size: 1, total number of batches: 1
 
 Properties batch 0, size 1
-Remaining timeout: 354.96510195732117
+Remaining timeout: 354.95842933654785
 ##### Instance 0 first 10 spec matrices: 
 tensor([[[1.]]], dtype=torch.float64)
 thresholds: tensor([0.], device='cuda:0') ######
@@ -564,7 +564,7 @@ Model: BoundedModule(
   (/355/reciprocal): BoundReciprocal(name=/355/reciprocal, inputs=[/354], perturbed=False)
   (/355/mul): BoundMul(name=/355/mul, inputs=[/353, /355/reciprocal], perturbed=False)
 )
-Model prediction is: tensor([12.14002991], device='cuda:0')
+Model prediction is: tensor([169.92768860], device='cuda:0')
 Split layers:
   BoundLinear(name=/input, inputs=[/138, /19, /20], perturbed=True): [(BoundRelu(name=/140, inputs=[/input], perturbed=True), 0)]
   BoundLinear(name=/input.3, inputs=[/160, /25, /26], perturbed=True): [(BoundRelu(name=/162, inputs=[/input.3], perturbed=True), 0)]
@@ -609,3 +609,89 @@ Nonlinear functions:
    BoundMul(name=/236/mul, inputs=[/234, /236/reciprocal], perturbed=True)
    BoundReciprocal(name=/355/reciprocal, inputs=[/354], perturbed=True)
    BoundMul(name=/355/mul, inputs=[/353, /355/reciprocal], perturbed=True)
+layer /140 using sparse-features alpha with shape [0]; unstable size 0; total size 128 ([1, 128])
+layer /140 start_node /input.31 using sparse-spec alpha [2, 3, 1, 0] with unstable size 2 total_size 256 output_shape torch.Size([256])
+layer /140 start_node /234 using full alpha [2, 6, 1, 0] with unstable size None total_size 6 output_shape torch.Size([6])
+layer /140 start_node /235 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /140 start_node /236/reciprocal using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /140 start_node /357 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape 1
+layer /162 using sparse-features alpha with shape [0]; unstable size 0; total size 128 ([1, 128])
+layer /162 start_node /input.31 using sparse-spec alpha [2, 3, 1, 0] with unstable size 2 total_size 256 output_shape torch.Size([256])
+layer /162 start_node /234 using full alpha [2, 6, 1, 0] with unstable size None total_size 6 output_shape torch.Size([6])
+layer /162 start_node /235 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /162 start_node /236/reciprocal using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /162 start_node /357 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape 1
+layer /173 using sparse-features alpha with shape [0]; unstable size 0; total size 640 ([1, 128, 5])
+layer /173 start_node /input.31 using sparse-spec alpha [2, 3, 1, 0] with unstable size 2 total_size 256 output_shape torch.Size([256])
+layer /173 start_node /234 using full alpha [2, 6, 1, 0] with unstable size None total_size 6 output_shape torch.Size([6])
+layer /173 start_node /235 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /173 start_node /236/reciprocal using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /173 start_node /357 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape 1
+layer /184 using sparse-features alpha with shape [69]; unstable size 69; total size 640 ([1, 128, 5])
+layer /184 start_node /input.31 using sparse-spec alpha [2, 3, 1, 69] with unstable size 2 total_size 256 output_shape torch.Size([256])
+layer /184 start_node /234 using full alpha [2, 6, 1, 69] with unstable size None total_size 6 output_shape torch.Size([6])
+layer /184 start_node /235 using full alpha [2, 1, 1, 69] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /184 start_node /236/reciprocal using full alpha [2, 1, 1, 69] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /184 start_node /357 using full alpha [2, 1, 1, 69] with unstable size None total_size 1 output_shape 1
+layer /204 using sparse-features alpha with shape [0]; unstable size 0; total size 384 ([1, 128, 3])
+layer /204 start_node /input.31 using sparse-spec alpha [2, 3, 1, 0] with unstable size 2 total_size 256 output_shape torch.Size([256])
+layer /204 start_node /234 using full alpha [2, 6, 1, 0] with unstable size None total_size 6 output_shape torch.Size([6])
+layer /204 start_node /235 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /204 start_node /236/reciprocal using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /204 start_node /357 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape 1
+layer /231 using sparse-features alpha with shape [2]; unstable size 2; total size 256 ([1, 256])
+layer /231 start_node /234 using full alpha [2, 6, 1, 2] with unstable size None total_size 6 output_shape torch.Size([6])
+layer /231 start_node /235 using full alpha [2, 1, 1, 2] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /231 start_node /236/reciprocal using full alpha [2, 1, 1, 2] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /231 start_node /357 using full alpha [2, 1, 1, 2] with unstable size None total_size 1 output_shape 1
+layer /233 using sparse-features alpha with shape [0]; unstable size 0; total size 6 ([1, 6])
+layer /233 start_node /234 using full alpha [2, 6, 1, 0] with unstable size None total_size 6 output_shape torch.Size([6])
+layer /233 start_node /235 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /233 start_node /236/reciprocal using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /233 start_node /357 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape 1
+layer /259 using sparse-features alpha with shape [0]; unstable size 0; total size 128 ([1, 128])
+layer /259 start_node /input.71 using sparse-spec alpha [2, 1, 1, 0] with unstable size 0 total_size 256 output_shape torch.Size([256])
+layer /259 start_node /353 using full alpha [2, 6, 1, 0] with unstable size None total_size 6 output_shape torch.Size([6])
+layer /259 start_node /354 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /259 start_node /355/reciprocal using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /259 start_node /357 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape 1
+layer /281 using sparse-features alpha with shape [0]; unstable size 0; total size 128 ([1, 128])
+layer /281 start_node /input.71 using sparse-spec alpha [2, 1, 1, 0] with unstable size 0 total_size 256 output_shape torch.Size([256])
+layer /281 start_node /353 using full alpha [2, 6, 1, 0] with unstable size None total_size 6 output_shape torch.Size([6])
+layer /281 start_node /354 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /281 start_node /355/reciprocal using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /281 start_node /357 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape 1
+layer /292 using sparse-features alpha with shape [0]; unstable size 0; total size 640 ([1, 128, 5])
+layer /292 start_node /input.71 using sparse-spec alpha [2, 1, 1, 0] with unstable size 0 total_size 256 output_shape torch.Size([256])
+layer /292 start_node /353 using full alpha [2, 6, 1, 0] with unstable size None total_size 6 output_shape torch.Size([6])
+layer /292 start_node /354 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /292 start_node /355/reciprocal using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /292 start_node /357 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape 1
+layer /303 using sparse-features alpha with shape [19]; unstable size 19; total size 640 ([1, 128, 5])
+layer /303 start_node /input.71 using sparse-spec alpha [2, 1, 1, 19] with unstable size 0 total_size 256 output_shape torch.Size([256])
+layer /303 start_node /353 using full alpha [2, 6, 1, 19] with unstable size None total_size 6 output_shape torch.Size([6])
+layer /303 start_node /354 using full alpha [2, 1, 1, 19] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /303 start_node /355/reciprocal using full alpha [2, 1, 1, 19] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /303 start_node /357 using full alpha [2, 1, 1, 19] with unstable size None total_size 1 output_shape 1
+layer /323 using sparse-features alpha with shape [0]; unstable size 0; total size 384 ([1, 128, 3])
+layer /323 start_node /input.71 using sparse-spec alpha [2, 1, 1, 0] with unstable size 0 total_size 256 output_shape torch.Size([256])
+layer /323 start_node /353 using full alpha [2, 6, 1, 0] with unstable size None total_size 6 output_shape torch.Size([6])
+layer /323 start_node /354 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /323 start_node /355/reciprocal using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /323 start_node /357 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape 1
+layer /350 using sparse-features alpha with shape [0]; unstable size 0; total size 256 ([1, 256])
+layer /350 start_node /353 using full alpha [2, 6, 1, 0] with unstable size None total_size 6 output_shape torch.Size([6])
+layer /350 start_node /354 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /350 start_node /355/reciprocal using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /350 start_node /357 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape 1
+layer /352 using sparse-features alpha with shape [0]; unstable size 0; total size 6 ([1, 6])
+layer /352 start_node /353 using full alpha [2, 6, 1, 0] with unstable size None total_size 6 output_shape torch.Size([6])
+layer /352 start_node /354 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /352 start_node /355/reciprocal using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape torch.Size([1])
+layer /352 start_node /357 using full alpha [2, 1, 1, 0] with unstable size None total_size 1 output_shape 1
+Optimizable variables initialized.
+initial CROWN bounds: tensor([[169.34523010]], device='cuda:0') None
+Verified with initial CROWN!
+Verified by initial bound!
+Result: unsat
+Time: 8.99756383895874
