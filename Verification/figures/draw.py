@@ -170,29 +170,35 @@ def main():
 
         for key in size_dic:
             runtime.append(run_time_dic[key])
+        print(runtime)
 
-        ax.bar(size_dic.keys(), runtime, color='b',linewidth=2)
-
+        ax.bar(size_dic.keys(), runtime, color='b',linewidth=2,label='Verification Runtime')
         plt.xticks(rotation=-25)
         name = list(size_dic.keys())
         for i in range(len(size_dic.keys())):
-            plt.text(name[i], runtime[i], str(int(100 * runtime[i]) / 100.0), ha='center', va='bottom', fontsize=5)
-        #plt.rcParams["axes.linewidth"] = 2
+            plt.text(name[i], runtime[i], str(int(100 * runtime[i]) / 100.0), ha='center', va='bottom')
+
 
         ax2 = ax.twinx()
-        ax2.plot(size_dic.keys(), size_dic.values())
+        size_list = list(size_dic.values())
+        print(size_list)
+        ax2.plot(size_dic.keys(), size_dic.values(),label='Model Size',color='r')
+        for i in range(len(size_dic.keys())):
+            plt.text(name[i], size_list[i], str(int(size_list[i])), ha='center', va='bottom')
 
         plt.yscale("log")
 
         ax.set_title('Verification Runtime and Model Size')
-        ax.set_ylabel('Size (byte)')
-        ax2.set_ylabel('Runtime (s)')
+        ax2.set_ylabel('Size (byte)')
+        ax.set_ylabel('Runtime (s)')
         plt.yscale("log")
+        plt.rcParams["axes.linewidth"] = 2
 
         ax.spines['top'].set_visible(False)
         ax2.spines['top'].set_visible(False)
 
         plt.savefig("verification_runtime_and_model_size.pdf", format="pdf", bbox_inches="tight")
+        ax.legend(loc='upper left', ncols=3)
 
         plt.show()
 
