@@ -10,7 +10,7 @@ import json
 
 
 def main():
-    fig = 2
+    fig = 1
     f = open('eval_results.json')
     content = f.read()
     datas = json.loads(content)
