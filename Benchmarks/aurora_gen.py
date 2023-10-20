@@ -5,7 +5,7 @@ import random
 import numpy as np
 
 STATISTIC_RANGE = [0.005, 0.1, 0, 1]
-P_RANGE = [0.8,1, 1.2,1.4,1.6]
+P_RANGE = [0.8, 1, 1.2, 1.4, 1.6]
 MODELS = ['empty', 'small', 'mid', 'big']
 DIFFICULTY = ['easy']
 SIZES = [10, 10, 10, 10, 10]
@@ -14,7 +14,7 @@ SPEC_TYPES = [101, 102, 2, 3, 4]
 SPEC_ARRAY_LENGTH = [30, 30, 30, 60, 150]
 SPEC_ARRAY_NUM = 3000
 HISTORY = 10
-DIMENSION_NUMBERS=[1,2,3]
+DIMENSION_NUMBERS = [1, 2, 3]
 
 
 # responsible for writing the file
@@ -84,7 +84,7 @@ def write_txt(X, spec_type, spec_path):
             f.write(f"y0 <= 0")
 
 
-def add_range(X, spec_type, p_range,dimension):
+def add_range(X, spec_type, p_range, dimension):
     ret = np.empty(X.shape[0] * 2)
     if spec_type == SPEC_TYPES[0]:
         for i in range(X.shape[0]):
@@ -100,14 +100,14 @@ def add_range(X, spec_type, p_range,dimension):
                 ret[i * 2 + 1] = X[i] + STATISTIC_RANGE[2] * p_range
     if spec_type == SPEC_TYPES[1]:
         for i in range(X.shape[0]):
-            if dimension==1:
+            if dimension == 1:
                 if i < 10:
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i] + STATISTIC_RANGE[1] * p_range
                 else:
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i]
-            if dimension==2:
+            if dimension == 2:
                 if i < 10:
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i] + STATISTIC_RANGE[1] * p_range
@@ -117,7 +117,7 @@ def add_range(X, spec_type, p_range,dimension):
                 else:
                     ret[i * 2] = X[i]
                     ret[i * 2 + 1] = X[i]
-            if dimension==3:
+            if dimension == 3:
 
                 if i < 10:
                     ret[i * 2] = X[i]
@@ -174,7 +174,6 @@ def get_time(all_dic, index):
 
 
 def gene_spec():
-
     aurora_src_path = './src/aurora/aurora_resources'
     vnn_dir_path = 'vnnlib'
     onnx_dir_path = 'onnx'
@@ -185,8 +184,6 @@ def gene_spec():
     if not os.path.exists(vnn_dir_path):
         os.makedirs(vnn_dir_path)
 
-
-
     for range_ptr in range(len(P_RANGE)):
         for d_ptr in range(len(DIMENSION_NUMBERS)):
             dimension_number = DIMENSION_NUMBERS[d_ptr]
@@ -194,21 +191,22 @@ def gene_spec():
 
             for spec_type_ptr in range(len(SPEC_TYPES)):
                 total_num = 0
-                indexes = list(np.load(aurora_src_path+f'/aurora_index_{SPEC_TYPES[spec_type_ptr]}.npy'))
+                indexes = list(np.load(aurora_src_path + f'/aurora_index_{SPEC_TYPES[spec_type_ptr]}.npy'))
                 # dic = np.load(f'./src/pensieve/pensieve_resources/pen_{difficulty}_dic.npy')
                 chosen_index = random.sample(indexes, SIZES[spec_type_ptr])
 
                 for i in chosen_index:
                     if i == 0:
                         continue
-                    if spec_type_ptr!=1 and dimension_number!=3 and p_range!=1:
+                    if spec_type_ptr != 1 and dimension_number != 3 and p_range != 1:
                         continue
                     index, _, model = parser(i)
                     spec = SPEC_TYPES[spec_type_ptr]
                     vnn_path = f'{vnn_dir_path}/aurora_{spec}_{dimension_number}_{range_ptr}_{total_num}.vnnlib'
                     onnx_path = onnx_dir_path + '/pensieve_' + model + '_' + str(spec) + '.onnx'
-                    input_array = np.load(aurora_src_path+f'/aurora_fixedInput_{SPEC_TYPES[spec_type_ptr]}.npy')[index]
-                    input_array_perturbed = add_range(input_array, spec, p_range,dimension_number)
+                    input_array = np.load(aurora_src_path + f'/aurora_fixedInput_{SPEC_TYPES[spec_type_ptr]}.npy')[
+                        index]
+                    input_array_perturbed = add_range(input_array, spec, p_range, dimension_number)
                     write_vnnlib(input_array_perturbed, spec, vnn_path)
                     txt_path = f'{marabou_txt_dir_path}/aurora_{spec}_{dimension_number}_{range_ptr}_{total_num}.txt'
                     write_txt(input_array_perturbed, spec, txt_path)

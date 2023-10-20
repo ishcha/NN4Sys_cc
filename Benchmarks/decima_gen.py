@@ -141,8 +141,7 @@ def gene_spec():
 
             total_num += 1
         total_num = 0
-        input_array = \
-        np.load(f'./src/decima/decima_resources/decima_fixedInput_{SPEC_TYPES[spec_type_ptr]}_marabou.npy')[0]
+        input_array = np.load(f'./src/decima/decima_resources/decima_fixedInput_{SPEC_TYPES[spec_type_ptr]}_marabou.npy')[0]
         spec = SPEC_TYPES[spec_type_ptr]
         input_array_perturbed, cannot_be_highest = add_range(input_array, spec, P_RANGE[0])
         txt_path = f'{marabou_txt_dir_path}/decima_{spec}_{total_num}.txt'
