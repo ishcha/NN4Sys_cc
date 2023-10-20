@@ -1,5 +1,6 @@
 import os
 import sys
+sys.path.insert(0,os.getcwd())
 
 os.environ['MKL_THREADING_LAYER'] = 'GNU'
 
