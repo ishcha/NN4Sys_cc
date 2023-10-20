@@ -12,53 +12,26 @@ def main():
 
     args = parser.parse_args()
     if args.model == "all":
-        os.system("cd Pensieve")
-        os.system("python export.py")
-        os.system("cd ..")
-
-        os.system("cd Aurora")
-        os.system("python export.py")
-        os.system("cd ..")
-
-        os.system("cd Decima")
-        os.system("python export.py")
-        os.system("cd ..")
-
-        os.system("cd Learned_index")
-        os.system("python export.py")
-        os.system("cd ..")
-
-        os.system("cd Cardinality")
-        os.system("python export.py")
-        os.system("cd ..")
-
-        os.system("cd Bloom_filter")
-        os.system("python export.py")
-        os.system("cd ..")
+        os.system("cd Pensieve && python export.py && cd .. && cd Decima && python export.py && cd ..")
 
     if args.model == "pensieve":
         os.system("cd Pensieve && python export.py && cd ..")
 
     if args.model == "decima":
-        os.system("cd Decima")
-        os.system("python export.py")
-        os.system("cd ..")
+        os.system("cd Decima && python export.py && cd ..")
+
     if args.model == "lindex":
-        os.system("cd Learned_index")
-        os.system("python export.py")
-        os.system("cd ..")
+        os.system("cd Learned_index && python export.py && cd ..")
+
     if args.model == "cardinality":
-        os.system("cd Cardinality")
-        os.system("python export.py")
-        os.system("cd ..")
+        os.system("cd Cardinality && python export.py && cd ..")
+
     if args.model == "bloom_filter":
-        os.system("cd Bloom_filter")
-        os.system("python export.py")
-        os.system("cd ..")
+        os.system("cd Bloom_filter && python export.py && cd ..")
+
     if args.model == "aurora":
-        os.system("cd Aurora")
-        os.system("python export.py")
-        os.system("cd ..")
+        os.system("cd Aurora && python export.py && cd ..")
+
 
 
 if __name__ == "__main__":
