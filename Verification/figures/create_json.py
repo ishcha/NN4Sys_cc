@@ -1,8 +1,5 @@
 import copy
 import os
-import math
-import numpy as np
-import sys
 import json
 
 Models = ['pensieve', 'lindex', 'aurora', 'decima', 'bloom_filter', 'cardinality']

@@ -10,7 +10,6 @@ import json
 
 
 def main():
-    fig = 1
     f = open('eval_results.json')
     content = f.read()
     datas = json.loads(content)
@@ -21,7 +20,8 @@ def main():
     for key in datas:
         species.append(key)
 
-    if fig == 0:
+    '''
+        if fig == 0:
 
         number = len(species)
         weight_counts_abcrown = {}
@@ -78,134 +78,125 @@ def main():
         ax.set_ylabel('Case Number')
         plt.xticks(rotation=-25)
         plt.show()
+    '''
 
-    if fig == 1:
-        # second fiture: runtime
+    # second fiture: runtime
 
-        marabou_can_dic_for_sort = {}
-        marabou_cannot_dic_for_sort = {}
+    marabou_can_dic_for_sort = {}
+    marabou_cannot_dic_for_sort = {}
 
-        for key in datas:
-            if 'marabou' in datas[key]:
-                marabou_can_dic_for_sort[key] = datas[key]['abcrown']['time']
-            else:
-                marabou_cannot_dic_for_sort[key] = datas[key]['abcrown']['time']
-        sort = sorted(marabou_can_dic_for_sort.items(), key=lambda x: x[1])
-        marabou_can_dic_for_sort = dict(sort)
-        sort = sorted(marabou_cannot_dic_for_sort.items(), key=lambda x: x[1])
-        marabou_cannot_dic_for_sort = dict(sort)
+    for key in datas:
+        if 'marabou' in datas[key]:
+            marabou_can_dic_for_sort[key] = datas[key]['abcrown']['time']
+        else:
+            marabou_cannot_dic_for_sort[key] = datas[key]['abcrown']['time']
+    sort = sorted(marabou_can_dic_for_sort.items(), key=lambda x: x[1])
+    marabou_can_dic_for_sort = dict(sort)
+    sort = sorted(marabou_cannot_dic_for_sort.items(), key=lambda x: x[1])
+    marabou_cannot_dic_for_sort = dict(sort)
 
-        time_sets = {}
-        annotates = {}
+    time_sets = {}
+    annotates = {}
 
-        time_sets['abcrown'] = []
-        time_sets['marabou'] = []
-        annotates['abcrown'] = []
-        annotates['marabou'] = []
+    time_sets['abcrown'] = []
+    time_sets['marabou'] = []
+    annotates['abcrown'] = []
+    annotates['marabou'] = []
 
-        x_ticks = []
+    x_ticks = []
 
-        for key in marabou_can_dic_for_sort:
-            time_sets['abcrown'].append(int(datas[key]['abcrown']['time'] * 100) / 100.0)
-            time_sets['marabou'].append(int(datas[key]['marabou']['time'] * 100) / 100.0)
-            annotates['abcrown'].append(int(datas[key]['abcrown']['time'] * 100) / 100.0)
-            annotates['marabou'].append(int(datas[key]['marabou']['time'] * 100) / 100.0)
-            x_ticks.append(key)
+    for key in marabou_can_dic_for_sort:
+        time_sets['abcrown'].append(int(datas[key]['abcrown']['time'] * 100) / 100.0)
+        time_sets['marabou'].append(int(datas[key]['marabou']['time'] * 100) / 100.0)
+        annotates['abcrown'].append(int(datas[key]['abcrown']['time'] * 100) / 100.0)
+        annotates['marabou'].append(int(datas[key]['marabou']['time'] * 100) / 100.0)
+        x_ticks.append(key)
 
-        for key in marabou_cannot_dic_for_sort:
-            time_sets['abcrown'].append(int(datas[key]['abcrown']['time'] * 100) / 100.0)
-            time_sets['marabou'].append(0)
-            annotates['abcrown'].append(int(datas[key]['abcrown']['time'] * 100) / 100.0)
-            annotates['marabou'].append('NaN')
-            x_ticks.append(key)
+    for key in marabou_cannot_dic_for_sort:
+        time_sets['abcrown'].append(int(datas[key]['abcrown']['time'] * 100) / 100.0)
+        time_sets['marabou'].append(0)
+        annotates['abcrown'].append(int(datas[key]['abcrown']['time'] * 100) / 100.0)
+        annotates['marabou'].append('NaN')
+        x_ticks.append(key)
 
-        x = np.arange(len(species))  # the label locations
-        width = 0.25  # the width of the bars
-        fig, ax = plt.subplots(layout='constrained', figsize=(18, 6))
+    x = np.arange(len(species))  # the label locations
+    width = 0.25  # the width of the bars
+    fig, ax = plt.subplots(layout='constrained', figsize=(18, 6))
 
-        plt.bar(x + width / 2, time_sets['abcrown'], width, label='alpha-beta-crown', edgecolor="black",linewidth=2)
+    plt.bar(x + width / 2, time_sets['abcrown'], width, label='alpha-beta-crown', edgecolor="black", linewidth=2)
 
-        for i in range(len(x_ticks)):
-            plt.text(i + width / 2, time_sets['abcrown'][i], str(annotates['abcrown'][i]), ha='center', va='bottom',
-                     fontsize=8)
+    for i in range(len(x_ticks)):
+        plt.text(i + width / 2, time_sets['abcrown'][i], str(annotates['abcrown'][i]), ha='center', va='bottom',
+                 fontsize=8)
 
-        ax.bar(x + width / 2 + width, time_sets['marabou'], width, label='marabou', edgecolor="black",linewidth=2)
-        for i in range(len(x_ticks)):
-            plt.text(i + width / 2 + width, max(time_sets['marabou'][i], 0.013), str(annotates['marabou'][i]),
-                     ha='center', va='bottom',
-                     fontsize=8)
+    ax.bar(x + width / 2 + width, time_sets['marabou'], width, label='marabou', edgecolor="black", linewidth=2)
+    for i in range(len(x_ticks)):
+        plt.text(i + width / 2 + width, max(time_sets['marabou'][i], 0.013), str(annotates['marabou'][i]),
+                 ha='center', va='bottom',
+                 fontsize=8)
 
-        # Add some text for labels, title and custom x-axis tick labels, etc.
-        ax.set_title('Verification Runtime')
-        ax.legend(loc='upper left', ncols=3)
-        # ax.legend(bbox_to_anchor=(1, 0.5), loc=3, borderaxespad=0)
-        ax.set_xticks(x + width, x_ticks)
-        ax.set_ylabel('Time (s)')
-        ax.spines['top'].set_visible(False)
-        ax.spines['right'].set_visible(False)
-        [x.set_linewidth(2) for x in ax.spines.values()]
+    # Add some text for labels, title and custom x-axis tick labels, etc.
+    ax.set_title('Verification Runtime')
+    ax.legend(loc='upper left', ncols=3)
+    # ax.legend(bbox_to_anchor=(1, 0.5), loc=3, borderaxespad=0)
+    ax.set_xticks(x + width, x_ticks)
+    ax.set_ylabel('Time (s)')
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    [x.set_linewidth(2) for x in ax.spines.values()]
 
-        plt.xticks(rotation=-25)
-        plt.yscale("log")
-        plt.savefig("verification_runtime.pdf", format="pdf", bbox_inches="tight")
-        plt.show()
+    plt.xticks(rotation=-25)
+    plt.yscale("log")
+    plt.savefig("verification_runtime.pdf", format="pdf", bbox_inches="tight")
 
-    if fig == 2:
+    # figure 3
+    fig, ax = plt.subplots(layout='constrained', figsize=(18, 6))
+    sizes = []
+    runtime = []
+    labels = []
 
-        # figure 3
-        fig, ax = plt.subplots(layout='constrained', figsize=(18, 6))
-        sizes = []
-        runtime = []
-        labels = []
+    size_dic = {}
+    run_time_dic = {}
 
-        size_dic = {}
-        run_time_dic = {}
+    for key in datas:
+        if not "pensieve" in key and not "aurora" in key:
+            continue
+        if 'size' in datas[key]:
+            size_dic[key] = datas[key]['size']
+            run_time_dic[key] = datas[key]["abcrown"]["time"]
+    size_list = sorted(size_dic.items(), key=lambda x: x[1])
+    size_dic = dict(size_list)
 
-        for key in datas:
-            if not "pensieve" in key and not "aurora" in key:
-                continue
-            if 'size' in datas[key]:
-                size_dic[key] = datas[key]['size']
-                run_time_dic[key] = datas[key]["abcrown"]["time"]
-        size_list = sorted(size_dic.items(), key=lambda x: x[1])
-        size_dic = dict(size_list)
+    for key in size_dic:
+        runtime.append(run_time_dic[key])
 
-        for key in size_dic:
-            runtime.append(run_time_dic[key])
+    l1 = ax.bar(size_dic.keys(), runtime, label='Verification Runtime', lw=2, ec='black')
+    plt.xticks(rotation=-25)
+    name = list(size_dic.keys())
+    for i in range(len(size_dic.keys())):
+        plt.text(name[i], runtime[i], str(int(100 * runtime[i]) / 100.0), ha='center', va='bottom')
 
-        l1=ax.bar(size_dic.keys(), runtime, label='Verification Runtime',lw=2, ec='black')
-        plt.xticks(rotation=-25)
-        name = list(size_dic.keys())
-        for i in range(len(size_dic.keys())):
-            plt.text(name[i], runtime[i], str(int(100 * runtime[i]) / 100.0), ha='center', va='bottom')
+    ax2 = ax.twinx()
+    size_list = list(size_dic.values())
 
+    l2 = ax2.plot(size_dic.keys(), size_dic.values(), '-o', label='Model Size', color='orange')
+    # for i in range(len(size_dic.keys())):
+    #    plt.text(name[i], size_list[i], str(int(size_list[i])), ha='center', va='bottom')
 
-        ax2 = ax.twinx()
-        size_list = list(size_dic.values())
+    plt.yscale("log")
 
-        l2=ax2.plot(size_dic.keys(), size_dic.values(), '-o', label='Model Size', color='orange')
-        #for i in range(len(size_dic.keys())):
-        #    plt.text(name[i], size_list[i], str(int(size_list[i])), ha='center', va='bottom')
+    ax.set_title('Verification Runtime and Model Size')
+    ax2.set_ylabel('Size (byte)')
+    ax.set_ylabel('Runtime (s)')
+    plt.yscale("log")
 
-        plt.yscale("log")
+    ax.spines['top'].set_visible(False)
+    ax2.spines['top'].set_visible(False)
 
-        ax.set_title('Verification Runtime and Model Size')
-        ax2.set_ylabel('Size (byte)')
-        ax.set_ylabel('Runtime (s)')
-        plt.yscale("log")
-
-
-        ax.spines['top'].set_visible(False)
-        ax2.spines['top'].set_visible(False)
-
-
-
-        fig.legend(loc=(0.03,0.9), ncols=2)
-        #plt.rcParams["axes.linewidth"] = 2
-        [x.set_linewidth(2) for x in ax.spines.values()]
-        plt.savefig("verification_runtime_and_model_size.pdf", format="pdf", bbox_inches="tight")
-
-        plt.show()
+    fig.legend(loc=(0.03, 0.9), ncols=2)
+    # plt.rcParams["axes.linewidth"] = 2
+    [x.set_linewidth(2) for x in ax.spines.values()]
+    plt.savefig("verification_runtime_and_model_size.pdf", format="pdf", bbox_inches="tight")
 
 
 if __name__ == "__main__":

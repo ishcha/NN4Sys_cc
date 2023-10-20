@@ -2,53 +2,53 @@
 
 
 ### Train the model
-Models are put in /Models dir. Currently we provide training script for pensieve,
-decima and aurora.
+Models are put in /Models dir. We provide training script for pensieve,
+decima and aurora. 
 
-### create fixed input
+### Create fixed input
+Install necessary dependencies, then run
 ```
 cd Models
 python gen_upper.py
-```
-
-### create vnnlib(for abcrown) and txt(for marabou)
-- Pensieve
-```
-cd Benchmarks
-python shuyi_gen.py 1
 cd ..
 ```
-- Aurora
+### Create onnx models
+run 
 ```
-cd Benchmarks
-python aurora_gen.py 1
-cd ..
-```
-- Decima
-```
-cd Benchmarks
-python decima_gen.py 1
+cd Models
+python export.py
 cd ..
 ```
 
-### run abcrown
-- Pensieve
-- Aurora
-- Decima
+### Create specifications
+run
+```
+cd Benchmarks
+python generate_properties.py
+cd ..
+```
 
-### run marabou
-- Pensieve
-- Aurora
-- Decima
+### Verify with alpha-beta-crown
+run
+```
+cd Verification
+python abcrown_run.py
+cd ..
+```
 
-### parse abcrown result
-- Pensieve
-- Aurora
-- Decima
+### Verify with marabou
+run
+```
+cd Verification
+python marabou_run.py
+cd ..
+```
 
-### parse marabou result
-- Pensieve
-- Aurora
-- Decima
-
-### Draw graph
+### Draw figures
+run
+```
+cd Verification/figures
+python create_json.py
+python draw.py
+cd ../..
+```

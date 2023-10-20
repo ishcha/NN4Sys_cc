@@ -3,13 +3,13 @@
 
 Train Decima, run
 ```
-python3 train.py
+python train.py
 ```
 
 
 Test Decima, run
 ```
-python3 test.py
+python test.py
 ```
 
 Some example output are in `results/`
