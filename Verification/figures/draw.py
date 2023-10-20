@@ -120,23 +120,21 @@ def main():
         x_ticks.append(key)
 
     x = np.arange(len(species))  # the label locations
-    width = 0.25  # the width of the bars
-    fig, ax = plt.subplots(layout='constrained', figsize=(18, 6))
+    width = 0.4  # the width of the bars
+    fig, ax = plt.subplots(layout='constrained', figsize=(20, 5))
 
     plt.bar(x + width / 2, time_sets['abcrown'], width, label='alpha-beta-crown', edgecolor="black", linewidth=2)
 
     for i in range(len(x_ticks)):
-        plt.text(i + width / 2, time_sets['abcrown'][i], str(annotates['abcrown'][i]), ha='center', va='bottom',
-                 fontsize=8)
+        plt.text(i + width / 2, time_sets['abcrown'][i], str(annotates['abcrown'][i]), ha='center', va='bottom')
 
     ax.bar(x + width / 2 + width, time_sets['marabou'], width, label='marabou', edgecolor="black", linewidth=2)
     for i in range(len(x_ticks)):
         plt.text(i + width / 2 + width, max(time_sets['marabou'][i], 0.013), str(annotates['marabou'][i]),
-                 ha='center', va='bottom',
-                 fontsize=8)
+                 ha='center', va='bottom')
 
     # Add some text for labels, title and custom x-axis tick labels, etc.
-    ax.set_title('Verification Runtime')
+    #ax.set_title('Verification Runtime')
     ax.legend(loc='upper left', ncols=3)
     # ax.legend(bbox_to_anchor=(1, 0.5), loc=3, borderaxespad=0)
     ax.set_xticks(x + width, x_ticks)
@@ -185,7 +183,7 @@ def main():
 
     plt.yscale("log")
 
-    ax.set_title('Verification Runtime and Model Size')
+    #ax.set_title('Verification Runtime and Model Size')
     ax2.set_ylabel('Size (byte)')
     ax.set_ylabel('Runtime (s)')
     plt.yscale("log")
