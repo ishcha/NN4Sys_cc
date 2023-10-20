@@ -34,7 +34,7 @@ def main():
         os.makedirs(ONNX_DIR)
     for model_ptr in range(len(MODEL_TYPES)):
         for MODEL in MODEL_LIST:
-            NN_MODEL = f'./results/pcc_model_{MODEL}_10_best.pt'
+            NN_MODEL = f'./gym/results/pcc_model_{MODEL}_10_best.pt'
             MODEL_TYPE = MODEL_TYPES[model_ptr]
             save_path = ONNX_DIR + '/aurora_' + MODEL + '_' + MODEL_TYPE + ".onnx"
             print(save_path)
