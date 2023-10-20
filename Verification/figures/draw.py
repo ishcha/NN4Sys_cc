@@ -63,6 +63,8 @@ def main():
             color_ptr += 1
             bottom += weight_count
 
+        print(species)
+        print(weight_counts_marabou)
         color_ptr = 0
         bottom = np.zeros(number)
         for attribute, weight_count in weight_counts_marabou.items():
@@ -170,9 +172,8 @@ def main():
 
         for key in size_dic:
             runtime.append(run_time_dic[key])
-        print(runtime)
 
-        ax.bar(size_dic.keys(), runtime, color='b',linewidth=2,label='Verification Runtime')
+        l1=ax.bar(size_dic.keys(), runtime, label='Verification Runtime',lw=2, ec='black')
         plt.xticks(rotation=-25)
         name = list(size_dic.keys())
         for i in range(len(size_dic.keys())):
@@ -181,10 +182,10 @@ def main():
 
         ax2 = ax.twinx()
         size_list = list(size_dic.values())
-        print(size_list)
-        #ax2.plot(size_dic.keys(), size_dic.values(),label='Model Size',color='r')
-        for i in range(len(size_dic.keys())):
-            plt.text(name[i], size_list[i], str(int(size_list[i])), ha='center', va='bottom')
+
+        l2=ax2.plot(size_dic.keys(), size_dic.values(), '-o', label='Model Size', color='orange')
+        #for i in range(len(size_dic.keys())):
+        #    plt.text(name[i], size_list[i], str(int(size_list[i])), ha='center', va='bottom')
 
         plt.yscale("log")
 
@@ -192,13 +193,17 @@ def main():
         ax2.set_ylabel('Size (byte)')
         ax.set_ylabel('Runtime (s)')
         plt.yscale("log")
-        plt.rcParams["axes.linewidth"] = 2
+
 
         ax.spines['top'].set_visible(False)
         ax2.spines['top'].set_visible(False)
 
+
+
+        fig.legend(loc=(0.03,0.9), ncols=2)
+        #plt.rcParams["axes.linewidth"] = 2
+        [x.set_linewidth(2) for x in ax.spines.values()]
         plt.savefig("verification_runtime_and_model_size.pdf", format="pdf", bbox_inches="tight")
-        ax.legend(loc='upper left', ncols=3)
 
         plt.show()
 
