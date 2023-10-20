@@ -8,7 +8,7 @@ def main():
 
     parser.add_argument("--model", default="all",
                         choices=["pensieve", "decima", "lindex", "cardinality", "bloom_filter", "aurora", "all"],
-                        help="which model to verify pensieve, decima, lindex, cardinality, bloom_filter, aurora")
+                        help="which model to generate pensieve, decima, lindex, cardinality, bloom_filter, aurora")
 
     args = parser.parse_args()
     if args.model == "all":
