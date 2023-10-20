@@ -1,7 +1,7 @@
 import os
 import sys
-print(os.getcwd())
-os.chdir(os.getcwd())
+print(os.path.dirname())
+os.chdir(os.path.dirname())
 
 os.environ['MKL_THREADING_LAYER'] = 'GNU'
 
