@@ -129,12 +129,12 @@ def gene_spec():
         for i in chosen_index:
             if i == 0:
                 continue
-            index, _, model = parser(i)
+            index, range_ptr, model = parser(i)
             spec = SPEC_TYPES[spec_type_ptr]
 
             input_array = input_arrays[index]
 
-            input_array_perturbed, cannot_be_highest = add_range(input_array, spec)
+            input_array_perturbed, cannot_be_highest = add_range(input_array, spec,P_RANGE[range_ptr])
 
             vnn_path = f'{vnn_dir_path}/decima_{spec}_{total_num}.vnnlib'
             write_vnnlib(input_array_perturbed, int(cannot_be_highest), spec, vnn_path)

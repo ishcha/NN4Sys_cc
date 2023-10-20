@@ -20,8 +20,10 @@ if __name__ == "__main__":
 
     csv_data = []
     print("Generating Index specifications, this may take several minutes...")
+    index_main(seed)
     #csv_data.extend(index_main(seed))
     print("Generating cardinality specifications, this may take around ten minutes...")
+    card_main(seed)
     #csv_data.extend(card_main(seed))
     print(f"Successfully generate {len(csv_data)} files!")
     decima_main(seed)
