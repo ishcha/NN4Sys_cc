@@ -7,13 +7,15 @@ import model_benchmark as model
 
 MODEL_LIST = ['small', 'mid', 'big']
 MODEL_TYPES = ['simple', 'parallel', 'concat']
-#NN_MODEL = f'./gym/results/pcc_model_{i}_10_best.pt'
+# NN_MODEL = f'./gym/results/pcc_model_{i}_10_best.pt'
 ONNX_DIR = f'../../Benchmarks/onnx'
 
 import sys
-sys.path.insert(0,os.getcwd())
 
-def load_model(actor,NN_MODEL):
+sys.path.insert(0, os.getcwd())
+
+
+def load_model(actor, NN_MODEL):
     para = torch.load(NN_MODEL, map_location=torch.device('cpu'))
     newpara = {}
     newpara['policy_net.0.weight'] = para["mlp_extractor.policy_net.0.weight"]
@@ -46,7 +48,7 @@ def main():
 
                 # load model
 
-                actor = load_model(actor,NN_MODEL)
+                actor = load_model(actor, NN_MODEL)
 
                 # run one time to test
                 myinput = torch.zeros(1, 30).to(torch.float32)
@@ -73,10 +75,8 @@ def main():
                 print(NN_MODEL)
                 actor = load_model(actor, NN_MODEL)
 
-
                 # run one time to test
-                myinput = torch.zeros(1,60)
-
+                myinput = torch.zeros(1, 60)
 
                 torch.onnx.export(actor,  # model being run
                                   myinput,  # model input (or a tuple for multiple inputs)
@@ -97,9 +97,7 @@ def main():
                 # load model
                 actor = load_model(actor, NN_MODEL)
 
-
                 # run one time to test
-
 
                 # run one time to test
                 myinput = torch.zeros(1, 151).to(torch.float32)
