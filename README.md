@@ -3,45 +3,12 @@
 
 ### Train the model
 Models are put in /Models dir. Currently we provide training script for pensieve,
-decima and aurora
-### create fixed input
-- Pensieve
-```
-cd Models/Pensieve
-python shuyi_gen_upper.py
-cd ../..
-```
-- Aurora
-```
-cd Models/Aurora
-python shuyi_gen_upper.py
-cd ../..
-```
-- Decima
-```
-cd Models/Decima
-python shuyi_gen_upper.py
-cd ../..
-```
+decima and aurora.
 
-### create onnx
-- Pensieve
+### create fixed input
 ```
-cd Models/Pensieve
-python export.py
-cd ../..
-```
-- Aurora
-```
-cd Models/Aurora
-python export.py
-cd ../..
-```
-- Decima
-```
-cd Models/Decima
-python export.py
-cd ../..
+cd Models
+python gen_upper.py
 ```
 
 ### create vnnlib(for abcrown) and txt(for marabou)
