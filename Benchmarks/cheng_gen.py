@@ -80,6 +80,7 @@ def write_txt(path, spec_set):
 
     with open(path, "w") as f:
         f.write("\n".join(contents))
+    print(f"[Done] generate {path}")
 
 def gen_spec(specs, difficulties, dif):
     assert len(difficulties) > 0

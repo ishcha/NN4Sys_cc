@@ -1,5 +1,9 @@
 # NN4Sys_Benchmark
 
+
+### Train the model
+Models are put in /Models dir. Currently we provide training script for pensieve,
+decima and aurora
 ### create fixed input
 - Pensieve
 ```

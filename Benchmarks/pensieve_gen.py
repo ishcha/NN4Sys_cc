@@ -203,8 +203,10 @@ def gene_spec():
                     input_array_perturbed = add_range(input_array, spec, p_range,dimension_number)
 
                     write_vnnlib(input_array_perturbed, spec, vnn_path)
+                    print(f"[Done] generate {vnn_path}")
                     txt_path = f'{marabou_txt_dir_path}/pensieve_{spec}_{dimension_number}_{range_ptr}_{total_num}.txt'
                     write_txt(input_array_perturbed, spec, txt_path)
+                    print(f"[Done] generate {txt_path}")
                     total_num += 1
                     # ground_truth, timeout = get_time(dic, i)
                     # if timeout == -1:

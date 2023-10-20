@@ -138,6 +138,7 @@ def gene_spec():
 
             vnn_path = f'{vnn_dir_path}/decima_{spec}_{total_num}.vnnlib'
             write_vnnlib(input_array_perturbed, int(cannot_be_highest), spec, vnn_path)
+            print(f"[Done] generate {vnn_path}")
 
             total_num += 1
         total_num = 0
@@ -146,6 +147,7 @@ def gene_spec():
         input_array_perturbed, cannot_be_highest = add_range(input_array, spec, P_RANGE[0])
         txt_path = f'{marabou_txt_dir_path}/decima_{spec}_{total_num}.txt'
         write_txt(input_array_perturbed, int(cannot_be_highest), spec, txt_path)
+        print(f"[Done] generate {txt_path}")
 
 
 def main(random_seed):

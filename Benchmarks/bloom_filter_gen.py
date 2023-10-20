@@ -43,7 +43,6 @@ def main(random_seed):
     all = np.array(df)
 
     indexes = np.random.randint(0, all.shape[0] - 1, size=SIZES[0])
-    print(indexes)
 
     total_num = 0
 
@@ -52,7 +51,9 @@ def main(random_seed):
         vnn_path = f'{vnn_dir_path}/bloom_filter_{total_num}.vnnlib'
         txt_path = f'{marabou_txt_dir_path}/bloom_filter_{total_num}.txt'
         write_vnnlib(x, vnn_path)
+        print(f"[Done] generate {vnn_path}")
         write_txt(x, txt_path)
+        print(f"[Done] generate {txt_path}")
         total_num += 1
 
 
