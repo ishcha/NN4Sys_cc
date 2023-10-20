@@ -12,9 +12,7 @@ def main():
 
     args = parser.parse_args()
     if args.model == "all":
-        os.system("cd Pensieve")
-        os.system("python shuyi_gen_upper.py")
-        os.system("cd ..")
+        os.system("cd Pensieve && python shuyi_gen_upper.py && cd ..")
 
         os.system("cd Aurora")
         os.system("python shuyi_gen_upper.py")
@@ -37,9 +35,7 @@ def main():
         os.system("cd ..")
 
     if args.model == "pensieve":
-        os.system("cd Pensieve")
-        os.system("python shuyi_gen_upper.py")
-        os.system("cd ..")
+        os.system("cd Pensieve && python shuyi_gen_upper.py && cd ..")
     if args.model == "decima":
         os.system("cd Decima")
         os.system("python shuyi_gen_upper.py")

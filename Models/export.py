@@ -37,9 +37,8 @@ def main():
         os.system("cd ..")
 
     if args.model == "pensieve":
-        os.system("cd Pensieve")
-        os.system("python export.py")
-        os.system("cd ..")
+        os.system("cd Pensieve && python export.py && cd ..")
+
     if args.model == "decima":
         os.system("cd Decima")
         os.system("python export.py")
