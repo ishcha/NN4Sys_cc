@@ -12,50 +12,30 @@ def main():
 
     args = parser.parse_args()
     if args.model == "all":
-        os.system("cd Pensieve && python shuyi_gen_upper.py && cd ..")
-
-        os.system("cd Aurora")
-        os.system("python shuyi_gen_upper.py")
-        os.system("cd ..")
-
-        os.system("cd Decima")
-        os.system("python shuyi_gen_upper.py")
-        os.system("cd ..")
-
-        os.system("cd Learned_index")
-        os.system("python shuyi_gen_upper.py")
-        os.system("cd ..")
-
-        os.system("cd Cardinality")
-        os.system("python shuyi_gen_upper.py")
-        os.system("cd ..")
-
-        os.system("cd Bloom_filter")
-        os.system("python shuyi_gen_upper.py")
-        os.system("cd ..")
+        os.system("cd Pensieve && python shuyi_gen_upper.py && cd .. "
+                  "&& cd Decima && python shuyi_gen_upper.py && cd .."
+                  "&& cd Learned_index && python shuyi_gen_upper.py && cd .."
+                  "&& cd Cardinality && python shuyi_gen_upper.py && cd .."
+                  "&& cd Bloom_filter && python shuyi_gen_upper.py && cd .."
+                  "&& cd Aurora && python shuyi_gen_upper.py && cd ..")
 
     if args.model == "pensieve":
         os.system("cd Pensieve && python shuyi_gen_upper.py && cd ..")
+
     if args.model == "decima":
-        os.system("cd Decima")
-        os.system("python shuyi_gen_upper.py")
-        os.system("cd ..")
+        os.system("cd Decima && python shuyi_gen_upper.py && cd ..")
+
     if args.model == "lindex":
-        os.system("cd Learned_index")
-        os.system("python shuyi_gen_upper.py")
-        os.system("cd ..")
+        os.system("cd Learned_index && python shuyi_gen_upper.py && cd ..")
+
     if args.model == "cardinality":
-        os.system("cd Cardinality")
-        os.system("python shuyi_gen_upper.py")
-        os.system("cd ..")
+        os.system("cd Cardinality && python shuyi_gen_upper.py && cd ..")
+
     if args.model == "bloom_filter":
-        os.system("cd Bloom_filter")
-        os.system("python shuyi_gen_upper.py")
-        os.system("cd ..")
+        os.system("cd Bloom_filter && python shuyi_gen_upper.py && cd ..")
+
     if args.model == "aurora":
-        os.system("cd Aurora")
-        os.system("python shuyi_gen_upper.py")
-        os.system("cd ..")
+        os.system("cd Aurora && python shuyi_gen_upper.py && cd ..")
 
 
 if __name__ == "__main__":

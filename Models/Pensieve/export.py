@@ -21,14 +21,15 @@ RANDOM_SEED = 42
 RAND_RANGE = 1000
 SUMMARY_DIR = './test_results'
 ONNX_DIR = f'../../Benchmarks/onnx'
-NN_MODELS = ['./results/nn_model_ep_BEST_small_linear_10600.pth','./results/nn_model_ep_BEST_mid_linear_7200.pth' ,'./results/nn_model_ep_BEST_big_linear_2400.pth' ]
+NN_MODELS = ['./results/nn_model_ep_BEST_small_linear_10600.pth', './results/nn_model_ep_BEST_mid_linear_7200.pth',
+             './results/nn_model_ep_BEST_big_linear_2400.pth']
 MODEL_LIST = ['small', 'mid', 'big']
 MODEL_TYPES = ['simple', 'parallel']
 VERIFIERS = ['abcrown', 'marabou']
 
 
 def create_bw(condition="good"):
-    bw = torch.zeros(1,8)
+    bw = torch.zeros(1, 8)
     for i in range(8):
         bw[0, i] = 10 + 10 * random.random()
     return bw
@@ -39,9 +40,10 @@ def create_video_size(smallest_size=7400):
     video_size[0, 0] = smallest_size + random.random() * 100
     return video_size
 
+
 def main():
     for verifier in VERIFIERS:
-        if verifier=='abcrown':
+        if verifier == 'abcrown':
             for MODEL_ptr in range(len(MODEL_LIST)):
                 for MODEL_TYPE in MODEL_TYPES:
                     MODEL = MODEL_LIST[MODEL_ptr]
@@ -61,7 +63,7 @@ def main():
                                                              learning_rate=ACTOR_LR_RATE)
 
                         # run one time to test
-                        myinput = torch.zeros(1, 6, 8) # Define your input here
+                        myinput = torch.zeros(1, 6, 8)  # Define your input here
                         torch_out = actor(myinput)
                         print(torch_out)
 
@@ -73,9 +75,11 @@ def main():
                         torch.onnx.export(actor,  # model being run
                                           myinput,  # model input (or a tuple for multiple inputs)
                                           save_path,  # where to save the model (can be a file or file-like object)
-                                          export_params=True,  # store the trained parameter weights inside the model file
+                                          export_params=True,
+                                          # store the trained parameter weights inside the model file
                                           opset_version=12,  # the ONNX version to export the model to
-                                          do_constant_folding=True,  # whether to execute constant folding for optimization
+                                          do_constant_folding=True,
+                                          # whether to execute constant folding for optimization
                                           input_names=['input', 'bw', 'video_size'],  # the model's input names
                                           output_names=['output'])  # the model's output names
 
@@ -98,32 +102,30 @@ def main():
                         actor = actor.eval()
                         myinput = data_generator.get_inputs_array(3, random_seed=1)
                         myinput = torch.from_numpy(myinput).to(torch.float32)
-                        #myinput2 = data_generator.get_inputs_array(2, random_seed=4)
-                        #myinput2 = torch.from_numpy(myinput2).to(torch.float32)
-                        #myinput = torch.concat([myinput, myinput2])
-                        #myinput = myinput.view(2, 12, 8)
+                        # myinput2 = data_generator.get_inputs_array(2, random_seed=4)
+                        # myinput2 = torch.from_numpy(myinput2).to(torch.float32)
+                        # myinput = torch.concat([myinput, myinput2])
+                        # myinput = myinput.view(2, 12, 8)
                         print(myinput)
                         torch_out = actor(myinput)
                         print("-----")
                         print(torch_out)
 
-
                         torch.onnx.export(actor,  # model being run
                                           myinput,  # model input (or a tuple for multiple inputs)
                                           save_path,  # where to save the model (can be a file or file-like object)
-                                          export_params=True,  # store the trained parameter weights inside the model file
+                                          export_params=True,
+                                          # store the trained parameter weights inside the model file
                                           opset_version=12,  # the ONNX version to export the model to
-                                          do_constant_folding=False,  # whether to execute constant folding for optimization
+                                          do_constant_folding=False,
+                                          # whether to execute constant folding for optimization
                                           input_names=['input', 'bw', 'video_size'],  # the model's input names
                                           output_names=['output'])  # the model's output names
-
-
-
 
                     # check the model
                     actor = onnx.load(save_path)
                     onnx.checker.check_model(actor)
-        if verifier=='marabou':
+        if verifier == 'marabou':
             for MODEL_ptr in [0]:
                 for MODEL_TYPE in MODEL_TYPES:
                     MODEL = MODEL_LIST[MODEL_ptr]
@@ -134,13 +136,13 @@ def main():
                     if MODEL_TYPE == 'simple':
                         if MODEL == 'mid':
                             actor = model.ActorNetwork_mid_marabou(state_dim=[S_INFO, S_LEN], action_dim=A_DIM,
-                                                           learning_rate=ACTOR_LR_RATE)
+                                                                   learning_rate=ACTOR_LR_RATE)
                         if MODEL == 'big':
                             actor = model.ActorNetwork_big_marabou(state_dim=[S_INFO, S_LEN], action_dim=A_DIM,
-                                                           learning_rate=ACTOR_LR_RATE)
+                                                                   learning_rate=ACTOR_LR_RATE)
                         if MODEL == 'small':
                             actor = model.ActorNetwork_small_marabou(state_dim=[S_INFO, S_LEN], action_dim=A_DIM,
-                                                             learning_rate=ACTOR_LR_RATE)
+                                                                     learning_rate=ACTOR_LR_RATE)
 
                         # run one time to test
                         myinput = torch.zeros(6, 8)  # Define your input here
@@ -165,11 +167,6 @@ def main():
 
                     if MODEL_TYPE == 'parallel':
                         continue
-
-
-
-
-
 
                     # check the model
                     actor = onnx.load(save_path)
