@@ -12,7 +12,11 @@ def main():
 
     args = parser.parse_args()
     if args.model == "all":
-        os.system("cd Pensieve && python export.py && cd .. && cd Decima && python export.py && cd ..")
+        os.system("cd Pensieve && python export.py && cd .. && cd Decima && python export.py && cd .."
+                  "&& cd Learned_index && python export.py && cd .."
+                  "&& cd Cardinality && python export.py && cd .."
+                  "&& cd Bloom_filter && python export.py && cd .."
+                  "&& cd Aurora && python export.py && cd ..")
 
     if args.model == "pensieve":
         os.system("cd Pensieve && python export.py && cd ..")
