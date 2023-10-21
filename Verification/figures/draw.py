@@ -118,6 +118,7 @@ def main():
     marabou_cannot_dic_for_sort = {}
 
     for key in datas:
+        print(key)
         if 'marabou' in datas[key]:
             marabou_can_dic_for_sort[key] = datas[key]['abcrown']['time']
         else:
