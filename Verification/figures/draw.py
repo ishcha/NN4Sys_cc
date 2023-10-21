@@ -182,7 +182,7 @@ def main():
 
     plt.xticks(rotation=-30)
     plt.yscale("log")
-    plt.savefig("verification_runtime_2.pdf", format="pdf")
+    plt.savefig("verification_runtime_2.pdf", format="pdf", bbox_inches="tight")
 
 
 
