@@ -20,7 +20,7 @@ def adjust_map(map):
     for key,value in map.items():
         length = len(value)
         delta = max_length-length
-        left = delta/2
+        left = int(delta/2)
         right=length-left
 
         left_space = ""
