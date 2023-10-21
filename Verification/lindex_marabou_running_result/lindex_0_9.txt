@@ -1,8 +1,8 @@
-InputQuery: /tmp/tmpfw_53le9
+InputQuery: /tmp/tmppcoqua0p
 Engine::processInputQuery: Input query (before preprocessing): 385 equations, 770 variables
 unsat
 Running Marabou with the following arguments:  []
-Time 0.6207833290100098
+Time 0.6290712356567383
 Property: ../Benchmarks/marabou_txt/lindex_0_9.txt
 Number of variables: 770
 Number of lower bounds: 386
