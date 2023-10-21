@@ -87,7 +87,7 @@ def main():
            'pensieve_small_3': "AdaptBitrate_small_dual_spec3",
            }
 
-    map = adjust_map(map)
+
 
     font = {'family': 'Times New Roman',
             'color': 'black',
@@ -183,7 +183,7 @@ def main():
     ax.spines['right'].set_visible(False)
     [x.set_linewidth(2) for x in ax.spines.values()]
 
-    plt.xticks(rotation=-30)
+    plt.xticks(rotation=-30,ha="right")
     plt.yscale("log")
     plt.savefig("verification_runtime_2.pdf", format="pdf", bbox_inches="tight")
 
