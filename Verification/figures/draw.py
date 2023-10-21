@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
-import matplotlib as mpl
+from adjustText import adjust_text
+import matplotlib
 
 import copy
 import os
@@ -10,6 +11,61 @@ import json
 
 
 def main():
+    map={'aurora_big_101':"CongestCtrl_large_spec101",
+         'aurora_big_102':"CongestCtrl_large_spec102",
+         'aurora_big_2':"CongestCtrl_large_spec2",
+        'aurora_big_3':"CongestCtrl_large_dual_spec3",
+        'aurora_big_4':"CongestCtrl_large_chain_spec4",
+
+        'aurora_mid_101':"CongestCtrl_mid_spec101",
+        'aurora_mid_102':"CongestCtrl_mid_spec102",
+        'aurora_mid_2':"CongestCtrl_mid_spec2",
+        'aurora_mid_3':"CongestCtrl_mid_dual_spec3",
+        'aurora_mid_4':"CongestCtrl_mid_chain_spec4",
+
+        'aurora_small_101':"CongestCtrl_small_spec101",
+        'aurora_small_102':"CongestCtrl_small_spec102",
+        'aurora_small_2':"CongestCtrl_small_spec2",
+        'aurora_small_3':"CongestCtrl_small_dual_spec3",
+        'aurora_small_4':"CongestCtrl_small_chain_spec4",
+        'bloom_filter':"BloomFilter",
+        'decima_mid_1':"LearnedSched_spec1",
+        'decima_mid_2':"LearnedSched_spec2",
+        'lindex_0':"LearnedIndex_spec1",
+        'lindex_1':"LearnedIndex_spec2",
+        'lindex_2':"LearnedIndex_spec3",
+        'lindex_deep_0':"LearnedIndex_large_spec1",
+        'lindex_deep_1':"LearnedIndex_large_spec2",
+        'lindex_deep_2':"LearnedIndex_large_spec3",
+
+        'mscn_128d':"CardEsti_small",
+        'mscn_128d_dual':"CardEsti_small_dual",
+        'mscn_2048d':"CardEsti_large",
+        'mscn_2048d_dual':"CardEsti_large_dual",
+
+        'pensieve_big_1':"AdaptBitrate_large_spec1",
+        'pensieve_big_2':"AdaptBitrate_large_spec2",
+        'pensieve_big_3':"AdaptBitrate_large_dual_spec3",
+        'pensieve_mid_1':"AdaptBitrate_mid_spec1",
+        'pensieve_mid_2':"AdaptBitrate_mid_spec2",
+        'pensieve_mid_3':"AdaptBitrate_mid_dual_spec3",
+        'pensieve_small_1':"AdaptBitrate_small_spec1",
+        'pensieve_small_2':"AdaptBitrate_small_spec2",
+        'pensieve_small_3':"AdaptBitrate_small_dual_spec3",
+    }
+    font = {'family': 'Times New Roman',
+            'color': 'black',
+            'weight': 'normal',
+            'size':17
+            }
+    font_text = {'family': 'Times New Roman',
+            'color': 'black',
+            'weight': 'normal',
+            'size':14
+            }
+    font_legend = {'family': 'Times New Roman','size':17
+                   }
+
     f = open('eval_results.json')
     content = f.read()
     datas = json.loads(content)
@@ -19,66 +75,6 @@ def main():
 
     for key in datas:
         species.append(key)
-
-    '''
-        if fig == 0:
-
-        number = len(species)
-        weight_counts_abcrown = {}
-        weight_counts_abcrown['safe'] = np.zeros(number)
-        weight_counts_abcrown['unsafe'] = np.zeros(number)
-        weight_counts_abcrown['timeout'] = np.zeros(number)
-
-        weight_counts_marabou = {}
-        weight_counts_marabou['safe'] = np.zeros(number)
-        weight_counts_marabou['unsafe'] = np.zeros(number)
-        weight_counts_marabou['timeout'] = np.zeros(number)
-
-        np_index = 0
-
-        for key in datas:
-            if 'marabou' in datas[key]:
-                weight_counts_marabou['safe'][np_index] = datas[key]['marabou']['safe']
-                weight_counts_marabou['unsafe'][np_index] = datas[key]['marabou']['unsafe']
-                weight_counts_marabou['timeout'][np_index] = datas[key]['marabou']['timeout']
-            if 'abcrown' in datas[key]:
-                weight_counts_abcrown['safe'][np_index] = datas[key]['abcrown']['safe']
-                weight_counts_abcrown['unsafe'][np_index] = datas[key]['abcrown']['unsafe']
-                weight_counts_abcrown['timeout'][np_index] = datas[key]['abcrown']['timeout']
-            np_index += 1
-
-        # first figure
-        fig, ax = plt.subplots()
-        bottom = np.zeros(number)
-
-        x = np.arange(len(species))  # the label locations
-        width = 0.25  # the width of the bars
-        multiplier = 1
-
-        colors = ['#45a776', '#3682be', '#f05326', '#eed777']
-
-        color_ptr = 0
-        for attribute, weight_count in weight_counts_abcrown.items():
-            p = ax.bar(species, weight_count, width, label='alpha-beta-crown:' + attribute, bottom=bottom)
-            color_ptr += 1
-            bottom += weight_count
-
-        print(species)
-        print(weight_counts_marabou)
-        color_ptr = 0
-        bottom = np.zeros(number)
-        for attribute, weight_count in weight_counts_marabou.items():
-            offset = width * multiplier
-            p = ax.bar(x + offset, weight_count, width, label='marabou:' + attribute, bottom=bottom)
-            color_ptr += 1
-            bottom += weight_count
-        # ax.legend(ncol=6, bbox_to_anchor=(0, 1), loc="upper left", fontsize='small' )
-        ax.legend(loc="upper right", fontsize='small')
-        ax.set_title("Number of Solved Cases")
-        ax.set_ylabel('Case Number')
-        plt.xticks(rotation=-25)
-        plt.show()
-    '''
 
     # second fiture: runtime
 
@@ -120,38 +116,49 @@ def main():
         x_ticks.append(key)
 
     x = np.arange(len(species))  # the label locations
-    width = 0.4  # the width of the bars
-    fig, ax = plt.subplots(layout='constrained', figsize=(20, 5))
+    width = 0.44  # the width of the bars
+    fig, ax = plt.subplots(layout='constrained', figsize=(16, 6))
 
-    plt.bar(x + width / 2, time_sets['abcrown'], width, label='alpha-beta-crown', edgecolor="black", linewidth=2)
+    plt.bar(x + width / 2, time_sets['abcrown'], width, label=chr(945)+chr(946)+'-CROWN', edgecolor="black", linewidth=2)
+    time_sets['abcrown'][-1] += 0 # adjust the text y position so that texts will not overlap
+    time_sets['abcrown'][-2] += 160  # adjust the text y position so that texts will not overlap
+    time_sets['abcrown'][-3] += 30  # adjust the text y position so that texts will not overlap
+    time_sets['abcrown'][17] += 1
+    time_sets['abcrown'][18] += 25
+    time_sets['abcrown'][14] += 1
+    [plt.text(i + width / 2, time_sets['abcrown'][i], str(annotates['abcrown'][i]), ha='center', va='bottom', fontdict=font_text) for i in range(len(x_ticks))]
 
-    for i in range(len(x_ticks)):
-        plt.text(i + width / 2, time_sets['abcrown'][i], str(annotates['abcrown'][i]), ha='center', va='bottom')
+    ax.bar(x + width / 2 + width, time_sets['marabou'], width, label='Marabou', edgecolor="black", linewidth=2)
+    time_sets['marabou'][17] += 15  # adjust the text y position so that texts will not overlap
+    [plt.text(i + width / 2 + width, max(time_sets['marabou'][i], 0.013), str(annotates['marabou'][i]), ha='center', va='bottom', fontdict=font_text) for i in range(len(x_ticks))]
 
-    ax.bar(x + width / 2 + width, time_sets['marabou'], width, label='marabou', edgecolor="black", linewidth=2)
-    for i in range(len(x_ticks)):
-        plt.text(i + width / 2 + width, max(time_sets['marabou'][i], 0.013), str(annotates['marabou'][i]),
-                 ha='center', va='bottom')
-
-    # Add some text for labels, title and custom x-axis tick labels, etc.
-    #ax.set_title('Verification Runtime')
-    ax.legend(loc='upper left', ncols=3)
-    # ax.legend(bbox_to_anchor=(1, 0.5), loc=3, borderaxespad=0)
-    ax.set_xticks(x + width, x_ticks)
-    ax.set_ylabel('Time (s)')
+    plt.xlim(left=-0.5, right=37)
+    ax.legend(loc='upper left', ncols=3, prop=font_legend)
+    ax.set_xticks(x + width, [map[i] for i in x_ticks], fontdict=font)
+    ax.set_ylabel('Average Runtime (s)', fontdict=font)
+    plt.tick_params(labelsize=17, labelfontfamily='Times New Roman')
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     [x.set_linewidth(2) for x in ax.spines.values()]
 
-    plt.xticks(rotation=-25)
+    plt.xticks(rotation=-90)
     plt.yscale("log")
-    plt.savefig("verification_runtime.pdf", format="pdf", bbox_inches="tight")
+    plt.savefig("verification_runtime_2.pdf", format="pdf", bbox_inches="tight")
+
+
+
+
+
+
+
+
+
+
 
     # figure 3
-    fig, ax = plt.subplots(layout='constrained', figsize=(18, 6))
+    fig, ax = plt.subplots(layout='constrained', figsize=(16, 6))
     sizes = []
     runtime = []
-    labels = []
 
     size_dic = {}
     run_time_dic = {}
@@ -168,33 +175,42 @@ def main():
     for key in size_dic:
         runtime.append(run_time_dic[key])
 
-    l1 = ax.bar(size_dic.keys(), runtime, label='Verification Runtime', lw=2, ec='black')
-    plt.xticks(rotation=-25)
-    name = list(size_dic.keys())
+    width = 0.7
+
+    names = [map[i] for i in size_dic.keys()]
+    l1 = ax.bar(names, runtime, width=width, label='Verification Runtime', lw=2, ec='black')
+    plt.xticks(rotation=-90, fontproperties='Times New Roman',size=17)
+    position = copy.deepcopy(runtime)
+    position[10] += 0.4  # adjust the text y position so that texts will not overlap
+    position[12] += 0.3  # adjust the text y position so that texts will not overlap
+    position[13] += 0.4  # adjust the text y position so that texts will not overlap
     for i in range(len(size_dic.keys())):
-        plt.text(name[i], runtime[i], str(int(100 * runtime[i]) / 100.0), ha='center', va='bottom')
+        texts = plt.text(names[i], position[i], str(int(100 * runtime[i]) / 100.0), ha='center', va='bottom',fontdict=font_text)
+    plt.tick_params(labelsize=17, labelfontfamily='Times New Roman')
+
+
 
     ax2 = ax.twinx()
-    size_list = list(size_dic.values())
+    l2 = ax2.plot(names, size_dic.values(), '-o', label='Model Size', color='orange')
 
-    l2 = ax2.plot(size_dic.keys(), size_dic.values(), '-o', label='Model Size', color='orange')
-    # for i in range(len(size_dic.keys())):
-    #    plt.text(name[i], size_list[i], str(int(size_list[i])), ha='center', va='bottom')
 
+
+    plt.xlim(left=-1, right=24)
+
+    # ax.set_title('Verification Runtime and Model Size')
+    ax2.set_ylabel('Size (byte)', fontdict=font)
+    ax.set_ylabel('Average Runtime (s)', fontdict=font)
     plt.yscale("log")
-
-    #ax.set_title('Verification Runtime and Model Size')
-    ax2.set_ylabel('Size (byte)')
-    ax.set_ylabel('Runtime (s)')
-    plt.yscale("log")
+    plt.tick_params(labelsize=17, labelfontfamily='Times New Roman')
 
     ax.spines['top'].set_visible(False)
     ax2.spines['top'].set_visible(False)
 
-    fig.legend(loc=(0.03, 0.9), ncols=2)
+    #fig.legend(loc=(0.03, 0.9), ncols=2)
     # plt.rcParams["axes.linewidth"] = 2
+    fig.legend(loc=(0.04, 0.9), ncols=3, prop=font_legend)
     [x.set_linewidth(2) for x in ax.spines.values()]
-    plt.savefig("verification_runtime_and_model_size.pdf", format="pdf", bbox_inches="tight")
+    plt.savefig("verification_runtime_and_model_size_2.pdf", format="pdf", bbox_inches="tight")
 
 
 if __name__ == "__main__":
