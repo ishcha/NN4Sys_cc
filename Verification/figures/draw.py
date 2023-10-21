@@ -25,20 +25,15 @@ def adjust_map(map):
         left = int(delta / 2)
         right = delta - left
 
-
         left_space = ""
         for i in range(left):
             left_space = left_space + " "
         right_space = ""
 
         for i in range(right):
-
-
             right_space = right_space + " "
 
         map[key] = right_space + value + left_space
-
-
 
     return map
 
@@ -49,6 +44,7 @@ def main():
            'aurora_big_2': "CongestCtrl_large_spec2",
            'aurora_big_3': "CongestCtrl_large_dual_spec3",
            'aurora_big_4': "CongestCtrl_large_chain_spec4",
+
            'aurora_mid_101': "CongestCtrl_mid_spec101",
            'aurora_mid_102': "CongestCtrl_mid_spec102",
            'aurora_mid_2': "CongestCtrl_mid_spec2",
@@ -60,6 +56,7 @@ def main():
            'aurora_small_2': "CongestCtrl_small_spec2",
            'aurora_small_3': "CongestCtrl_small_dual_spec3",
            'aurora_small_4': "CongestCtrl_small_chain_spec4",
+
            'bloom_filter': "BloomFilter",
            'decima_mid_1': "LearnedSched_spec1",
            'decima_mid_2': "LearnedSched_spec2",
@@ -85,8 +82,6 @@ def main():
            'pensieve_small_3': "AdaptBitrate_small_dual_spec3",
            }
 
-
-
     font = {'family': 'Times New Roman',
             'color': 'black',
             'weight': 'normal',
@@ -108,6 +103,22 @@ def main():
 
     for key in datas:
         species.append(key)
+
+    # first table
+    content1 = "\mr{{2}}*{{\\ttt{{{%s}}}}} & \\ab & %s & %s & %s \\\\ \n                                & \ma & %s & %s & %s \\\\"
+    content2 = "\mr{{1}}*{{\\ttt{{{%s}}}}} & \\ab & %s & %s & %s \\\\ \n                                & \ma & - & - & - \\\\"
+
+    for key in datas:
+        string = map[key]
+        string = string.replace("_", "\\_")
+        if "marabou" in datas[key].keys():
+            map_ab = datas[key]["abcrown"]
+            map_ma = datas[key]["marabou"]
+            print(content1 % (string,str(map_ab["safe"]), str(map_ab["unsafe"]), str(map_ab["timeout"]),str(
+                map_ma["safe"]), str(map_ma["unsafe"]), str(map_ma["timeout"])))
+        else:
+            map_ab = datas[key]["abcrown"]
+            print(content2 % (string, str(map_ab["safe"]),str(map_ab["unsafe"]),str(map_ab["timeout"])))
 
     # second fiture: runtime
 
@@ -179,12 +190,9 @@ def main():
     ax.spines['right'].set_visible(False)
     [x.set_linewidth(2) for x in ax.spines.values()]
 
-    plt.xticks(rotation=-30,ha="left",rotation_mode="anchor")
+    plt.xticks(rotation=-30, ha="left", rotation_mode="anchor")
     plt.yscale("log")
     plt.savefig("verification_runtime_2.pdf", format="pdf", bbox_inches="tight")
-
-
-
 
     # figure 3
     fig, ax = plt.subplots(layout='constrained', figsize=(16, 4.5))
@@ -210,7 +218,7 @@ def main():
 
     names = [map[i] for i in size_dic.keys()]
     l1 = ax.bar(names, runtime, width=width, label='Verification Runtime', lw=2, ec='black')
-    plt.xticks(rotation=-30, ha="left",  rotation_mode="anchor", fontproperties='Times New Roman', size=15)
+    plt.xticks(rotation=-30, ha="left", rotation_mode="anchor", fontproperties='Times New Roman', size=15)
     position = copy.deepcopy(runtime)
     position[10] += 0.4  # adjust the text y position so that texts will not overlap
     position[12] += 0.3  # adjust the text y position so that texts will not overlap

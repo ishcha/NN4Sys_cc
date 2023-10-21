@@ -55,8 +55,7 @@ spec_to_model_map = {"aurora_big_101": "aurora_big_simple.onnx",
 
 
 def calculate_avg_time(dic1, dic2, dic3, times1, times2, time3):
-    print(dic1)
-    print(dic2)
+
 
     ret = {}
     for key in times2:
@@ -86,8 +85,7 @@ def calculate_avg_time(dic1, dic2, dic3, times1, times2, time3):
             timeout = 10 - dic1[key]
             total_time = timeout * 180 + times1[key]
             ret[key] = total_time / 10
-    print(ret)
-    print("====")
+
     return ret
 
 
@@ -191,7 +189,7 @@ def main():
 
             avg_time = calculate_avg_time(sat_dic_copy, unsat_dic_copy, timeout_dic_copy, sat_time, unsat_time,
                                           timeout_time)
-            print(avg_time)
+
 
             for key in avg_time:
                 if not key in datas:
@@ -209,9 +207,7 @@ def main():
                     datas[key][verifier]['timeout'] = timeout_dic[key]
                 else:
                     datas[key][verifier]['timeout'] = 10 - datas[key][verifier]['unsafe'] - datas[key][verifier]['safe']
-                if "lindex" in key:
-                    print(datas[key])
-                    print(datas)
+
 
 
             for key in datas:
@@ -220,6 +216,9 @@ def main():
                     datas[key]["size"] = size
                 except:
                     continue
+    for key in datas.keys():
+        print(key)
+        print(datas[key])
     datas = dict(sorted(datas.items()))
 
     datas = json.dumps(datas)
