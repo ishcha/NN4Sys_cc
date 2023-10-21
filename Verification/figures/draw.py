@@ -24,18 +24,20 @@ def adjust_map(map):
 
         left = int(delta / 2)
         right = delta - left
-        print("---")
-        print(left+right+length)
 
 
         left_space = ""
         for i in range(left):
             left_space = left_space + " "
-        rigth_spece = ""
+        right_space = ""
+
         for i in range(right):
-            right_space = rigth_spece + " "
-        map[key] = left_space + value + right_space
-        print(len(map[key]))
+
+
+            right_space = right_space + " "
+
+        map[key] = right_space + value + left_space
+
 
 
     print(map)
