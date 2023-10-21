@@ -40,8 +40,6 @@ def adjust_map(map):
 
 
 
-    print(map)
-
     return map
 
 
@@ -92,15 +90,14 @@ def main():
     font = {'family': 'Times New Roman',
             'color': 'black',
             'weight': 'normal',
-            'size': 14
+            'size': 15
             }
     font_text = {'family': 'Times New Roman',
                  'color': 'black',
                  'weight': 'normal',
                  'size': 14
                  }
-    font_legend = {'family': 'Times New Roman', 'size': 14
-                   }
+    font_legend = {'family': 'Times New Roman', 'size': 15}
 
     f = open('eval_results.json')
     content = f.read()
@@ -118,7 +115,6 @@ def main():
     marabou_cannot_dic_for_sort = {}
 
     for key in datas:
-        print(key)
         if 'marabou' in datas[key]:
             marabou_can_dic_for_sort[key] = datas[key]['abcrown']['time']
         else:
@@ -154,7 +150,7 @@ def main():
 
     x = np.arange(len(species))  # the label locations
     width = 0.40  # the width of the bars
-    fig, ax = plt.subplots(layout='constrained', figsize=(16, 6))
+    fig, ax = plt.subplots(layout='constrained', figsize=(16, 4.5))
 
     plt.bar(x + width / 2, time_sets['abcrown'], width, label=chr(945) + chr(946) + '-CROWN', edgecolor="black",
             linewidth=2)
@@ -178,17 +174,20 @@ def main():
 
     ax.set_ylabel('Average Runtime (s)', fontdict=font)
 
-    plt.tick_params(labelsize=14, labelfontfamily='Times New Roman')
+    plt.tick_params(labelsize=15, labelfontfamily='Times New Roman')
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     [x.set_linewidth(2) for x in ax.spines.values()]
 
-    plt.xticks(rotation=-30,ha="right")
+    plt.xticks(rotation=-30,ha="left",rotation_mode="anchor")
     plt.yscale("log")
     plt.savefig("verification_runtime_2.pdf", format="pdf", bbox_inches="tight")
 
+
+
+
     # figure 3
-    fig, ax = plt.subplots(layout='constrained', figsize=(16, 6))
+    fig, ax = plt.subplots(layout='constrained', figsize=(16, 4.5))
     sizes = []
     runtime = []
 
@@ -211,7 +210,7 @@ def main():
 
     names = [map[i] for i in size_dic.keys()]
     l1 = ax.bar(names, runtime, width=width, label='Verification Runtime', lw=2, ec='black')
-    plt.xticks(rotation=-30, fontproperties='Times New Roman', size=15)
+    plt.xticks(rotation=-30, ha="left",  rotation_mode="anchor", fontproperties='Times New Roman', size=15)
     position = copy.deepcopy(runtime)
     position[10] += 0.4  # adjust the text y position so that texts will not overlap
     position[12] += 0.3  # adjust the text y position so that texts will not overlap
@@ -219,24 +218,21 @@ def main():
     for i in range(len(size_dic.keys())):
         texts = plt.text(names[i], position[i], str(int(100 * runtime[i]) / 100.0), ha='center', va='bottom',
                          fontdict=font_text)
-    plt.tick_params(labelsize=16, labelfontfamily='Times New Roman')
+    plt.tick_params(labelsize=15, labelfontfamily='Times New Roman')
 
     ax2 = ax.twinx()
-    l2 = ax2.plot(names, size_dic.values(), '-o', label='Model Size', color='orange')
-
+    ax2.plot(names, size_dic.values(), '-o', label='Model Size', color='orange')
     plt.xlim(left=-1, right=24)
 
     # ax.set_title('Verification Runtime and Model Size')
     ax2.set_ylabel('Size (byte)', fontdict=font)
     ax.set_ylabel('Average Runtime (s)', fontdict=font)
     plt.yscale("log")
-    plt.tick_params(labelsize=16, labelfontfamily='Times New Roman')
+    plt.tick_params(labelsize=15, labelfontfamily='Times New Roman')
 
     ax.spines['top'].set_visible(False)
     ax2.spines['top'].set_visible(False)
 
-    # fig.legend(loc=(0.03, 0.9), ncols=2)
-    # plt.rcParams["axes.linewidth"] = 2
     fig.legend(loc=(0.04, 0.9), ncols=3, prop=font_legend)
     [x.set_linewidth(2) for x in ax.spines.values()]
     plt.savefig("verification_runtime_and_model_size_2.pdf", format="pdf", bbox_inches="tight")
