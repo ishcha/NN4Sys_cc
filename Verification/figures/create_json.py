@@ -23,7 +23,7 @@ spec_to_model_map = {"aurora_big_101": "aurora_big_simple.onnx",
                      "aurora_mid_102": "aurora_mid_simple.onnx",
                      "aurora_mid_2": "aurora_mid_simple.onnx",
                      "aurora_mid_3": "aurora_mid_parallel.onnx",
-                     "aurora_mid_4": "aurora_small_concat.onnx",
+                     "aurora_mid_4": "aurora_mid_concat.onnx",
 
                      "decima_mid_1": "decima_mid_simple.onnx",
                      "decima_mid_2": "decima_mid_simple.onnx",
@@ -55,7 +55,9 @@ spec_to_model_map = {"aurora_big_101": "aurora_big_simple.onnx",
 
 
 def calculate_avg_time(dic1, dic2, dic3, times1, times2, time3):
-    print(times1)
+    print(dic1)
+    print(dic2)
+
     ret = {}
     for key in times2:
         if key in times1:
@@ -77,7 +79,6 @@ def calculate_avg_time(dic1, dic2, dic3, times1, times2, time3):
             dic1[key] += dic3[key]
         else:
             dic1[key] = dic3[key]
-    print(times1)
     for key in dic1:
         if dic1[key] == 10:
             ret[key] = times1[key] / dic1[key]
@@ -85,6 +86,8 @@ def calculate_avg_time(dic1, dic2, dic3, times1, times2, time3):
             timeout = 10 - dic1[key]
             total_time = timeout * 180 + times1[key]
             ret[key] = total_time / 10
+    print(ret)
+    print("====")
     return ret
 
 
@@ -108,6 +111,7 @@ def main():
                 continue
             files = os.listdir(dir)
 
+
             unsat = 0
             sat = 0
             sat_dic = {}
@@ -118,6 +122,7 @@ def main():
             timeout_time = {}
 
             for f in files:
+
                 file = f'{dir}/' + f
                 if file[-3:] != 'txt':
                     continue
@@ -125,8 +130,7 @@ def main():
                 if 'pensieve' in index or 'aurora' in index:
                     index = '_'.join(f.split('_')[:-3])
 
-                if index == "decima_mid_1":
-                    print(f)
+
 
                 timeout = -1
 
@@ -152,10 +156,7 @@ def main():
                     if timeout > 180:
                         result = "timeout"
                         timeout = 180
-                    # datas[index][verifier]['timeset'].append(timeout)
 
-                    # if timeout == -1:
-                    #    continue
 
                     timeout = float(timeout)
                     if result == 'unsat':
@@ -187,8 +188,10 @@ def main():
             unsat_dic = dict(sorted(unsat_dic.items()))
             unsat_dic_copy = copy.deepcopy(unsat_dic)
             timeout_dic_copy = copy.deepcopy(timeout_dic)
+
             avg_time = calculate_avg_time(sat_dic_copy, unsat_dic_copy, timeout_dic_copy, sat_time, unsat_time,
                                           timeout_time)
+            print(avg_time)
 
             for key in avg_time:
                 if not key in datas:
@@ -197,6 +200,7 @@ def main():
                     datas[key][verifier] = init_dic()
 
                 datas[key][verifier]['time'] = avg_time[key]
+
                 if key in sat_dic:
                     datas[key][verifier]['unsafe'] = sat_dic[key]
                 if key in unsat_dic:
@@ -205,17 +209,10 @@ def main():
                     datas[key][verifier]['timeout'] = timeout_dic[key]
                 else:
                     datas[key][verifier]['timeout'] = 10 - datas[key][verifier]['unsafe'] - datas[key][verifier]['safe']
-                # for i in range(10 - datas[key][verifier]['unsafe'] - datas[key][verifier]['safe']):
-                #    datas[key][verifier]['timeset'].append(180)
-            '''
-                            for key in datas:
-                for v in datas[key]:
-                    if v=='size':
-                        continue
-                    if (len(datas[key][v]['timeset']) < 10):
-                        for i in range(10 - len(datas[key][v]['timeset'])):
-                            datas[key][v]['timeset'].append(180)
-            '''
+                if "lindex" in key:
+                    print(datas[key])
+                    print(datas)
+
 
             for key in datas:
                 try:
@@ -223,7 +220,6 @@ def main():
                     datas[key]["size"] = size
                 except:
                     continue
-
     datas = dict(sorted(datas.items()))
 
     datas = json.dumps(datas)
