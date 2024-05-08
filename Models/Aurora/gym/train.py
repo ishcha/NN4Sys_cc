@@ -14,10 +14,11 @@
 
 import gym
 import network_sim
+import network_sim111
 import torch
 import random
 import numpy as np
-from model import CustomNetwork_mid, CustomNetwork_hard, CustomNetwork_easy
+from model import CustomNetwork_mid, CustomNetwork_big, CustomNetwork_small
 
 from stable_baselines3 import PPO
 from stable_baselines3.common.policies import ActorCriticPolicy
@@ -44,13 +45,36 @@ class MyMlpPolicy(ActorCriticPolicy):
         self.mlp_extractor = CustomNetwork_small()
 
 
+
+
+env = gym.make('PccNs-v0')
+gamma = arg_or_default("--gamma", default=0.99)
+model = PPO(MyMlpPolicy, env, seed=20, learning_rate=0.0001, verbose=1, batch_size=2048, n_steps=8192, gamma=gamma)
+
+
+
+
+
+
+
+
 env = gym.make('PccNs-v0')
 
 gamma = arg_or_default("--gamma", default=0.99)
 print("gamma = %f" % gamma)
 model = PPO(MyMlpPolicy, env, seed=20, learning_rate=0.0001, verbose=1, batch_size=2048, n_steps=8192, gamma=gamma)
 
+
+
+
 MODEL_PATH = f"./results/pcc_model_small_{K}_%d.pt"
-for i in range(0, 6):
+for i in range(0, 10):
     model.learn(total_timesteps=(1600 * 410))
+
     torch.save(model.policy.state_dict(), MODEL_PATH % i)
+
+
+
+
+
+

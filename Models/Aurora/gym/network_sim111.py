@@ -25,10 +25,6 @@ import os
 import sys
 import inspect
 
-random.seed(0)
-np.random.seed(0)
-
-
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
@@ -60,148 +56,7 @@ MAX_LATENCY_NOISE = 1.1
 
 USE_CWND = False
 
-BANDWIDTH_Mbps = 0.57 * 1000
-ONE_WAY_DELAY_ms = 14 / 1000
-PACKET_SIZE_BYTES = 1500  # Standard Ethernet packet size
-LOSS_RATE = 0.000477  # Packet loss rate
-QUEUE_SIZE = 14  # Number of packets
 
-TRACE_LENGTH = 121
-
-
-num_to_trace_map = {
-    "1": "0.57mbps-poisson.trace",
-    "2": "2.64mbps-poisson.trace",
-    "3": "3.04mbps-poisson.trace",
-    "4": "100.42mbps.trace",
-    "5": "77.72mbps.trace",
-    "6": "114.68mbps.trace",
-    "7": "12mbps.trace",
-    "8": "60mbps.trace",
-    "9": "108mbps.trace",
-    "10": "12mbps.trace",
-    "11": "60mbps.trace",
-    "12": "108mbps.trace",
-    "13": "0.12mbps.trace",
-    "14": "10-every-200.trace",
-    "15": "12mbps.trace",
-    "16": "12mbps.trace",
-    "17": "12mbps.trace",
-    "18": "12mbps.trace"
-}
-
-
-
-
-trace_list = list(num_to_trace_map.keys())
-# Calculate 75% of the list size for the training set
-train_size = int(0.75 * len(trace_list))
-
-# Sample 75% of the elements for the training set
-train_list = random.sample(trace_list, train_size)
-
-# Get the test set by taking elements not in the training set
-test_list = [item for item in trace_list if item not in train_list]
-
-
-
-
-num_to_delay = {
-    "1": 28,
-    "2": 88,
-    "3": 130,
-    "4": 27,
-    "5": 51,
-    "6": 45,
-    "7": 10,
-    "8": 10,
-    "9": 10,
-    "10": 50,
-    "11": 50,
-    "12": 50,
-    "13": 10,
-    "14": 10,
-    "15": 30,
-    "16": 30,
-    "17": 30,
-    "18": 30
-}
-
-num_to_loss = {
-    "1": 0.0477,
-    "2": 0,
-    "3": 0,
-    "4": 0,
-    "5": 0,
-    "6": 0,
-    "7": 0,
-    "8": 0,
-    "9": 0,
-    "10": 0,
-    "11": 0,
-    "12": 0,
-    "13": 0,
-    "14": 0,
-    "15": 0,
-    "16": 0,
-    "17": 0,
-    "18": 0,
-}
-
-num_to_queue_size = {
-    "1": 14,
-    "2": 130,
-    "3": 426,
-    "4": 173,
-    "5": 94,
-    "6": 450,
-    "7": 1,
-    "8": 1,
-    "9": 1,
-    "10": 1,
-    "11": 1,
-    "12": 1,
-    "13": 10000,
-    "14": 10000,
-    "15": 6,
-    "16": 20,
-    "17": 30,
-    "18": 60
-}
-
-
-class Link():
-    def __init__(self, bandwidth, delay, queue_size, loss_rate):
-        self.bw = bandwidth  # Bandwidth in Mbps
-        self.dl = delay  # One-way delay in ms
-        self.lr = loss_rate  # Loss rate as a decimal
-        self.queue = []  # Queue to hold packets
-        print("bandwidth", bandwidth)
-
-        self.max_queue_delay = (queue_size * PACKET_SIZE_BYTES * 8) / (bandwidth * 1e6)  # Maximum delay due to queue
-
-    def packet_enters_link(self, event_time):
-        if random.random() < self.lr:
-            return False
-        if len(self.queue) >= QUEUE_SIZE:
-            return False  # Drop the packet if the queue is full
-        self.queue.append(event_time)  # Simulate packet entering the queue
-        return True
-
-    def update_queue(self, current_time):
-        while self.queue and current_time - self.queue[0] > self.max_queue_delay:
-            self.queue.pop(0)  # Remove packets that have 'left' the queue
-
-    def get_cur_latency(self, current_time):
-        self.update_queue(current_time)
-        return self.dl + (len(self.queue) * PACKET_SIZE_BYTES * 8) / (self.bw * 1e6)
-
-    def reset(self):
-        self.queue_delay = 0.0
-        self.queue_delay_update_time = 0.0
-
-
-'''
 class Link():
 
     def __init__(self, bandwidth, delay, queue_size, loss_rate):
@@ -224,12 +79,12 @@ class Link():
         self.queue_delay = self.get_cur_queue_delay(event_time)
         self.queue_delay_update_time = event_time
         extra_delay = 1.0 / self.bw
-        #print("Extra delay: %f, Current delay: %f, Max delay: %f" % (extra_delay, self.queue_delay, self.max_queue_delay))
+        # print("Extra delay: %f, Current delay: %f, Max delay: %f" % (extra_delay, self.queue_delay, self.max_queue_delay))
         if extra_delay + self.queue_delay > self.max_queue_delay:
-            #print("\tDrop!")
+            # print("\tDrop!")
             return False
         self.queue_delay += extra_delay
-        #print("\tNew delay = %f" % self.queue_delay)
+        # print("\tNew delay = %f" % self.queue_delay)
         return True
 
     def print_debug(self):
@@ -243,8 +98,6 @@ class Link():
     def reset(self):
         self.queue_delay = 0.0
         self.queue_delay_update_time = 0.0
-
-'''
 
 
 class Network():
@@ -334,7 +187,12 @@ class Network():
         throughput = sender_mi.get("recv rate")
         latency = sender_mi.get("avg latency")
         loss = sender_mi.get("loss ratio")
+        bw_cutoff = self.links[0].bw * 0.8
+        lat_cutoff = 2.0 * self.links[0].dl * 1.5
+        loss_cutoff = 2.0 * self.links[0].lr * 1.5
 
+        # print("========================")
+        # print(throughput, BYTES_PER_PACKET, latency, loss)
         reward = (10.0 * throughput / (8 * BYTES_PER_PACKET) - 1e3 * latency - 2e3 * loss)
 
         return reward * REWARD_SCALE
@@ -481,7 +339,6 @@ class Sender():
 class SimulatedNetworkEnv(gym.Env):
 
     def __init__(self,
-                 train=True,
                  history_len=arg_or_default("--history-len", default=K),
                  features=arg_or_default("--input-features",
                                          default="sent latency inflation,"
@@ -489,8 +346,6 @@ class SimulatedNetworkEnv(gym.Env):
                                                  + "send ratio")):
         self.viewer = None
         self.rand = None
-
-        self.train = True
 
         self.min_bw, self.max_bw = (100, 500)
         self.min_lat, self.max_lat = (0.05, 0.5)
@@ -500,9 +355,6 @@ class SimulatedNetworkEnv(gym.Env):
         print("History length: %d" % history_len)
         self.features = features.split(",")
         print("Features: %s" % str(self.features))
-
-        self.trace_data = self.load_trace_data()
-        self.current_trace_index = 0
 
         self.links = None
         self.senders = None
@@ -529,6 +381,8 @@ class SimulatedNetworkEnv(gym.Env):
         use_only_scale_free = True
         single_obs_min_vec = sender_obs.get_min_obs_vector(self.features)
         single_obs_max_vec = sender_obs.get_max_obs_vector(self.features)
+        # print("==============")
+        # print(single_obs_min_vec, single_obs_max_vec)
         self.observation_space = spaces.Box(np.tile(single_obs_min_vec, self.history_len),
                                             np.tile(single_obs_max_vec, self.history_len),
                                             dtype=np.float32)
@@ -542,46 +396,6 @@ class SimulatedNetworkEnv(gym.Env):
     def seed(self, seed=None):
         self.rand, seed = seeding.np_random(seed)
         return [seed]
-
-    def load_trace_data(self):
-        trace_data = []
-        if self.train:
-            use_list = train_list
-        else:
-            use_list = test_list
-        for train_file in use_list:
-            file_name = f"pantheon-traces/bandwidth_{num_to_trace_map[train_file]}"
-
-            with open(file_name, 'r') as file:
-                lines = file.readlines()
-
-            num_lines = len(lines)
-            full_repeats = TRACE_LENGTH // num_lines
-            partial_repeat_count = TRACE_LENGTH % num_lines
-
-            for _ in range(full_repeats):
-                for line in lines:
-                    parts = line.strip().split()
-                    bw = float(parts[0])
-                    if bw==0:
-                        continue
-                    trace_data.append((bw,
-                                       num_to_delay[train_file],
-                                       num_to_queue_size[train_file],
-                                       num_to_loss[train_file]))
-
-                # Add the partial repeats (if any)
-            for line in lines[:partial_repeat_count]:
-                parts = line.strip().split()
-                bw = float(parts[0])
-                if bw == 0:
-                    continue
-                trace_data.append((bw,
-                                   num_to_delay[train_file],
-                                   num_to_queue_size[train_file],
-                                   num_to_loss[train_file]))
-
-        return trace_data
 
     def _get_all_sender_obs(self):
         sender_obs = self.senders[0].get_obs()
@@ -604,7 +418,6 @@ class SimulatedNetworkEnv(gym.Env):
             sender.record_run()
         self.steps_taken += 1
         sender_obs = self._get_all_sender_obs()
-
         sender_mi = self.senders[0].get_run_data()
         event = {}
         event["Name"] = "Step"
@@ -626,7 +439,6 @@ class SimulatedNetworkEnv(gym.Env):
         # print("Sender obs: %s" % sender_obs)
 
         should_stop = False
-
         self.reward_sum += reward
         return sender_obs, reward, (self.steps_taken >= self.max_steps or should_stop), {}
 
@@ -639,19 +451,22 @@ class SimulatedNetworkEnv(gym.Env):
             sender.print_debug()
 
     def create_new_links_and_senders(self):
-        bw, delay, queue, loss = self.trace_data[self.current_trace_index]
-        delay = delay/1000
-        bw = bw*1000
-        print(bw, delay, queue, loss)
-        print(self.current_trace_index)
-        self.current_trace_index = self.current_trace_index + 1 if self.current_trace_index < len(
-            self.trace_data) - 1 else 0
+        bw = random.uniform(self.min_bw, self.max_bw)
 
-        link = Link(bw, delay, queue, loss)
-        self.links = [link]  # Simplified to one link for demonstration
-        self.senders = [Sender(bw * 0.5, [link], 0, self.features, history_len=self.history_len)]
+        lat = random.uniform(self.min_lat, self.max_lat)
 
-        self.run_dur = 3* delay
+        queue = 1 + int(np.exp(random.uniform(self.min_queue, self.max_queue)))
+        loss = random.uniform(self.min_loss, self.max_loss)
+        # bw    = 200
+        # lat   = 0.03
+        # queue = 5
+        # loss  = 0.00
+        self.links = [Link(bw, lat, queue, loss), Link(bw, lat, queue, loss)]
+        # self.senders = [Sender(0.3 * bw, [self.links[0], self.links[1]], 0, self.history_len)]
+        # self.senders = [Sender(random.uniform(0.2, 0.7) * bw, [self.links[0], self.links[1]], 0, self.history_len)]
+        self.senders = [Sender(random.uniform(0.3, 1.5) * bw, [self.links[0], self.links[1]], 0, self.features,
+                               history_len=self.history_len)]
+        self.run_dur = 3 * lat
 
     def reset(self):
         self.steps_taken = 0
@@ -669,6 +484,7 @@ class SimulatedNetworkEnv(gym.Env):
         self.rewards.append(self.reward_ewma)
         if (self.episodes_run + 1) % 100 == 0:
             np.save("records_k%d.npy" % K, np.array(self.rewards))
+
         print("Reward: %0.2f, Ewma Reward: %0.2f" % (self.reward_sum, self.reward_ewma))
         self.reward_sum = 0.0
         return self._get_all_sender_obs()
@@ -686,6 +502,6 @@ class SimulatedNetworkEnv(gym.Env):
             json.dump(self.event_record, f, indent=4)
 
 
-register(id='PccNs-v0', entry_point='network_sim:SimulatedNetworkEnv')
+register(id='PccNs-v1', entry_point='network_sim111:SimulatedNetworkEnv')
 # env = SimulatedNetworkEnv()
-# env.step([1.
+# env.step([1.0])

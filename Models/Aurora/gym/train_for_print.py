@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import gym
-import network_sim
+import Models.Aurora.gym.network_sim111 as network_sim111
 import torch
 import random
 import numpy as np

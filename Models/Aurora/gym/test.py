@@ -18,7 +18,7 @@ import torch
 import random
 import numpy as np
 from model import CustomNetwork_mid, CustomNetwork_big, CustomNetwork_small
-import argparse 
+import argparse
 import json
 
 from stable_baselines3 import PPO
@@ -36,9 +36,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--intervene', type=int, default=0)
 args = parser.parse_args()
 
-
 env = gym.make('PccNs-v0')
 
+'''
 with open('cc_optim_specs_nontrivial_24.txt', 'r') as f:
     spec_file = f.read()
     specs = spec_file.split('-'*50)[1:-1]
@@ -47,17 +47,12 @@ with open('cc_optim_specs_nontrivial_24.txt', 'r') as f:
     vals = [[v.strip()[1:-1] for v in val] for val in vals]
     feats = [json.loads(s[0]) for s in specs]
 
-# xmap = {}
-# for j in range(10):
-#     xmap[j] = f'latency_'
-#     xmap[j+10] = f'latency_ratio_{10-j}'
-
-
+'''
 
 reversed_xmap = {
-    i:f'latency_gradient_{10-i}' if i <= 9 
-       else f'latency_ratio_{20-i}' if i <= 19
-       else f'sending_ratio_{30-i}'
+    i: f'latency_gradient_{10 - i}' if i <= 9
+    else f'latency_ratio_{20 - i}' if i <= 19
+    else f'sending_ratio_{30 - i}'
     for i in range(30)
 }
 
@@ -72,6 +67,7 @@ def action_2_symbolic(action):
     else:
         return '0'
 
+
 def symbolic_2_action(action_symb):
     if action_symb == '-':
         return -1
@@ -80,22 +76,24 @@ def symbolic_2_action(action_symb):
     else:
         return 1
 
-all_possibilities = ['-','0','+']
+
+all_possibilities = ['-', '0', '+']
 
 support = 0
 interventions = 0
 
-def intervene(state, action, kind = 1):
+
+def intervene(state, action, kind=1):
     # check for the precondition from the specs
     # state = [latency_grad 10:1] [latency_ratio 10:1] [sending_rat 10:1]
     possibilities = []
 
     for i in range(len(feats)):
-        check = True 
+        check = True
         for k in feats[i].keys():
-            v = state[xmap[k]] 
+            v = state[xmap[k]]
             if v > feats[i][k][1] or v < feats[i][k][0]:
-                check = False 
+                check = False
         if check:
             possibilities.extend(vals[i])
 
@@ -103,7 +101,7 @@ def intervene(state, action, kind = 1):
         support += 1
 
     action_symb = action_2_symbolic(action)
-    if kind == 1: # do not follow spec if already following
+    if kind == 1:  # do not follow spec if already following
         if action_symb in possibilities:
             possibilities = [i for i in all_possibilities if i not in possibilities]
             if len(possibilities) > 0:
@@ -111,8 +109,7 @@ def intervene(state, action, kind = 1):
                 action[0] = symbolic_2_action(action_symb)
                 interventions += 1
 
-
-       # kind == 2: follow spec if not already following
+    # kind == 2: follow spec if not already following
 
 
 @torch.no_grad()
@@ -120,41 +117,37 @@ def test(model):
     test_scores = []
     for j in range(6):
         state, d, test_score = env.reset(), False, 0
-        print("===============")
-        print(state)
+
         state = state.astype('float32')
         while not d:
 
-
             action = model.forward(torch.tensor(state))[0]
             if args.intervene > 0:
-                intervene(state, action, kind=args.intervene)  
+                intervene(state, action, kind=args.intervene)
             state, r, d, _ = env.step(action)
-            print(state)
-            exit()
+
             state = state.astype('float32')
             test_score += r
         test_scores.append(test_score)
     return test_scores
 
 
-model_path = "./results/pcc_model_small_10_best.pt"
+model_path = "./results/pcc_model_small_10_4.pt"
 model = CustomNetwork_small()
-
-
+model2 = CustomNetwork_small()
 
 state_dict = torch.load(model_path)
-
 
 for key in list(state_dict.keys()):
     state_dict[key.replace('mlp_extractor.', '')] = state_dict.pop(key)
 
-
 state_dict.requires_grad = False
-model.load_state_dict(state_dict, strict=False)
+model2.load_state_dict(state_dict, strict=False)
 
-
-print(test(model))
+print("====")
+reward2 = test(model2)
+reward1 = test(model)
+print(reward2)
+print(reward1)
 
 print('support:', support, 'interventions:', interventions)
-
