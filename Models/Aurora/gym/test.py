@@ -38,14 +38,13 @@ args = parser.parse_args()
 
 env = gym.make('PccNs-v0')
 
-'''
-with open('cc_optim_specs_nontrivial_24.txt', 'r') as f:
-    spec_file = f.read()
-    specs = spec_file.split('-'*50)[1:-1]
-    specs = [s.strip().split('\n') for s in specs]
-    vals = [(s[1].split('output: ')[-1][1:-1].split(',')) for s in specs]
-    vals = [[v.strip()[1:-1] for v in val] for val in vals]
-    feats = [json.loads(s[0]) for s in specs]
+# with open('cc_optim_specs_nontrivial_24.txt', 'r') as f:
+#     spec_file = f.read()
+#     specs = spec_file.split('-'*50)[1:-1]
+#     specs = [s.strip().split('\n') for s in specs]
+#     vals = [(s[1].split('output: ')[-1][1:-1].split(',')) for s in specs]
+#     vals = [[v.strip()[1:-1] for v in val] for val in vals]
+#     feats = [json.loads(s[0]) for s in specs]
 
 '''
 
@@ -109,7 +108,8 @@ def intervene(state, action, kind=1):
                 action[0] = symbolic_2_action(action_symb)
                 interventions += 1
 
-    # kind == 2: follow spec if not already following
+    
+       # kind == 2: follow spec if not already following
 
 
 @torch.no_grad()
@@ -123,7 +123,7 @@ def test(model):
 
             action = model.forward(torch.tensor(state))[0]
             if args.intervene > 0:
-                intervene(state, action, kind=args.intervene)
+                action = intervene(state, action, kind=args.intervene)  
             state, r, d, _ = env.step(action)
 
             state = state.astype('float32')
@@ -132,7 +132,7 @@ def test(model):
     return test_scores
 
 
-model_path = "./results/pcc_model_small_10_4.pt"
+model_path = "./results/pcc_model_small_10_7 (1).pt"
 model = CustomNetwork_small()
 model2 = CustomNetwork_small()
 
