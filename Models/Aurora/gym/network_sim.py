@@ -176,7 +176,7 @@ class Link():
         self.dl = delay  # One-way delay in ms
         self.lr = loss_rate  # Loss rate as a decimal
         self.queue = []  # Queue to hold packets
-        print("bandwidth", bandwidth)
+
 
         self.max_queue_delay = (queue_size * PACKET_SIZE_BYTES * 8) / (bandwidth * 1e6)  # Maximum delay due to queue
 
@@ -490,16 +490,16 @@ class SimulatedNetworkEnv(gym.Env):
         self.viewer = None
         self.rand = None
 
-        self.train = True
+        self.train = False
 
         self.min_bw, self.max_bw = (100, 500)
         self.min_lat, self.max_lat = (0.05, 0.5)
         self.min_queue, self.max_queue = (0, 8)
         self.min_loss, self.max_loss = (0.0, 0.05)
         self.history_len = history_len
-        print("History length: %d" % history_len)
+
         self.features = features.split(",")
-        print("Features: %s" % str(self.features))
+
 
         self.trace_data = self.load_trace_data()
         self.current_trace_index = 0
@@ -642,8 +642,7 @@ class SimulatedNetworkEnv(gym.Env):
         bw, delay, queue, loss = self.trace_data[self.current_trace_index]
         delay = delay/1000
         bw = bw*1000
-        print(bw, delay, queue, loss)
-        print(self.current_trace_index)
+
         self.current_trace_index = self.current_trace_index + 1 if self.current_trace_index < len(
             self.trace_data) - 1 else 0
 
@@ -659,8 +658,8 @@ class SimulatedNetworkEnv(gym.Env):
         self.create_new_links_and_senders()
         self.net = Network(self.senders, self.links)
         self.episodes_run += 1
-        if self.episodes_run > 0 and self.episodes_run % 100 == 0:
-            self.dump_events_to_file("pcc_env_log_run_%d.json" % self.episodes_run)
+        #if self.episodes_run > 0 and self.episodes_run % 100 == 0:
+        #    self.dump_events_to_file("pcc_env_log_run_%d.json" % self.episodes_run)
         self.event_record = {"Events": []}
         self.net.run_for_dur(self.run_dur)
         self.net.run_for_dur(self.run_dur)

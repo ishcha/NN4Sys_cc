@@ -42,7 +42,10 @@ class MyMlpPolicy(ActorCriticPolicy):
         self.ortho_init = False
 
     def _build_mlp_extractor(self) -> None:
-        self.mlp_extractor = CustomNetwork_small()
+        self.mlp_extractor = CustomNetwork_big()
+
+
+
 
 
 
@@ -67,7 +70,7 @@ model = PPO(MyMlpPolicy, env, seed=20, learning_rate=0.0001, verbose=1, batch_si
 
 
 
-MODEL_PATH = f"./results/pcc_model_small_{K}_%d.pt"
+MODEL_PATH = f"./results/pcc_model_big_{K}_%d.pt"
 for i in range(0, 10):
     model.learn(total_timesteps=(1600 * 410))
 

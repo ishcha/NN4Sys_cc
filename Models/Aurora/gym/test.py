@@ -132,22 +132,35 @@ def test(model):
     return test_scores
 
 
-model_path = "./results/pcc_model_small_10_4.pt"
-model = CustomNetwork_small()
-model2 = CustomNetwork_small()
+random.seed(0)
+np.random.seed(0)
 
-state_dict = torch.load(model_path)
 
-for key in list(state_dict.keys()):
-    state_dict[key.replace('mlp_extractor.', '')] = state_dict.pop(key)
+best = 0
+best_reward = -100
+for i in range(10):
+    model_path = f"./results/pcc_model_big_10_{i}.pt"
+    model = CustomNetwork_big()
+    model2 = CustomNetwork_big()
 
-state_dict.requires_grad = False
-model2.load_state_dict(state_dict, strict=False)
+    state_dict = torch.load(model_path)
 
-print("====")
-reward2 = test(model2)
-reward1 = test(model)
-print(reward2)
-print(reward1)
+    for key in list(state_dict.keys()):
+        state_dict[key.replace('mlp_extractor.', '')] = state_dict.pop(key)
 
-print('support:', support, 'interventions:', interventions)
+    state_dict.requires_grad = False
+    model2.load_state_dict(state_dict, strict=False)
+
+    reward2 = test(model2)
+    reward1 = test(model)
+    sum_tensor = sum(reward2)
+    sum_tensor_double = sum_tensor.double()
+    print(reward2)
+    if sum_tensor_double>best_reward:
+        best = i
+        best_reward = sum_tensor_double
+
+
+    print('support:', support, 'interventions:', interventions)
+
+print(f"best: {best}")
