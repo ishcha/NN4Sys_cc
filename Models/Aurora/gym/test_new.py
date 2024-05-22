@@ -147,9 +147,9 @@ def test(model):
 random.seed(0)
 np.random.seed(0)
 
-model_path = "./results/pcc_model_small_10_best.pt"
-model = CustomNetwork_small()
-model2 = CustomNetwork_small()
+model_path = "./results/pcc_model_mid_10_best.pt"
+model = CustomNetwork_mid()
+model2 = CustomNetwork_mid()
 
 state_dict = torch.load(model_path)
 
