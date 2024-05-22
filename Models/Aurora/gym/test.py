@@ -141,9 +141,9 @@ best = 0
 best_reward = -100
 reward_list = []
 for i in range(1):
-    model_path = f"./results/pcc_model_big_10_best.pt"
-    model = CustomNetwork_big()
-    model2 = CustomNetwork_big()
+    model_path = f"./results/pcc_model_mid_10_best.pt"
+    model = CustomNetwork_mid()
+    model2 = CustomNetwork_mid()
 
     state_dict = torch.load(model_path)
 

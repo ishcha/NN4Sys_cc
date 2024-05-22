@@ -124,7 +124,7 @@ def test(model):
     support = 0
     interventions = 0
     test_scores = []
-    for j in range(6):
+    for j in range(605):
         state, d, test_score = env.reset(), False, 0
 
         state = state.astype('float32')
@@ -144,9 +144,12 @@ def test(model):
     return test_scores
 
 
-model_path = "./results/pcc_model_big_10_best.pt"
-model = CustomNetwork_big()
-model2 = CustomNetwork_big()
+random.seed(0)
+np.random.seed(0)
+
+model_path = "./results/pcc_model_small_10_best.pt"
+model = CustomNetwork_small()
+model2 = CustomNetwork_small()
 
 state_dict = torch.load(model_path)
 
@@ -158,6 +161,9 @@ model2.load_state_dict(state_dict, strict=False)
 
 print("====")
 reward2 = test(model2)
+sum_tensor = sum(reward2)
+sum_tensor_double = sum_tensor.double()/len(reward2)
+print(sum_tensor_double)
 # reward1 = test(model)
 print("Final reward:", reward2[0])
 # print(reward1)
