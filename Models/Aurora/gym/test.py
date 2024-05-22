@@ -38,8 +38,8 @@ args = parser.parse_args()
 
 env = gym.make('PccNs-v0')
 
-'''
-with open('cc_optim_specs_nontrivial_24.txt', 'r') as f:
+
+with open('cc_optim_specs.txt', 'r') as f:
     spec_file = f.read()
     specs = spec_file.split('-'*50)[1:-1]
     specs = [s.strip().split('\n') for s in specs]
@@ -47,7 +47,7 @@ with open('cc_optim_specs_nontrivial_24.txt', 'r') as f:
     vals = [[v.strip()[1:-1] for v in val] for val in vals]
     feats = [json.loads(s[0]) for s in specs]
 
-'''
+
 
 reversed_xmap = {
     i: f'latency_gradient_{10 - i}' if i <= 9
@@ -84,6 +84,8 @@ interventions = 0
 
 
 def intervene(state, action, kind=1):
+    support = 0
+    interventions = 0
     # check for the precondition from the specs
     # state = [latency_grad 10:1] [latency_ratio 10:1] [sending_rat 10:1]
     possibilities = []
@@ -109,11 +111,21 @@ def intervene(state, action, kind=1):
                 action[0] = symbolic_2_action(action_symb)
                 interventions += 1
 
-    # kind == 2: follow spec if not already following
+    
+       # kind == 2: follow spec if not already following
+    elif kind == 2:
+        if action_symb not in possibilities and len(possibilities) > 0:
+            action_symb = np.random.choice(possibilities)
+            action[0] = symbolic_2_action(action_symb)
+            interventions += 1
+
+    return action, support, interventions
 
 
 @torch.no_grad()
 def test(model):
+    support = 0
+    interventions = 0
     test_scores = []
     for j in range(605):
 
@@ -124,12 +136,15 @@ def test(model):
 
             action = model.forward(torch.tensor(state))[0]
             if args.intervene > 0:
-                intervene(state, action, kind=args.intervene)
+                action, sup, inter = intervene(state, action, kind=args.intervene)
+                support += sup
+                interventions += inter
             state, r, d, _ = env.step(action)
 
             state = state.astype('float32')
             test_score += r
         test_scores.append(test_score)
+    print('support:', support, 'interventions:', interventions)
     return test_scores
 
 
@@ -154,7 +169,7 @@ for i in range(1):
     model2.load_state_dict(state_dict, strict=False)
 
     reward2 = test(model2)
-    reward1 = test(model)
+    # reward1 = test(model)
     sum_tensor = sum(reward2)
     sum_tensor_double = sum_tensor.double()/len(reward2)
     print(sum_tensor_double)
@@ -164,7 +179,7 @@ for i in range(1):
         best_reward = sum_tensor_double
 
 
-    print('support:', support, 'interventions:', interventions)
+    # print('support:', support, 'interventions:', interventions)
 
 print(reward_list)
 print(f"best: {best}")
