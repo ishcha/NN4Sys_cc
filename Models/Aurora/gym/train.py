@@ -33,7 +33,6 @@ from common.simple_arg_parse import arg_or_default
 
 K = 10
 
-
 class MyMlpPolicy(ActorCriticPolicy):
     def __init__(self, observation_space, action_space, lr_schedule=0.0001,
                  *args, **kwargs):
@@ -42,42 +41,16 @@ class MyMlpPolicy(ActorCriticPolicy):
         self.ortho_init = False
 
     def _build_mlp_extractor(self) -> None:
-        self.mlp_extractor = CustomNetwork_big()
+        self.mlp_extractor = CustomNetwork_mid()
 
-
-
-
-
-
-
-env = gym.make('PccNs-v0')
-gamma = arg_or_default("--gamma", default=0.99)
-model = PPO(MyMlpPolicy, env, seed=20, learning_rate=0.0001, verbose=1, batch_size=2048, n_steps=8192, gamma=gamma)
-
-
-
-
-
-
-
-
-env = gym.make('PccNs-v0')
+env = gym.make('PccNs-v0-pantheon')
 
 gamma = arg_or_default("--gamma", default=0.99)
 print("gamma = %f" % gamma)
 model = PPO(MyMlpPolicy, env, seed=20, learning_rate=0.0001, verbose=1, batch_size=2048, n_steps=8192, gamma=gamma)
 
-
-
-
-MODEL_PATH = f"./results/pcc_model_big_{K}_%d.pt"
-for i in range(0, 10):
+MODEL_PATH = f"./results/retrain_pcc_model_mid_{K}_%d.pt"
+for i in range(0, K):
     model.learn(total_timesteps=(1600 * 410))
 
     torch.save(model.policy.state_dict(), MODEL_PATH % i)
-
-
-
-
-
-

@@ -103,9 +103,6 @@ train_list = random.sample(trace_list, train_size)
 # Get the test set by taking elements not in the training set
 test_list = [item for item in trace_list if item not in train_list]
 
-
-
-
 num_to_delay = {
     "1": 28,
     "2": 88,
@@ -492,7 +489,7 @@ class SimulatedNetworkEnv(gym.Env):
         self.viewer = None
         self.rand = None
 
-        self.train = False
+        self.train = True
 
         self.min_bw, self.max_bw = (100, 500)
         self.min_lat, self.max_lat = (0.05, 0.5)
@@ -534,6 +531,9 @@ class SimulatedNetworkEnv(gym.Env):
         self.observation_space = spaces.Box(np.tile(single_obs_min_vec, self.history_len),
                                             np.tile(single_obs_max_vec, self.history_len),
                                             dtype=np.float32)
+        print('features: ', self.features)
+        print('observation space min:', single_obs_min_vec)
+        print('observation space max:', single_obs_max_vec)
 
         self.reward_sum = 0.0
         self.reward_ewma = 0.0
@@ -594,6 +594,7 @@ class SimulatedNetworkEnv(gym.Env):
     def step(self, actions):
         # print("Actions: %s" % str(actions))
         # print(actions)
+        # print('pantheon env')
         for i in range(0, 1):  # len(actions)):
             # print("Updating rate for sender %d" % i)
             action = actions
@@ -673,7 +674,7 @@ class SimulatedNetworkEnv(gym.Env):
         self.rewards.append(self.reward_ewma)
         if (self.episodes_run + 1) % 100 == 0:
             np.save("records_k%d.npy" % K, np.array(self.rewards))
-        print("Reward: %0.2f, Ewma Reward: %0.2f" % (self.reward_sum, self.reward_ewma))
+        # print("Reward: %0.2f, Ewma Reward: %0.2f" % (self.reward_sum, self.reward_ewma))
         self.reward_sum = 0.0
         return self._get_all_sender_obs()
 
@@ -690,6 +691,6 @@ class SimulatedNetworkEnv(gym.Env):
             json.dump(self.event_record, f, indent=4)
 
 
-register(id='PccNs-v0', entry_point='network_sim:SimulatedNetworkEnv')
+register(id='PccNs-v0-pantheon', entry_point='network_sim:SimulatedNetworkEnv')
 # env = SimulatedNetworkEnv()
 # env.step([1.

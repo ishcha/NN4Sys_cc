@@ -46,6 +46,23 @@ class CustomNetwork_mid(torch.nn.Module):
     def forward_critic(self, features):
         return self.value_net(features)
 
+class CustomNetwork_mid_policy_net(torch.nn.Module):
+    def __init__(self, feature_dim: int = K * 3,
+                 last_layer_dim_pi: int = 1,
+                 last_layer_dim_vf: int = 1):
+        super().__init__()
+        self.latent_dim_pi = last_layer_dim_pi
+        self.latent_dim_vf = last_layer_dim_vf
+        self.policy_net = torch.nn.Sequential(
+            torch.nn.Linear(30, 32),
+            torch.nn.Linear(32, 16),
+            torch.nn.Linear(16, 1),
+            torch.nn.Tanh()
+        )
+
+    def forward(self, features):
+        return self.policy_net(features)
+
 
 class CustomNetwork_big(torch.nn.Module):
     def __init__(self, feature_dim: int = K * 3,
