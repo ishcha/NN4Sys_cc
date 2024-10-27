@@ -35,7 +35,7 @@ from common.simple_arg_parse import arg_or_default
 
 parser = argparse.ArgumentParser()
 parser.add_argument('model_path', type=str)
-parser.add_argument('-spec_file', type=str, default='/home/isha/nn4sys/spectra/results/ablation/CC/history_4.txt')
+#parser.add_argument('-spec_file', type=str, default='/home/isha/nn4sys/spectra/results/ablation/CC/history_4.txt')
 parser.add_argument('--intervene', type=int, default=0)
 parser.add_argument('--save_df', action='store_true')
 args = parser.parse_args()
@@ -43,13 +43,13 @@ args = parser.parse_args()
 env = gym.make('PccNs-v0-pantheon')
 
 
-with open(args.spec_file, 'r') as f:
-    spec_file = f.read()
-    specs = spec_file.split('-'*50)[:-1]
-    specs = [s.strip().split('\n') for s in specs]
-    vals = [(s[1].split('output: ')[-1][1:-1].split(',')) for s in specs]
-    vals = [[v.strip()[1:-1] for v in val] for val in vals]
-    feats = [json.loads(s[0]) for s in specs]
+# with open(args.spec_file, 'r') as f:
+#     spec_file = f.read()
+#     specs = spec_file.split('-'*50)[:-1]
+#     specs = [s.strip().split('\n') for s in specs]
+#     vals = [(s[1].split('output: ')[-1][1:-1].split(',')) for s in specs]
+#     vals = [[v.strip()[1:-1] for v in val] for val in vals]
+#     feats = [json.loads(s[0]) for s in specs]
 
 
 
