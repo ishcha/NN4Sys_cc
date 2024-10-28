@@ -170,7 +170,7 @@ num_to_queue_size = {
 class Link():
     def __init__(self, bandwidth, delay, queue_size, loss_rate):
         self.bw = bandwidth  # Bandwidth in Mbps
-        print(self.bw)
+        #print(self.bw)
 
         self.dl = delay  # One-way delay in ms
         self.lr = loss_rate  # Loss rate as a decimal
@@ -489,7 +489,7 @@ class SimulatedNetworkEnv(gym.Env):
         self.viewer = None
         self.rand = None
 
-        self.train = True
+        self.train = False
 
         self.min_bw, self.max_bw = (100, 500)
         self.min_lat, self.max_lat = (0.05, 0.5)

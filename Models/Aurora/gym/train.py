@@ -41,7 +41,7 @@ class MyMlpPolicy(ActorCriticPolicy):
         self.ortho_init = False
 
     def _build_mlp_extractor(self) -> None:
-        self.mlp_extractor = CustomNetwork_mid()
+        self.mlp_extractor = CustomNetwork_small()
 
 env = gym.make('PccNs-v0-pantheon')
 
@@ -49,7 +49,7 @@ gamma = arg_or_default("--gamma", default=0.99)
 print("gamma = %f" % gamma)
 model = PPO(MyMlpPolicy, env, seed=20, learning_rate=0.0001, verbose=1, batch_size=2048, n_steps=8192, gamma=gamma)
 
-MODEL_PATH = f"./results/retrain_pcc_model_mid_{K}_%d.pt"
+MODEL_PATH = f"./results/retrain_pcc_model_small_{K}_%d.pt"
 for i in range(0, K):
     model.learn(total_timesteps=(1600 * 410))
 
