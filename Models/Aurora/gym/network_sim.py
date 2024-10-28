@@ -100,8 +100,11 @@ train_size = int(0.75 * len(trace_list))
 # Sample 75% of the elements for the training set
 train_list = random.sample(trace_list, train_size)
 
+
 # Get the test set by taking elements not in the training set
 test_list = [item for item in trace_list if item not in train_list]
+train_list = ["2"]
+#test_list = ["2"]
 
 num_to_delay = {
     "1": 28,

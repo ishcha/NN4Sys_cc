@@ -143,9 +143,10 @@ def test(model):
 
 random.seed(0)
 np.random.seed(0)
+torch.random.manual_seed(0)
 result_sum = []
 for j in range (1):
-    model_path = f"./results/pcc_model_mid_10_best.pt"
+    model_path = f"./results/pcc_model_mid_10_best_3274.pt"
     model = CustomNetwork_mid()
     model2 = CustomNetwork_mid()
 
@@ -155,7 +156,7 @@ for j in range (1):
         state_dict[key.replace('mlp_extractor.', '')] = state_dict.pop(key)
 
     state_dict.requires_grad = False
-    #model2.load_state_dict(state_dict, strict=False)
+    model2.load_state_dict(state_dict, strict=False)
 
     print("====")
     reward2 = test(model2)
@@ -167,5 +168,14 @@ for j in range (1):
     #print("Final reward:", reward2[0])
     # print(reward1)
 print(result_sum)
+
+# small model:
+# random: 631.3832
+# model1: 3279.0252
+# model2 (from benchmark): 3195.1523
+# mid model: 
+# randon: 631.3832
+# model1: 1380.2193
+# model2: 3273.6314
 
 
